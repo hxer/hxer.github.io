@@ -1,0 +1,970 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="CBC,Padding Oracle,比特翻转," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/ico/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="关于CBC模式下的加密和解密，这里不过多阐述，可以参见 分组密码工作模式。 对于CBC解密可以用以下式子表示：  Plaintext-1 = Decrypt(Ciphertext-1) XOR IV  只用于第一个组块 Plaintext-N = Decrypt(Ciphertext-N) XOR Ciphertext-N-1   用于第二及剩下的组块">
+<meta name="keywords" content="CBC,Padding Oracle,比特翻转">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于CBC模式模式的密文攻击">
+<meta property="og:url" content="http://www.beesfun.com/2017/03/09/基于CBC模式的密文攻击/index.html">
+<meta property="og:site_name" content="Ethan&#39; Blog">
+<meta property="og:description" content="关于CBC模式下的加密和解密，这里不过多阐述，可以参见 分组密码工作模式。 对于CBC解密可以用以下式子表示：  Plaintext-1 = Decrypt(Ciphertext-1) XOR IV  只用于第一个组块 Plaintext-N = Decrypt(Ciphertext-N) XOR Ciphertext-N-1   用于第二及剩下的组块">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.beesfun.com/2017/03/09/基于CBC模式的密文攻击/CBC_Dec.png">
+<meta property="og:updated_time" content="2017-08-31T01:14:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于CBC模式模式的密文攻击">
+<meta name="twitter:description" content="关于CBC模式下的加密和解密，这里不过多阐述，可以参见 分组密码工作模式。 对于CBC解密可以用以下式子表示：  Plaintext-1 = Decrypt(Ciphertext-1) XOR IV  只用于第一个组块 Plaintext-N = Decrypt(Ciphertext-N) XOR Ciphertext-N-1   用于第二及剩下的组块">
+<meta name="twitter:image" content="http://www.beesfun.com/2017/03/09/基于CBC模式的密文攻击/CBC_Dec.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.beesfun.com/2017/03/09/基于CBC模式的密文攻击/"/>
+
+
+
+
+
+  <title> 基于CBC模式模式的密文攻击 | Ethan' Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=63078337";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ethan' Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.beesfun.com/2017/03/09/基于CBC模式的密文攻击/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ethan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/15061633">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ethan' Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                基于CBC模式模式的密文攻击
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-09T21:12:13+08:00">
+                2017-03-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/密码学/" itemprop="url" rel="index">
+                    <span itemprop="name">密码学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>关于CBC模式下的加密和解密，这里不过多阐述，可以参见 <a href="/2017/03/06/分组密码工作模式/" title="分组密码工作模式">分组密码工作模式</a>。</p>
+<p>对于CBC解密可以用以下式子表示：</p>
+<ul>
+<li>Plaintext-1 = Decrypt(Ciphertext-1) XOR IV  只用于第一个组块</li>
+<li>Plaintext-N = Decrypt(Ciphertext-N) XOR Ciphertext-N-1   用于第二及剩下的组块</li>
+</ul>
+<a id="more"></a>
+<h2 id="比特翻转攻击"><a href="#比特翻转攻击" class="headerlink" title="比特翻转攻击"></a>比特翻转攻击</h2><p>从CBC解密表达式可以知道，得到明文的前一步操作是异或操作，改变密文中的<code>一位</code>只会导致其对应的明文块完全改变，下一个明文块中的<code>对应位</code>发生改变，而不会影响到其它明文块的内容。<br>因此，修改IV可以操纵解密出的第一组明文，修改某一个密文分组可以操纵后一个解密出的明文分组，也就是说CBC模式存在两个攻击点：</p>
+<ul>
+<li>IV向量，影响第一个明文分组</li>
+<li>第N个密文分组, 影响第N+1个明文分组</li>
+</ul>
+<p>因此对IV和密文分组进行比特翻转攻击，可以伪造某个明文分组对应的比特位。</p>
+<p>这里给出如下Demo程序，输入参数<code>a</code>为AES CBC模式加密后的密文(16进制形式)，程序输出解密后的部分明文信息(id, name, email)，要求伪造密文，使得明文<code>id</code>对应的值为<code>0</code>, 程序如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="comment">// a=89b52bac0331cb0b393c1ac828b4ee0f07861f030a8a3dc4b6e786f473b52182000a0d4ce2145994573a92d257a514d1</span></div><div class="line">$cipherText = $_GET[<span class="string">'a'</span>];       </div><div class="line">$key = hex2bin(<span class="string">'66616974683434343407070707070707'</span>);     <span class="comment">// 16 bytes</span></div><div class="line">$iv = hex2bin(<span class="string">'f4ebb2df9c29efd7625561a15096cd24'</span>);      <span class="comment">// 16 bytes</span></div><div class="line">$td = mcrypt_module_open(MCRYPT_RIJNDAEL_128, <span class="string">''</span>, MCRYPT_MODE_CBC, <span class="string">''</span>);</div><div class="line"><span class="keyword">if</span> (mcrypt_generic_init($td, $key, $iv) != <span class="number">-1</span>)&#123;</div><div class="line">    $p_t = mdecrypt_generic($td, hex2bin($cipherText));</div><div class="line">    mcrypt_generic_deinit($td);</div><div class="line">    mcrypt_module_close($td);</div><div class="line">    $p_t = trimEnd($p_t);</div><div class="line">    $tmp = explode(<span class="string">':'</span>, $p_t);</div><div class="line">    <span class="keyword">if</span> ($tmp[<span class="number">2</span>] == <span class="string">'0'</span>)&#123;</div><div class="line">        <span class="keyword">print</span> @<span class="string">'id:'</span>.@$tmp[<span class="number">2</span>].<span class="string">'&lt;br/&gt;'</span>;</div><div class="line">        <span class="keyword">echo</span> <span class="string">'you are right'</span>;</div><div class="line">    &#125; <span class="keyword">else</span>&#123;</div><div class="line">        <span class="keyword">echo</span> @<span class="string">'id:'</span>.@$tmp[<span class="number">2</span>].<span class="string">'&lt;br/&gt;'</span>;</div><div class="line">        <span class="keyword">echo</span> @<span class="string">'name:'</span>.@$tmp[<span class="number">0</span>].<span class="string">'&lt;br/&gt;'</span>;</div><div class="line">        <span class="keyword">echo</span> @<span class="string">'email:'</span>.@$tmp[<span class="number">1</span>].<span class="string">'&lt;br/&gt;'</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">pad2Length</span><span class="params">($text, $padlen)</span></span>&#123;</div><div class="line">    $len = strlen($text)%$padlen;</div><div class="line">    $res = $text;</div><div class="line">    $span = $padlen-$len;</div><div class="line">    <span class="keyword">for</span>($i=<span class="number">0</span>; $i&lt;$span; $i++)&#123;</div><div class="line">        $res .= chr($span);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> $res;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">trimEnd</span><span class="params">($text)</span></span>&#123;</div><div class="line">    $len = strlen($text);</div><div class="line">    $c = $text[$len<span class="number">-1</span>];</div><div class="line">    <span class="keyword">if</span>(ord($c) &lt;$len)&#123;</div><div class="line">        <span class="keyword">for</span>($i=$len-ord($c); $i&lt;$len; $i++)&#123;</div><div class="line">            <span class="keyword">if</span>($text[$i] != $c)&#123;</div><div class="line">                <span class="keyword">return</span> $text;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> substr($text, <span class="number">0</span>, $len-ord($c));</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> $text;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<img src="/2017/03/09/基于CBC模式的密文攻击/CBC_Dec.png" alt="CBC_Dec.png" title="">
+<p>已知密文长度为48 bytes, 若要改变明文id的值，假设id在第N块明文中第x个字符，表示为<code>N[x]</code>(x从1开始)，这里仅简单假设id为单字符，则改变密文<code>N-1[x]</code>或IV[x]， 即可伪造我们需要的id值。显然，我们需要一种方案快速定位到相应的密文位置或IV位置。</p>
+<p>已知XOR异或运算: X xor Y = Z, X、Y、Z三个数任意两个运算都可得到第三个。</p>
+<p>若不考虑IV, 则明文id肯定可以表示为 <code>id=A XOR B</code>，A是我们可控用来伪造id的密文值，那么改变密文A为:<code>A1 = id</code>, 则得到的明文id为<code>A1 XOR B = A XOR B XOR B = A</code>, 即判断明文id是否修改为<code>A</code>，就能知道是否找到相应的密文位置<code>N-1[x]</code>。假设我们需要伪造的id为<code>fake_id</code>, <code>fake_A= A XOR id XOR fake_id</code>, 得到的明文id就是<code>fake_A XOR B = A XOR id XOR fake_id XOR B = fake_id</code>, 伪造id成功。 程序实现如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/env python</span></div><div class="line"><span class="comment"># -*- coding: utf-8 -*-</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> re</div><div class="line"><span class="keyword">import</span> requests</div><div class="line"></div><div class="line">url = <span class="string">'http://test.loc/cbc.php'</span></div><div class="line"></div><div class="line">clipher_hex = (<span class="string">'89b52bac0331cb0b393c1ac828b4ee0f07861f030a8a3dc4'</span></div><div class="line">               <span class="string">'b6e786f473b52182000a0d4ce2145994573a92d257a514d1'</span>)</div><div class="line"></div><div class="line">plain_id = <span class="string">'1'</span></div><div class="line">clipher_indexs = []</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(clipher_hex)/<span class="number">2</span>):</div><div class="line">    clipher_text = list(clipher_hex.decode(<span class="string">'hex'</span>))</div><div class="line">    c = clipher_text[i]</div><div class="line">    clipher_text[i] = plain_id</div><div class="line">    new_clipher_hex = <span class="string">''</span>.join(clipher_text).encode(<span class="string">'hex'</span>)</div><div class="line">    resp = requests.get(url, params=&#123;<span class="string">'a'</span>: new_clipher_hex&#125;)</div><div class="line">    new_plain_id = resp.content[<span class="number">3</span>]</div><div class="line">    <span class="keyword">if</span> new_plain_id == c <span class="keyword">and</span> resp.content[<span class="number">4</span>] == <span class="string">'&lt;'</span>:</div><div class="line">        <span class="comment"># 有可能出现 c == palin_id 的情况，所以这里可能有多组结果</span></div><div class="line">        <span class="keyword">print</span> i, c.encode(<span class="string">'hex'</span>), c</div><div class="line">        clipher_indexs.append(i)</div><div class="line"></div><div class="line">fake_id = <span class="string">'0'</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> clipher_indexs:</div><div class="line">    clipher_text = list(clipher_hex.decode(<span class="string">'hex'</span>))</div><div class="line">    c = clipher_text[i]</div><div class="line">    fake_c = chr(ord(c) ^ ord(plain_id) ^ ord(fake_id))</div><div class="line">    clipher_text[i] = fake_c</div><div class="line">    new_clipher_hex = <span class="string">''</span>.join(clipher_text).encode(<span class="string">'hex'</span>)</div><div class="line">    resp = requests.get(url, params=&#123;<span class="string">'a'</span>: new_clipher_hex&#125;)</div><div class="line">    <span class="keyword">if</span> resp.content[<span class="number">3</span>] == fake_id <span class="keyword">and</span> resp.content[<span class="number">4</span>] == <span class="string">'&lt;'</span>:</div><div class="line">        <span class="keyword">print</span> <span class="string">"make a=&#123;&#125;, get id='0'"</span>.format(<span class="string">''</span>.join(clipher_text).encode(<span class="string">'hex'</span>))</div><div class="line">        <span class="keyword">break</span></div></pre></td></tr></table></figure>
+<p>得到结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">make a=89b52bac0331cb0b393c1ac828b4ee0e07861f030a8a3dc4b6e786f473b52182000a0d4ce2145994573a92d257a514d1, get id=&apos;0&apos;</div></pre></td></tr></table></figure>
+<h3 id="应用条件"><a href="#应用条件" class="headerlink" title="应用条件"></a>应用条件</h3><p>能获取明文信息，密文或IV可控</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CBC/" rel="tag"># CBC</a>
+          
+            <a href="/tags/Padding-Oracle/" rel="tag"># Padding Oracle</a>
+          
+            <a href="/tags/比特翻转/" rel="tag"># 比特翻转</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/06/分组密码工作模式/" rel="next" title="分组密码工作模式">
+                <i class="fa fa-chevron-left"></i> 分组密码工作模式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/12/NJCTF-Padding-Oracle攻击利用/" rel="prev" title="NJCTF Padding Oracle攻击利用">
+                NJCTF Padding Oracle攻击利用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars3.githubusercontent.com/u/15061633"
+               alt="Ethan" />
+          <p class="site-author-name" itemprop="name">Ethan</p>
+           
+              <p class="site-description motion-element" itemprop="description">personal blog :)</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/hxer/" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友链
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.wupco.cn" title="wupco" target="_blank">wupco</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://danaive.github.io" title="danlei" target="_blank">danlei</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#比特翻转攻击"><span class="nav-number">1.</span> <span class="nav-text">比特翻转攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#应用条件"><span class="nav-number">1.1.</span> <span class="nav-text">应用条件</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ethan</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

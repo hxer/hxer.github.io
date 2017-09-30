@@ -1,0 +1,1007 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="感知机," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/ico/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="感知机基于MCP神经元模型，Frank Rosenblatt发表了第一个感知机学习规则(F.Rosenblatt, The Perceptron, a Perceiving and Recognizing Automaton. Cornell Aeronautical Laboratory, 1957)。基于此感知机规则，Rosenblatt提出了能够自动学习最优权重参数的算法，权重即输入特征的系">
+<meta name="keywords" content="感知机">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Iris数据集训练感知机模型">
+<meta property="og:url" content="http://www.beesfun.com/2017/04/07/Iris数据集训练感知机模型/index.html">
+<meta property="og:site_name" content="Ethan&#39; Blog">
+<meta property="og:description" content="感知机基于MCP神经元模型，Frank Rosenblatt发表了第一个感知机学习规则(F.Rosenblatt, The Perceptron, a Perceiving and Recognizing Automaton. Cornell Aeronautical Laboratory, 1957)。基于此感知机规则，Rosenblatt提出了能够自动学习最优权重参数的算法，权重即输入特征的系">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.beesfun.com/2017/04/07/Iris数据集训练感知机模型/wx.png">
+<meta property="og:image" content="http://www.beesfun.com/2017/04/07/Iris数据集训练感知机模型/phi_z_1.png">
+<meta property="og:image" content="http://www.beesfun.com/2017/04/07/Iris数据集训练感知机模型/phi_z_2.png">
+<meta property="og:image" content="http://www.beesfun.com/2017/04/07/Iris数据集训练感知机模型/pic1.png">
+<meta property="og:image" content="http://www.beesfun.com/2017/04/07/Iris数据集训练感知机模型/pic2.png">
+<meta property="og:image" content="http://www.beesfun.com/2017/04/07/Iris数据集训练感知机模型/pic3.png">
+<meta property="og:image" content="http://www.beesfun.com/2017/04/07/Iris数据集训练感知机模型/pic4.png">
+<meta property="og:image" content="http://www.beesfun.com/2017/04/07/Iris数据集训练感知机模型/pic5.png">
+<meta property="og:image" content="http://www.beesfun.com/2017/04/07/Iris数据集训练感知机模型/pic6.png">
+<meta property="og:image" content="http://www.beesfun.com/2017/04/07/Iris数据集训练感知机模型/predict.png">
+<meta property="og:updated_time" content="2017-08-31T01:14:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Iris数据集训练感知机模型">
+<meta name="twitter:description" content="感知机基于MCP神经元模型，Frank Rosenblatt发表了第一个感知机学习规则(F.Rosenblatt, The Perceptron, a Perceiving and Recognizing Automaton. Cornell Aeronautical Laboratory, 1957)。基于此感知机规则，Rosenblatt提出了能够自动学习最优权重参数的算法，权重即输入特征的系">
+<meta name="twitter:image" content="http://www.beesfun.com/2017/04/07/Iris数据集训练感知机模型/wx.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.beesfun.com/2017/04/07/Iris数据集训练感知机模型/"/>
+
+
+
+
+
+  <title> Iris数据集训练感知机模型 | Ethan' Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=63078337";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ethan' Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.beesfun.com/2017/04/07/Iris数据集训练感知机模型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ethan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/15061633">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ethan' Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Iris数据集训练感知机模型
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-07T14:47:05+08:00">
+                2017-04-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="感知机"><a href="#感知机" class="headerlink" title="感知机"></a>感知机</h2><p>基于MCP神经元模型，Frank Rosenblatt发表了第一个感知机学习规则(F.Rosenblatt, <strong>The Perceptron, a Perceiving and Recognizing Automaton.</strong> Cornell Aeronautical Laboratory, 1957)。<br>基于此感知机规则，Rosenblatt提出了能够自动学习最优权重参数的算法，权重即输入特征的系数。在监督学习和分类任务语境中，上面提到的算法还能够用于预测一个样本是属于类别A还是类别B。</p>
+<p>更准确的描述是，我们可以将上面提到的样本属于哪一个类别这个问题称之为二分类问题(binary classification task),我们将其中涉及到的两个类别记作1(表示正类)和-1(表示负类)。我们再定义一个称为激活函数(activation function) $\phi(z)$，激活函数接收一个输入向量$x$和相应的权重向量$w$的线性组合，其中$z$也被称为网络输入 $z=w_1x_1+\ldots+w_mx_m$ :</p>
+<a id="more"></a>
+<img src="/2017/04/07/Iris数据集训练感知机模型/wx.png" alt="wx.png" title="">
+<p>此时，如果某个样本$x^{(i)}$的激活值，即$\phi(z)$大于事先设置的阈值$\theta$,我们就说样本$x^{(i)}$属于类别1，否则属于类别-1。</p>
+<p>在感知机学习算法中，激活函数$\phi(z)$的形式非常简单，仅仅是一个单位阶跃函数(也被称为Heaviside阶跃函数):</p>
+<img src="/2017/04/07/Iris数据集训练感知机模型/phi_z_1.png" alt="phi_z_1.png" title="">
+<p>为了推导简单，我们可以将阈值$\theta$挪到等式左边并且额外定义一个权重参数$w_0=-\theta$, 这样我们可以对$z$给出更加紧凑的公式$z=w_0x_0+w_1x_1+…+w_mx_m=w^Tx$，此时</p>
+<img src="/2017/04/07/Iris数据集训练感知机模型/phi_z_2.png" alt="phi_z_2.png" title="">
+<p>下面左图描述了感知机的激活函数怎样将网络输入$z=w^Tx$压缩到二元输出(-1,1)，右图描述了感知机如何区分两个线性可分的类别。</p>
+<img src="/2017/04/07/Iris数据集训练感知机模型/pic1.png" alt="pic1.png" title="">
+<p>不论MCP神经元还是Rosenblatt的阈值感知机模型，他们背后的idea都是试图使用简单的方法来模拟大脑中单个神经元的工作方式：要么传递信号要么不传递。因此，Rosenblatt最初的感知机规则非常简单，步骤如下：</p>
+<ul>
+<li>将权重参数初始化为0或者很小的随机数。</li>
+<li>对于每一个训练集样本$x^{(i)}$,执行下面的步骤：<ul>
+<li>计数输出值 $\hat{y}$.</li>
+<li>更新权重参数.</li>
+</ul>
+</li>
+</ul>
+<p>此处的输出值就是单位阶跃函数预测的类别(1,-1)，参数向量$w$中的每个$w_j$的更新过程可以用数学语言表示为：</p>
+<img src="/2017/04/07/Iris数据集训练感知机模型/pic2.png" alt="pic2.png" title="">
+<p>其中 $\Delta w_j$，用于更新权重$w_j$,在感知机算法中的计算公式为:</p>
+<img src="/2017/04/07/Iris数据集训练感知机模型/pic3.png" alt="pic3.png" title="">
+<p>其中$\eta$ 称为学习率(learning rate), 是一个介于0.0和1.0之间的常数，$y^{(i)}$是第i个训练样本的真实类别，$\hat{y}^{(i)}$是对第i个训练样本的预测类别。 <strong>权重向量中的每一个参数 $w_j$ 是同时被更新的</strong>，这意味着在所有的 $\Delta w_j$计算出来以前不会重新计算 $\hat{y}^{(i)}$。具体地，对于一个二维数据集，我们可以将更新过程写为：</p>
+<img src="/2017/04/07/Iris数据集训练感知机模型/pic4.png" alt="pic4.png" title="">
+<p><strong>感知机算法仅在两个类别确实线性可分并且学习率充分小的情况下才能保证收敛</strong>。如果两个类别不能被一个线性决策界分开，我们可以设置最大训练集迭代次数(epoch)或者可容忍的错误分类样本数 来停止算法的学习过程。</p>
+<img src="/2017/04/07/Iris数据集训练感知机模型/pic5.png" alt="pic5.png" title="">
+<p>在进入下一节的代码实现之前，我们来总结一下感知机的要点：</p>
+<img src="/2017/04/07/Iris数据集训练感知机模型/pic6.png" alt="pic6.png" title="">
+<p>感知机接收一个样本输入x，然后将其和权重w结合，计算网络输入z。z接着被传递给激活函数，产生一个二分类输出-1或1作为预测的样本类别。在整个学习阶段，输出用于计算预测错误率(y-$\hat{y}$)和更新权重参数。</p>
+<h2 id="python-实现感知机算法"><a href="#python-实现感知机算法" class="headerlink" title="python 实现感知机算法"></a>python 实现感知机算法</h2><ul>
+<li>perceptron.py</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/env python</span></div><div class="line"><span class="comment"># -*- coding: utf-8 -*-</span></div><div class="line"></div><div class="line"><span class="string">"""</span></div><div class="line"><span class="string">@author: janes</span></div><div class="line"><span class="string">@file: perceptron.py</span></div><div class="line"><span class="string">@time: 2017/4/7 13:45</span></div><div class="line"><span class="string">"""</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Perceptron</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="string">"""Perceptron classifier.</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">    Parameters</span></div><div class="line"><span class="string">    ------------</span></div><div class="line"><span class="string">    eta:float</span></div><div class="line"><span class="string">        Learning rate (between 0.0 and 1.0)</span></div><div class="line"><span class="string">    n_iter:int</span></div><div class="line"><span class="string">        Passes over the training dataset.</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">    Attributes</span></div><div class="line"><span class="string">    -------------</span></div><div class="line"><span class="string">    w_: 1d-array</span></div><div class="line"><span class="string">        Weights after fitting.</span></div><div class="line"><span class="string">    errors_: list</span></div><div class="line"><span class="string">        Numebr of misclassifications in every epoch.</span></div><div class="line"><span class="string">    """</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, eta=<span class="number">0.01</span>, n_iter=<span class="number">10</span>)</span>:</span></div><div class="line">        self.eta = eta</div><div class="line">        self.n_iter = n_iter</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fit</span><span class="params">(self, X, y)</span>:</span></div><div class="line">        <span class="string">"""Fit training data.</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">        Parameters</span></div><div class="line"><span class="string">        ------------</span></div><div class="line"><span class="string">        X: &#123;array-like&#125;, shape=[n_samples, n_features]</span></div><div class="line"><span class="string">            Training vectors, where n_samples is the number of samples</span></div><div class="line"><span class="string">            and n_featuers is the number of features.</span></div><div class="line"><span class="string">        y: array-like, shape=[n_smaples]</span></div><div class="line"><span class="string">            Target values.</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">        Returns</span></div><div class="line"><span class="string">        ----------</span></div><div class="line"><span class="string">        self: object</span></div><div class="line"><span class="string">        """</span></div><div class="line"></div><div class="line">        <span class="comment"># Add w_0</span></div><div class="line">        self.w_ = np.zeros(<span class="number">1</span> + X.shape[<span class="number">1</span>])</div><div class="line">        self.errors_ = []</div><div class="line"></div><div class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> range(self.n_iter):</div><div class="line">            errors = <span class="number">0</span></div><div class="line">            <span class="keyword">for</span> xi, target <span class="keyword">in</span> zip(X, y):</div><div class="line">                update = self.eta * (target - self.predict(xi))</div><div class="line">                self.w_[<span class="number">1</span>:] += update * xi</div><div class="line">                self.w_[<span class="number">0</span>] += update</div><div class="line">                errors += int(update != <span class="number">0.0</span>)</div><div class="line">            self.errors_.append(errors)</div><div class="line">        <span class="keyword">return</span> self</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">net_input</span><span class="params">(self, X)</span>:</span></div><div class="line">        <span class="string">"""Calculate net input"""</span></div><div class="line">        <span class="keyword">return</span> np.dot(X, self.w_[<span class="number">1</span>:]) + self.w_[<span class="number">0</span>]</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">predict</span><span class="params">(self, X)</span>:</span></div><div class="line">        <span class="string">"""Return class label after unit step"""</span></div><div class="line">        <span class="keyword">return</span> np.where(self.net_input(X) &gt;= <span class="number">0.0</span>, <span class="number">1</span>, <span class="number">-1</span>)</div></pre></td></tr></table></figure>
+<p>初始化一个新的Perceptron对象，并且对学习率eta和迭代次数n_iter赋值，fit方法先对权重参数初始化，然后对训练集中每一个样本循环，根据感知机算法对权重进行更新。类别通过predict方法进行预测。除此之外，self.errors_ 还记录了每一轮中误分类的样本数，有助于接下来我们分析感知机的训练过程。</p>
+<h2 id="Iris数据集训练感知机算法"><a href="#Iris数据集训练感知机算法" class="headerlink" title="Iris数据集训练感知机算法"></a>Iris数据集训练感知机算法</h2><h3 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h3><p>使用UCI机器学习数据库提供的Iris数据集, UCI网址: <a href="http://archive.ics.uci.edu/ml/" target="_blank" rel="external">http://archive.ics.uci.edu/ml/</a>, UCI机器学习库包含超过350个数据集，其标签分类包括域、目的（分类、回归）。</p>
+<p>以Iris为例介绍一下数据集：</p>
+<p>ucidata/iris中有三个文件：<code>Index</code>, <code>iris.data</code>, <code>iris.names</code></p>
+<p><code>index</code>为文件夹目录，列出了本文件夹里的所有文件</p>
+<p><code>iris.data</code>为iris数据文件，内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">5.1,3.5,1.4,0.2,Iris-setosa</div><div class="line">4.9,3.0,1.4,0.2,Iris-setosa</div><div class="line">……</div><div class="line">7.0,3.2,4.7,1.4,Iris-versicolor</div><div class="line">6.4,3.2,4.5,1.5,Iris-versicolor</div><div class="line">……</div><div class="line">6.3,3.3,6.0,2.5,Iris-virginica</div><div class="line">5.8,2.7,5.1,1.9,Iris-virginica</div><div class="line">7.1,3.0,5.9,2.1,Iris-virginica</div></pre></td></tr></table></figure>
+<p>如上，属性直接以逗号隔开，中间没有空格（5.1,3.5,1.4,0.2,），最后一列为本行属性对应的值，即决策属性Iris-setosa</p>
+<p><code>iris.names</code>介绍了irir数据的一些相关信息，如数据标题、数据来源、以前使用情况、最近信息、实例数目、实例的属性等，如下所示部分：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">……</div><div class="line">Attribute Information:</div><div class="line"></div><div class="line">1. sepal length in cm</div><div class="line">2. sepal width in cm</div><div class="line">3. petal length in cm</div><div class="line">4. petal width in cm</div><div class="line">5. class:</div><div class="line">    -- Iris Setosa</div><div class="line">    -- Iris Versicolour</div><div class="line">    -- Iris Virginica</div></pre></td></tr></table></figure>
+<h3 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h3><p>我们仅使用Iris中Setosa和Versicolor两种花的数据，抽取出前100条样本，这正好是Setosa和Versicolor对应的样本，我们将Versicolor对应的数据作为类别1，Setosa对应的作为-1。对于特征，我们抽取出sepal length和petal length两维度特征。</p>
+<ul>
+<li>test.py</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/env python</span></div><div class="line"><span class="comment"># -*- coding: utf-8 -*-</span></div><div class="line"></div><div class="line"><span class="string">"""</span></div><div class="line"><span class="string">@author: janes</span></div><div class="line"><span class="string">@file: perceptron.py</span></div><div class="line"><span class="string">@time: 2017/4/7 13:45</span></div><div class="line"><span class="string">"""</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</div><div class="line"><span class="keyword">from</span> matplotlib.colors <span class="keyword">import</span> ListedColormap</div><div class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div><div class="line"><span class="keyword">from</span> perceptron <span class="keyword">import</span> Perceptron</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">plot_x</span><span class="params">(X)</span>:</span></div><div class="line">    plt.scatter(X[:<span class="number">50</span>, <span class="number">0</span>], X[:<span class="number">50</span>, <span class="number">1</span>], color=<span class="string">'red'</span>, marker=<span class="string">'o'</span>, label=<span class="string">'setosa'</span>)</div><div class="line">    plt.scatter(X[<span class="number">50</span>:, <span class="number">0</span>], X[<span class="number">50</span>:, <span class="number">1</span>], color=<span class="string">'blue'</span>, marker=<span class="string">'x'</span>, label=<span class="string">'versicolor'</span>)</div><div class="line">    plt.xlabel(<span class="string">'petal length'</span>)</div><div class="line">    plt.ylabel(<span class="string">'sepal length'</span>)</div><div class="line">    plt.legend(loc=<span class="string">'upper left'</span>)</div><div class="line">    plt.show()</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">plot_decision_region</span><span class="params">(X, y, classifier, resolution=<span class="number">0.02</span>)</span>:</span></div><div class="line">    markers = (<span class="string">'s'</span>, <span class="string">'x'</span>, <span class="string">'o'</span>, <span class="string">'^'</span>, <span class="string">'v'</span>)</div><div class="line">    colors = (<span class="string">'red'</span>, <span class="string">'blue'</span>, <span class="string">'lightgreen'</span>, <span class="string">'gray'</span>, <span class="string">'cyan'</span>)</div><div class="line">    cmap = ListedColormap(colors[:len(np.unique(y))])</div><div class="line"></div><div class="line">    x1_min, x1_max = X[:, <span class="number">0</span>].min()<span class="number">-1</span>, X[:, <span class="number">0</span>].max() + <span class="number">1</span></div><div class="line">    x2_min, x2_max = X[:, <span class="number">1</span>].min()<span class="number">-1</span>, X[:, <span class="number">1</span>].max() + <span class="number">1</span></div><div class="line"></div><div class="line">    xx1, xx2 = np.meshgrid(np.arange(x1_min, x1_max, resolution),</div><div class="line">                           np.arange(x2_min, x2_max, resolution))</div><div class="line">    Z = classifier.predict(np.array([xx1.ravel(), xx2.ravel()]).T)</div><div class="line">    Z = Z.reshape(xx1.shape)</div><div class="line"></div><div class="line">    plt.contourf(xx1, xx2, Z, alpha=<span class="number">0.4</span>, cmap=cmap)</div><div class="line">    plt.xlim(xx1.min(), xx1.max())</div><div class="line">    plt.ylim(xx2.min(), xx2.max())</div><div class="line"></div><div class="line">    <span class="keyword">for</span> idx, cl <span class="keyword">in</span> enumerate(np.unique(y)):</div><div class="line">        plt.scatter(x=X[y == cl, <span class="number">0</span>], y=X[y == cl, <span class="number">1</span>], alpha=<span class="number">0.8</span>, c=cmap(idx),</div><div class="line">                    marker=markers[idx], label=cl)</div><div class="line"></div><div class="line">    plt.xlabel(<span class="string">'sepal length [cm]'</span>)</div><div class="line">    plt.ylabel(<span class="string">'petal length [cm]'</span>)</div><div class="line">    plt.show()</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">plot_misclassifications</span><span class="params">(classifier)</span>:</span></div><div class="line">    plt.plot(range(<span class="number">1</span>, len(classifier.errors_)+<span class="number">1</span>), classifier.errors_, marker=<span class="string">'o'</span>)</div><div class="line">    plt.xlabel(<span class="string">'Epoches'</span>)</div><div class="line">    plt.ylabel(<span class="string">'Numebr of misclassifications'</span>)</div><div class="line">    plt.show()</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</div><div class="line">    df = pd.read_csv(<span class="string">'iris.data.csv'</span>, header=<span class="keyword">None</span>)</div><div class="line">    y = df.iloc[<span class="number">0</span>:<span class="number">100</span>, <span class="number">4</span>].values</div><div class="line">    y = np.where(y == <span class="string">'Iris-setosa'</span>, <span class="number">-1</span>, <span class="number">1</span>)</div><div class="line">    X = df.iloc[<span class="number">0</span>:<span class="number">100</span>, [<span class="number">0</span>, <span class="number">2</span>]].values</div><div class="line"></div><div class="line">    ppn = Perceptron(eta=<span class="number">0.1</span>, n_iter=<span class="number">10</span>)</div><div class="line">    ppn.fit(X, y)</div><div class="line"></div><div class="line">    <span class="comment"># plot_x(X)</span></div><div class="line">    <span class="comment"># plot_misclassifications(ppn)</span></div><div class="line">    plot_decision_region(X, y, ppn)</div></pre></td></tr></table></figure>
+<img src="/2017/04/07/Iris数据集训练感知机模型/predict.png" alt="predict.png" title="">
+<p>虽然对于Iris数据集，感知机算法表现的很完美，但是”收敛”一直是感知机算法中的一大问题。Frank Rosenblatt从数学上证明了只要两个类别能够被一个现行超平面分开，则感知机算法一定能够收敛。然而，如果数据并非线性可分，感知计算法则会一直运行下去，除非我们人为设置最大迭代次数n_iter</p>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul>
+<li><a href="https://ljalphabeta.gitbooks.io/python-/content/ch2section3.html" target="_blank" rel="external">https://ljalphabeta.gitbooks.io/python-/content/ch2section3.html</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/感知机/" rel="tag"># 感知机</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/01/PyCodeObject和opcode/" rel="next" title="PyCodeObject和opcode">
+                <i class="fa fa-chevron-left"></i> PyCodeObject和opcode
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/08/绕过curl命令执行过滤/" rel="prev" title="绕过curl命令执行过滤">
+                绕过curl命令执行过滤 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars3.githubusercontent.com/u/15061633"
+               alt="Ethan" />
+          <p class="site-author-name" itemprop="name">Ethan</p>
+           
+              <p class="site-description motion-element" itemprop="description">personal blog :)</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/hxer/" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友链
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.wupco.cn" title="wupco" target="_blank">wupco</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://danaive.github.io" title="danlei" target="_blank">danlei</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#感知机"><span class="nav-number">1.</span> <span class="nav-text">感知机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python-实现感知机算法"><span class="nav-number">2.</span> <span class="nav-text">python 实现感知机算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Iris数据集训练感知机算法"><span class="nav-number">3.</span> <span class="nav-text">Iris数据集训练感知机算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据集"><span class="nav-number">3.1.</span> <span class="nav-text">数据集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#训练"><span class="nav-number">3.2.</span> <span class="nav-text">训练</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">4.</span> <span class="nav-text">reference</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ethan</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

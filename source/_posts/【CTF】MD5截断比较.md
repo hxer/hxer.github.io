@@ -1,5 +1,5 @@
 ---
-title: CTF之MD5截断比较
+title: 【CTF】MD5截断比较
 date: 2017-03-21 16:23:39
 categories: CTF
 tags:

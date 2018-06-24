@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 
 
 
@@ -10,11 +10,19 @@
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
 
 
 
 <meta http-equiv="Cache-Control" content="no-transform" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
+
 
 
 
@@ -68,7 +76,18 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+
+
 
 
   <meta name="keywords" content="XSS,unicode," />
@@ -76,11 +95,6 @@
 
 
 
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/ico/favicon.ico?v=5.1.0" />
 
 
 
@@ -109,11 +123,13 @@
   var CONFIG = {
     root: '/',
     scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
-    motion: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     duoshuo: {
-      userId: 'undefined',
+      userId: '0',
       author: '博主'
     },
     algolia: {
@@ -134,11 +150,7 @@
 
 
 
-  <title> unicode绕过xss | Ethan' Blog </title>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
+  <title>unicode绕过xss | Ethan' Blog</title>
   
 
 
@@ -147,28 +159,17 @@
 
 
 
-  <script type="text/javascript">
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "//tajs.qq.com/stats?sId=63078337";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
 
+</head>
 
-
-
-
-
-
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -215,7 +216,7 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
+          <a href="/archives/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
@@ -225,7 +226,7 @@
       
         
         <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
+          <a href="/categories/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
             
@@ -235,7 +236,7 @@
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
+          <a href="/tags/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
@@ -245,7 +246,7 @@
       
         
         <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
+          <a href="/about/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
@@ -281,7 +282,7 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+      <input autocomplete="off"
              placeholder="搜索..." spellcheck="false"
              type="text" id="local-search-input">
     </div>
@@ -315,7 +316,11 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.beesfun.com/2017/08/07/unicode绕过xss/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -333,14 +338,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                unicode绕过xss
-              
-            
-          </h1>
+          <h1 class="post-title" itemprop="name headline">unicode绕过xss</h1>
         
 
         <div class="post-meta">
@@ -388,6 +386,16 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/08/07/unicode绕过xss/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2017/08/07/unicode绕过xss/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -403,17 +411,19 @@
       </header>
     
 
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
       
 
       
-        <p>无意间看到一篇讲解unicode绕过xss的文章<a href="http://blog.rakeshmane.com/2017/08/xssing-web-part-2.html" target="_blank" rel="external">Xssing Web With Unicodes</a>，内容比较基础，记录下，顺便巩固下unicode的相关知识:)<br><a id="more"></a></p>
-<h2 id="unicode基础知识"><a href="#unicode基础知识" class="headerlink" title="unicode基础知识"></a>unicode基础知识</h2><p>简单来说，unicode 是字符集，utf-8,utf-16,utf-32是编码规则。<br><a href="https://unicode-table.com/" target="_blank" rel="external">unicode 字符集: ttps://unicode-table.com/</a></p>
+        <p>无意间看到一篇讲解unicode绕过xss的文章<a href="http://blog.rakeshmane.com/2017/08/xssing-web-part-2.html" target="_blank" rel="noopener">Xssing Web With Unicodes</a>，内容比较基础，记录下，顺便巩固下unicode的相关知识:)<br><a id="more"></a></p>
+<h2 id="unicode基础知识"><a href="#unicode基础知识" class="headerlink" title="unicode基础知识"></a>unicode基础知识</h2><p>简单来说，unicode 是字符集，utf-8,utf-16,utf-32是编码规则。<br><a href="https://unicode-table.com/" target="_blank" rel="noopener">unicode 字符集: ttps://unicode-table.com/</a></p>
 <h3 id="UTF-8-1-4-byte"><a href="#UTF-8-1-4-byte" class="headerlink" title="UTF-8 (1-4 byte)"></a>UTF-8 (1-4 byte)</h3><p>utf-8是可变变长编码，将一个unicode码位编码成1-4字节。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">U+ 0000 ~ U+ 007F: 0XXXXXXX</div><div class="line">U+ 0080 ~ U+ 07FF: 110XXXXX 10XXXXXX</div><div class="line">U+ 0800 ~ U+ FFFF: 1110XXXX 10XXXXXX 10XXXXXX</div><div class="line">U+10000 ~ U+1FFFF: 11110XXX 10XXXXXX 10XXXXXX 10XXXXXX</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">U+ 0000 ~ U+ 007F: 0XXXXXXX</span><br><span class="line">U+ 0080 ~ U+ 07FF: 110XXXXX 10XXXXXX</span><br><span class="line">U+ 0800 ~ U+ FFFF: 1110XXXX 10XXXXXX 10XXXXXX</span><br><span class="line">U+10000 ~ U+1FFFF: 11110XXX 10XXXXXX 10XXXXXX 10XXXXXX</span><br></pre></td></tr></table></figure>
 <p>Example :</p>
 <ul>
 <li>Character “A” =&gt; 0x41</li>
@@ -422,8 +432,8 @@
 <li>Character “𪨶” =&gt; 0xF0 0xAA 0xA8 0xB6</li>
 </ul>
 <p>例如 “ſ”查unicode字符集为 <code>\u+017f</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">0000 0001 0111 1111  &lt;- unicode 二进制</div><div class="line">110+00100 10+111111  &lt;- utf-8 编码(二进制)，对应上面第二行</div><div class="line">1100 0100 1011 1111  &lt;- 0Xc4 0xbf</div></pre></td></tr></table></figure>
-<p>在线unicode转utf-8工具: <a href="http://www.ltg.ed.ac.uk/~richard/utf-8.cgi?input=017f&amp;mode=hex" target="_blank" rel="external">http://www.ltg.ed.ac.uk/~richard/utf-8.cgi?input=017f&amp;mode=hex</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">0000 0001 0111 1111  &lt;- unicode 二进制</span><br><span class="line">110+00100 10+111111  &lt;- utf-8 编码(二进制)，对应上面第二行</span><br><span class="line">1100 0100 1011 1111  &lt;- 0Xc4 0xbf</span><br></pre></td></tr></table></figure>
+<p>在线unicode转utf-8工具: <a href="http://www.ltg.ed.ac.uk/~richard/utf-8.cgi?input=017f&amp;mode=hex" target="_blank" rel="noopener">http://www.ltg.ed.ac.uk/~richard/utf-8.cgi?input=017f&amp;mode=hex</a></p>
 <h3 id="UTF-16-2byte"><a href="#UTF-16-2byte" class="headerlink" title="UTF-16 (2byte)"></a>UTF-16 (2byte)</h3><ul>
 <li><p>UTF-16be (be- Big Endian) [Left to Right Byte Order ]</p>
 <p>Example :</p>
@@ -452,8 +462,8 @@
 </ul>
 </li>
 </ul>
-<h2 id="unicode绕过"><a href="#unicode绕过" class="headerlink" title="unicode绕过"></a>unicode绕过</h2><h3 id="简单编码绕过"><a href="#简单编码绕过" class="headerlink" title="简单编码绕过 :"></a>简单编码绕过 :</h3><p><a href="http://rakeshmane.com/lab/unicode/xss.php?x=payload&amp;charset=utf-8" target="_blank" rel="external">http://rakeshmane.com/lab/unicode/xss.php?x=payload&amp;charset=utf-8</a></p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">header(<span class="string">'X-XSS-Protection: 0'</span>);</div><div class="line">header(<span class="string">'Content-Type: text/html; charset='</span>.$_GET[<span class="string">'charset'</span>]);</div><div class="line">highlight_string(file_get_contents(<span class="keyword">__FILE__</span>, <span class="keyword">true</span>));</div><div class="line">$x=$_GET[<span class="string">'x'</span>];</div><div class="line">$x=preg_replace(<span class="string">'/&lt;\w+/'</span>, <span class="string">''</span>, $x);</div><div class="line"><span class="keyword">echo</span> $x;</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="unicode绕过"><a href="#unicode绕过" class="headerlink" title="unicode绕过"></a>unicode绕过</h2><h3 id="简单编码绕过"><a href="#简单编码绕过" class="headerlink" title="简单编码绕过 :"></a>简单编码绕过 :</h3><p><a href="http://rakeshmane.com/lab/unicode/xss.php?x=payload&amp;charset=utf-8" target="_blank" rel="noopener">http://rakeshmane.com/lab/unicode/xss.php?x=payload&amp;charset=utf-8</a></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">header(<span class="string">'X-XSS-Protection: 0'</span>);</span><br><span class="line">header(<span class="string">'Content-Type: text/html; charset='</span>.$_GET[<span class="string">'charset'</span>]);</span><br><span class="line">highlight_string(file_get_contents(<span class="keyword">__FILE__</span>, <span class="keyword">true</span>));</span><br><span class="line">$x=$_GET[<span class="string">'x'</span>];</span><br><span class="line">$x=preg_replace(<span class="string">'/&lt;\w+/'</span>, <span class="string">''</span>, $x);</span><br><span class="line"><span class="keyword">echo</span> $x;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 <p>这个比较简单，设置字符集为 utf-16 或 utf-32可以绕过<code>preg_replace</code>检测</p>
 <ul>
 <li><p>设置编码为utf-16大端模式:</p>
@@ -462,17 +472,17 @@
 <li><p>设置编码为utf-32</p>
 <p><code>x=%00%00%00%00%3C%00%00%00s%00%00%00v%00%00%00g%00%00%00/%00%00%00o%00%00%00n%00%00%00l%00%00%00o%00%00%00a%00%00%00d%00%00%00=%00%00%00a%00%00%00l%00%00%00e%00%00%00r%00%00%00t%00%00%00(%00%00%00)%00%00%00%3E&amp;charset=UTF-32</code></p>
 <p>看paylaod可以发现 最前面多了一个 %00，UTF-32是4字节编码，”&lt;”编码为”%00%00%00%3C”, 前面多加的一个 %00, 是为了匹配服务器返回的页面内容为4的整数倍，这样浏览器通过utf-32编码页面内容才能正确渲染提供的payload,触发xss,实际情况需要添加多少个 %00 来满足4的整数倍，视具体情况而定。</p>
-<img src="/2017/08/07/unicode绕过xss/001.png" alt="001.png" title="">
+<img src="/2017/08/07/unicode绕过xss/001.png">
 </li>
 </ul>
 <p>当没有指定编码模式(大端，小端)时，默认情况下UTF-32为大端模式，UTF-16为小端模式。</p>
 <h3 id="滥用unicode映射"><a href="#滥用unicode映射" class="headerlink" title="滥用unicode映射"></a>滥用unicode映射</h3><p>有些应用为了更好的兼容性，将unicode字符映射为大写或小写英文字母，作则给了一段nodejs代码去获取这些映射关系。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">highNumber=<span class="number">65000</span>;</div><div class="line"><span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;highNumber;i++)&#123;</div><div class="line">	x=<span class="string">""</span></div><div class="line">	y=<span class="string">""</span></div><div class="line">	<span class="keyword">if</span>(<span class="string">"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\"/?&gt;&lt;';:.,|\\+=-_*&amp;^%$#@!~`"</span>.includes(<span class="built_in">String</span>.fromCharCode(i).toLowerCase()))</div><div class="line">		x=<span class="built_in">String</span>.fromCharCode(i).toLowerCase()</div><div class="line">	<span class="keyword">if</span>(<span class="string">"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\"/?&gt;&lt;';:.,|\\+=-_*&amp;^%$#@!~`"</span>.includes(<span class="built_in">String</span>.fromCharCode(i).toUpperCase()))</div><div class="line">		y=<span class="built_in">String</span>.fromCharCode(i).toUpperCase()</div><div class="line">	<span class="keyword">if</span>((x!=<span class="string">""</span>||y!=<span class="string">""</span>)&amp;&amp;!(<span class="string">"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\"/?&gt;&lt;';:.,|\\+=-_*&amp;^%$#@!~`"</span>.includes(<span class="built_in">String</span>.fromCharCode(i))))</div><div class="line">		<span class="built_in">console</span>.log(<span class="string">" "</span>+i+<span class="string">" Original : "</span>+<span class="built_in">String</span>.fromCharCode(i)+<span class="string">" [\\u"</span>+(i).toString(<span class="number">16</span>)+<span class="string">"] LowerCase : "</span>+x+<span class="string">" UpperCase : "</span>+y)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">highNumber=<span class="number">65000</span>;</span><br><span class="line"><span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;highNumber;i++)&#123;</span><br><span class="line">	x=<span class="string">""</span></span><br><span class="line">	y=<span class="string">""</span></span><br><span class="line">	<span class="keyword">if</span>(<span class="string">"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\"/?&gt;&lt;';:.,|\\+=-_*&amp;^%$#@!~`"</span>.includes(<span class="built_in">String</span>.fromCharCode(i).toLowerCase()))</span><br><span class="line">		x=<span class="built_in">String</span>.fromCharCode(i).toLowerCase()</span><br><span class="line">	<span class="keyword">if</span>(<span class="string">"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\"/?&gt;&lt;';:.,|\\+=-_*&amp;^%$#@!~`"</span>.includes(<span class="built_in">String</span>.fromCharCode(i).toUpperCase()))</span><br><span class="line">		y=<span class="built_in">String</span>.fromCharCode(i).toUpperCase()</span><br><span class="line">	<span class="keyword">if</span>((x!=<span class="string">""</span>||y!=<span class="string">""</span>)&amp;&amp;!(<span class="string">"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\"/?&gt;&lt;';:.,|\\+=-_*&amp;^%$#@!~`"</span>.includes(<span class="built_in">String</span>.fromCharCode(i))))</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">" "</span>+i+<span class="string">" Original : "</span>+<span class="built_in">String</span>.fromCharCode(i)+<span class="string">" [\\u"</span>+(i).toString(<span class="number">16</span>)+<span class="string">"] LowerCase : "</span>+x+<span class="string">" UpperCase : "</span>+y)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>得到如下结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">305 Original : ı [\u131] LowerCase :  UpperCase : I</div><div class="line">383 Original : ſ [\u17f] LowerCase :  UpperCase : S</div><div class="line">8490 Original : K [\u212a] LowerCase : k UpperCase :</div><div class="line">64261 Original : ﬅ [\ufb05] LowerCase :  UpperCase : ST</div><div class="line">64262 Original : ﬆ [\ufb06] LowerCase :  UpperCase : ST</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">305 Original : ı [\u131] LowerCase :  UpperCase : I</span><br><span class="line">383 Original : ſ [\u17f] LowerCase :  UpperCase : S</span><br><span class="line">8490 Original : K [\u212a] LowerCase : k UpperCase :</span><br><span class="line">64261 Original : ﬅ [\ufb05] LowerCase :  UpperCase : ST</span><br><span class="line">64262 Original : ﬆ [\ufb06] LowerCase :  UpperCase : ST</span><br></pre></td></tr></table></figure>
 <ul>
 <li><p>demo</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">header(<span class="string">'Content-Type: text/html; charset=UTF-8'</span>);</div><div class="line">header(<span class="string">'X-XSS-Protection: 0'</span>);</div><div class="line"><span class="meta">?&gt;</span></div><div class="line">&lt;meta http-equiv=<span class="string">"Content-Security-Policy"</span> content=<span class="string">"default-src 'none'; script-src 'self';"</span>&gt;</div><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line">highlight_string(file_get_contents(<span class="keyword">__FILE__</span>, <span class="keyword">true</span>));</div><div class="line">$x=$_GET[<span class="string">'x'</span>];</div><div class="line">$x=str_ireplace(<span class="string">'$'</span>,<span class="string">''</span>,$x); <span class="comment">// Use it to bypass WAF,I know it's annoying but I can't disable it :P</span></div><div class="line">$x=str_ireplace(<span class="string">'&lt;script'</span>,<span class="string">'BLOCKED'</span>,$x);</div><div class="line">$x = mb_convert_case($x, MB_CASE_UPPER);</div><div class="line"><span class="keyword">echo</span> $x;</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">header(<span class="string">'Content-Type: text/html; charset=UTF-8'</span>);</span><br><span class="line">header(<span class="string">'X-XSS-Protection: 0'</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line">&lt;meta http-equiv=<span class="string">"Content-Security-Policy"</span> content=<span class="string">"default-src 'none'; script-src 'self';"</span>&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">highlight_string(file_get_contents(<span class="keyword">__FILE__</span>, <span class="keyword">true</span>));</span><br><span class="line">$x=$_GET[<span class="string">'x'</span>];</span><br><span class="line">$x=str_ireplace(<span class="string">'$'</span>,<span class="string">''</span>,$x); <span class="comment">// Use it to bypass WAF,I know it's annoying but I can't disable it :P</span></span><br><span class="line">$x=str_ireplace(<span class="string">'&lt;script'</span>,<span class="string">'BLOCKED'</span>,$x);</span><br><span class="line">$x = mb_convert_case($x, MB_CASE_UPPER);</span><br><span class="line"><span class="keyword">echo</span> $x;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 <p>源码中使用<code>mb_convert_case</code>去转换字符，默认用utf-8编码，从上面的unicode映射可知<code>ſ [\u17f]</code>映射为大写字母<code>S</code>可以，以此来绕过<code>str_ireplace</code>的检测, <code>ſ [\u17f]</code>utf-8编码为0xc40xbf</p>
 <p>Paylaod: <code>x=&lt;%C5%BFcript/src=./1&gt;&lt;/script&gt;</code></p>
 <p>​</p>
@@ -481,21 +491,33 @@
 
       
     </div>
+    
+    
+    
 
-    <div>
-      
-        
+    
 
-      
-    </div>
+    
 
-    <div>
-      
-        
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Ethan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://www.beesfun.com/2017/08/07/unicode绕过xss/" title="unicode绕过xss">http://www.beesfun.com/2017/08/07/unicode绕过xss/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
 
-      
-    </div>
-
+      </div>
+    
 
     <footer class="post-footer">
       
@@ -509,7 +531,7 @@
       
 
       
-        
+      
       
 
       
@@ -537,6 +559,10 @@
       
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -546,15 +572,22 @@
     </div>
   </div>
 
-          
+
           </div>
           
 
 
           
-  <div class="comments" id="comments">
-    
-  </div>
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
 
 
         </div>
@@ -570,110 +603,116 @@
   </div>
 
   <aside id="sidebar" class="sidebar">
+    
     <div class="sidebar-inner">
 
       
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
             站点概览
           </li>
         </ul>
       
 
-      <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="https://avatars3.githubusercontent.com/u/15061633"
-               alt="Ethan" />
-          <p class="site-author-name" itemprop="name">Ethan</p>
-           
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://avatars3.githubusercontent.com/u/15061633"
+                alt="Ethan" />
+            
+              <p class="site-author-name" itemprop="name">Ethan</p>
               <p class="site-description motion-element" itemprop="description">personal blog :)</p>
-          
-        </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">46</span>
-                <span class="site-state-item-name">日志</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-categories">
-              <a href="/categories/index.html">
-                <span class="site-state-item-count">14</span>
-                <span class="site-state-item-name">分类</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">56</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-            
-              <span class="links-of-author-item">
-                <a href="https://github.com/hxer/" target="_blank" title="GitHub">
-                  
-                    <i class="fa fa-fw fa-github"></i>
-                  
-                  GitHub
-                </a>
-              </span>
-            
-          
-        </div>
-
-        
-        
-
-        
-        
-          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
-            <div class="links-of-blogroll-title">
-              <i class="fa  fa-fw fa-globe"></i>
-              友链
-            </div>
-            <ul class="links-of-blogroll-list">
-              
-                <li class="links-of-blogroll-item">
-                  <a href="http://www.wupco.cn" title="wupco" target="_blank">wupco</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://danaive.github.io" title="danlei" target="_blank">danlei</a>
-                </li>
-              
-            </ul>
           </div>
-        
 
-        
+          <nav class="site-state motion-element">
 
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/hxer/" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友链
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://badcode.cc/" title="badcode" target="_blank">badcode</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.wupco.cn" title="wupco" target="_blank">wupco</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://danaive.github.io" title="danlei" target="_blank">danlei</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
       </section>
 
       
@@ -706,30 +745,45 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy;  2017 - 
-  <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Ethan</span>
+
+  
 </div>
 
 
-<div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
-</div>
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
-  </a>
-</div>
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
 
 
         
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=63078337";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
 
         
       </div>
@@ -741,7 +795,9 @@
         
       </div>
     
+
     
+
   </div>
 
   
@@ -765,59 +821,78 @@
 
 
 
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
-  
 
 
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
 
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
 
 
 
   
   
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
 
 
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+  
 
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
 
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
 
 
 
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
 
 
 
   
-
 
 
   
@@ -843,161 +918,371 @@
 
 
 
-  
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'hxer',
+            repo: 'hxer.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '7147116f4ae9df31961313af13fad164bdbf0fe3',
+            
+                client_id: 'ac1236f9efefa7d5580f'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
 
 
 
+
+
+
+
   
-  
+
   <script type="text/javascript">
     // Popup Window;
     var isfetched = false;
+    var isXml = true;
     // Search DB path;
     var search_path = "search.xml";
-    if (search_path.length == 0) {
+    if (search_path.length === 0) {
       search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
     }
     var path = "/" + search_path;
     // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
 
     function proceedsearch() {
       $("body")
         .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
         .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
       $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
     }
+
     // search function;
     var searchFunc = function(path, search_id, content_id) {
       'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
       $.ajax({
         url: path,
-        dataType: "xml",
+        dataType: isXml ? "xml" : "json",
         async: true,
-        success: function( xmlResponse ) {
+        success: function(res) {
           // get the contents from search data
           isfetched = true;
           $('.popup').detach().appendTo('.header-inner');
-          var datas = $( "entry", xmlResponse ).map(function() {
+          var datas = isXml ? $("entry", res).map(function() {
             return {
-              title: $( "title", this ).text(),
+              title: $("title", this).text(),
               content: $("content",this).text(),
-              url: $( "url" , this).text()
+              url: $("url" , this).text()
             };
-          }).get();
-          var $input = document.getElementById(search_id);
-          var $resultContent = document.getElementById(content_id);
-          $input.addEventListener('input', function(){
-            var matchcounts = 0;
-            var str='<ul class=\"search-result-list\">';
-            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
-            $resultContent.innerHTML = "";
-            if (this.value.trim().length > 1) {
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
               // perform local searching
               datas.forEach(function(data) {
                 var isMatch = false;
-                var content_index = [];
-                var data_title = data.title.trim().toLowerCase();
-                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
-                var data_url = decodeURIComponent(data.url);
-                var index_title = -1;
-                var index_content = -1;
-                var first_occur = -1;
-                // only match artiles with not empty titles and contents
-                if(data_title != '') {
-                  keywords.forEach(function(keyword, i) {
-                    index_title = data_title.indexOf(keyword);
-                    index_content = data_content.indexOf(keyword);
-                    if( index_title >= 0 || index_content >= 0 ){
-                      isMatch = true;
-                      if (i == 0) {
-                        first_occur = index_content;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
                       }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
                     }
 
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
                   });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
                 }
+
                 // show search results
+
                 if (isMatch) {
-                  matchcounts += 1;
-                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
-                  var content = data.content.trim().replace(/<[^>]+>/g,"");
-                  if (first_occur >= 0) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
                     // cut out 100 characters
-                    var start = first_occur - 20;
-                    var end = first_occur + 80;
+                    var start = position - 20;
+                    var end = position + 80;
                     if(start < 0){
                       start = 0;
                     }
-                    if(start == 0){
-                      end = 50;
+                    if (end < position + word.length) {
+                      end = position + word.length;
                     }
                     if(end > content.length){
                       end = content.length;
                     }
-                    var match_content = content.substring(start, end);
-                    // highlight all keywords
-                    keywords.forEach(function(keyword){
-                      var regS = new RegExp(keyword, "gi");
-                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
-                    });
-
-                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
                   }
-                  str += "</li>";
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
                 }
-              })};
-            str += "</ul>";
-            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
-            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
-            $resultContent.innerHTML = str;
-          });
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
           proceedsearch();
         }
-      });}
+      });
+    }
 
     // handle and trigger popup window;
     $('.popup-trigger').click(function(e) {
       e.stopPropagation();
-      if (isfetched == false) {
+      if (isfetched === false) {
         searchFunc(path, 'local-search-input', 'local-search-result');
       } else {
         proceedsearch();
       };
     });
 
-    $('.popup-btn-close').click(function(e){
-      $('.popup').hide();
-      $(".local-search-pop-overlay").remove();
-      $('body').css('overflow', '');
-    });
+    $('.popup-btn-close').click(onPopupClose);
     $('.popup').click(function(e){
       e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
     });
   </script>
 
 
-  
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
 
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-  
 
 
   
@@ -1006,6 +1291,12 @@
 
   
 
+  
+  
+
+  
+
+  
 
   
 

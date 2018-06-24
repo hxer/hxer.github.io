@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 
 
 
@@ -10,11 +10,19 @@
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
 
 
 
 <meta http-equiv="Cache-Control" content="no-transform" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
+
 
 
 
@@ -68,7 +76,18 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+
+
 
 
   <meta name="keywords" content="PyCodeObject,opcode," />
@@ -76,11 +95,6 @@
 
 
 
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/ico/favicon.ico?v=5.1.0" />
 
 
 
@@ -107,11 +121,13 @@
   var CONFIG = {
     root: '/',
     scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
-    motion: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     duoshuo: {
-      userId: 'undefined',
+      userId: '0',
       author: '博主'
     },
     algolia: {
@@ -132,11 +148,7 @@
 
 
 
-  <title> PyCodeObject和opcode | Ethan' Blog </title>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
+  <title>PyCodeObject和opcode | Ethan' Blog</title>
   
 
 
@@ -145,28 +157,17 @@
 
 
 
-  <script type="text/javascript">
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "//tajs.qq.com/stats?sId=63078337";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
 
+</head>
 
-
-
-
-
-
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -213,7 +214,7 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
+          <a href="/archives/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
@@ -223,7 +224,7 @@
       
         
         <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
+          <a href="/categories/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
             
@@ -233,7 +234,7 @@
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
+          <a href="/tags/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
@@ -243,7 +244,7 @@
       
         
         <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
+          <a href="/about/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
@@ -279,7 +280,7 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+      <input autocomplete="off"
              placeholder="搜索..." spellcheck="false"
              type="text" id="local-search-input">
     </div>
@@ -313,7 +314,11 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.beesfun.com/2017/04/01/PyCodeObject和opcode/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -331,14 +336,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                PyCodeObject和opcode
-              
-            
-          </h1>
+          <h1 class="post-title" itemprop="name headline">PyCodeObject和opcode</h1>
         
 
         <div class="post-meta">
@@ -386,6 +384,16 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/04/01/PyCodeObject和opcode/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2017/04/01/PyCodeObject和opcode/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -401,17 +409,19 @@
       </header>
     
 
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
       
 
       
-        <h2 id="pyc文件"><a href="#pyc文件" class="headerlink" title="pyc文件"></a>pyc文件</h2><p>Python的原始代码在运行前都会被先编译成字节码，并把编译的结果保存到一个一个的PyCodeObject中，把PyCodeObject从内存中以marshal格式保存为文件，即pyc文件。python 内置库<code>dis</code>，可以把二进制反编译CPython bytecode。二进制对应的bytecode可以参考: <a href="https://github.com/python/cpython/blob/2.7/Include/opcode.h" target="_blank" rel="external">https://github.com/python/cpython/blob/2.7/Include/opcode.h</a> ,其中bytecode所代表的意义:<a href="https://docs.python.org/2/library/dis.html" target="_blank" rel="external">https://docs.python.org/2/library/dis.html</a></p>
+        <h2 id="pyc文件"><a href="#pyc文件" class="headerlink" title="pyc文件"></a>pyc文件</h2><p>Python的原始代码在运行前都会被先编译成字节码，并把编译的结果保存到一个一个的PyCodeObject中，把PyCodeObject从内存中以marshal格式保存为文件，即pyc文件。python 内置库<code>dis</code>，可以把二进制反编译CPython bytecode。二进制对应的bytecode可以参考: <a href="https://github.com/python/cpython/blob/2.7/Include/opcode.h" target="_blank" rel="noopener">https://github.com/python/cpython/blob/2.7/Include/opcode.h</a> ,其中bytecode所代表的意义:<a href="https://docs.python.org/2/library/dis.html" target="_blank" rel="noopener">https://docs.python.org/2/library/dis.html</a></p>
 <a id="more"></a>
 <h2 id="PyCodeObject"><a href="#PyCodeObject" class="headerlink" title="PyCodeObject"></a>PyCodeObject</h2><p>Python代码中Code.h中定义的PyCodeObject结构</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* Bytecode object */</span>  </div><div class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span>  </div><div class="line">    PyObject_HEAD  </div><div class="line">    <span class="keyword">int</span> co_argcount;        <span class="comment">/* #arguments, except *args */</span>  </div><div class="line">    <span class="keyword">int</span> co_nlocals;     <span class="comment">/* #local variables */</span>  </div><div class="line">    <span class="keyword">int</span> co_stacksize;       <span class="comment">/* #entries needed for evaluation stack */</span>  </div><div class="line">    <span class="keyword">int</span> co_flags;       <span class="comment">/* CO_..., see below */</span>  </div><div class="line">    PyObject *co_code;      <span class="comment">/* instruction opcodes */</span>  </div><div class="line">    PyObject *co_consts;    <span class="comment">/* list (constants used) */</span>  </div><div class="line">    PyObject *co_names;     <span class="comment">/* list of strings (names used) */</span>  </div><div class="line">    PyObject *co_varnames;  <span class="comment">/* tuple of strings (local variable names) */</span>  </div><div class="line">    PyObject *co_freevars;  <span class="comment">/* tuple of strings (free variable names) */</span>  </div><div class="line">    PyObject *co_cellvars;      <span class="comment">/* tuple of strings (cell variable names) */</span>  </div><div class="line">    <span class="comment">/* The rest doesn't count for hash/cmp */</span>  </div><div class="line">    PyObject *co_filename;  <span class="comment">/* string (where it was loaded from) */</span>  </div><div class="line">    PyObject *co_name;      <span class="comment">/* string (name, for reference) */</span>  </div><div class="line">    <span class="keyword">int</span> co_firstlineno;     <span class="comment">/* first source line number */</span>  </div><div class="line">    PyObject *co_lnotab;    <span class="comment">/* string (encoding addr&lt;-&gt;lineno mapping) See</span></div><div class="line"><span class="comment">                   Objects/lnotab_notes.txt for details. */</span>  </div><div class="line">    <span class="keyword">void</span> *co_zombieframe;     <span class="comment">/* for optimization only (see frameobject.c) */</span>  </div><div class="line">    PyObject *co_weakreflist;   <span class="comment">/* to support weakrefs to code objects */</span>  </div><div class="line">&#125; PyCodeObject;</div></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Bytecode object */</span>  </span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span>  </span><br><span class="line">    PyObject_HEAD  </span><br><span class="line">    <span class="keyword">int</span> co_argcount;        <span class="comment">/* #arguments, except *args */</span>  </span><br><span class="line">    <span class="keyword">int</span> co_nlocals;     <span class="comment">/* #local variables */</span>  </span><br><span class="line">    <span class="keyword">int</span> co_stacksize;       <span class="comment">/* #entries needed for evaluation stack */</span>  </span><br><span class="line">    <span class="keyword">int</span> co_flags;       <span class="comment">/* CO_..., see below */</span>  </span><br><span class="line">    PyObject *co_code;      <span class="comment">/* instruction opcodes */</span>  </span><br><span class="line">    PyObject *co_consts;    <span class="comment">/* list (constants used) */</span>  </span><br><span class="line">    PyObject *co_names;     <span class="comment">/* list of strings (names used) */</span>  </span><br><span class="line">    PyObject *co_varnames;  <span class="comment">/* tuple of strings (local variable names) */</span>  </span><br><span class="line">    PyObject *co_freevars;  <span class="comment">/* tuple of strings (free variable names) */</span>  </span><br><span class="line">    PyObject *co_cellvars;      <span class="comment">/* tuple of strings (cell variable names) */</span>  </span><br><span class="line">    <span class="comment">/* The rest doesn't count for hash/cmp */</span>  </span><br><span class="line">    PyObject *co_filename;  <span class="comment">/* string (where it was loaded from) */</span>  </span><br><span class="line">    PyObject *co_name;      <span class="comment">/* string (name, for reference) */</span>  </span><br><span class="line">    <span class="keyword">int</span> co_firstlineno;     <span class="comment">/* first source line number */</span>  </span><br><span class="line">    PyObject *co_lnotab;    <span class="comment">/* string (encoding addr&lt;-&gt;lineno mapping) See</span></span><br><span class="line"><span class="comment">                   Objects/lnotab_notes.txt for details. */</span>  </span><br><span class="line">    <span class="keyword">void</span> *co_zombieframe;     <span class="comment">/* for optimization only (see frameobject.c) */</span>  </span><br><span class="line">    PyObject *co_weakreflist;   <span class="comment">/* to support weakrefs to code objects */</span>  </span><br><span class="line">&#125; PyCodeObject;</span><br></pre></td></tr></table></figure>
 <p>各字段的意义:</p>
 <ul>
 <li>argcount：参数的个数</li>
@@ -423,56 +433,68 @@
 <li>varnames：局部变量的名称（包含参数）</li>
 <li>consts：一个常量表，在marshal.c中有定义所有的类型</li>
 </ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_NULL               <span class="meta-string">'0'</span>  </span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_NONE               <span class="meta-string">'N'</span>  </span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_FALSE              <span class="meta-string">'F'</span>  </span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_TRUE               <span class="meta-string">'T'</span>  </span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_STOPITER           <span class="meta-string">'S'</span>  </span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_ELLIPSIS           <span class="meta-string">'.'</span>  </span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_INT                <span class="meta-string">'i'</span>  </span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_INT64              <span class="meta-string">'I'</span>  </span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_FLOAT              <span class="meta-string">'f'</span>  </span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_BINARY_FLOAT       <span class="meta-string">'g'</span>  </span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_COMPLEX            <span class="meta-string">'x'</span>  </span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_BINARY_COMPLEX     <span class="meta-string">'y'</span>  </span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_LONG               <span class="meta-string">'l'</span>  </span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_STRING             <span class="meta-string">'s'</span>  </span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_INTERNED           <span class="meta-string">'t'</span>  </span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_STRINGREF          <span class="meta-string">'R'</span>  </span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_TUPLE              <span class="meta-string">'('</span>  </span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_LIST               <span class="meta-string">'['</span>  </span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_DICT               <span class="meta-string">'&#123;'</span>  </span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_CODE               <span class="meta-string">'c'</span>  </span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_UNICODE            <span class="meta-string">'u'</span>  </span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_UNKNOWN            <span class="meta-string">'?'</span>  </span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_SET                <span class="meta-string">'&lt;'</span>  </span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_FROZENSET          <span class="meta-string">'&gt;'</span></span></div></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_NULL               <span class="meta-string">'0'</span>  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_NONE               <span class="meta-string">'N'</span>  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_FALSE              <span class="meta-string">'F'</span>  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_TRUE               <span class="meta-string">'T'</span>  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_STOPITER           <span class="meta-string">'S'</span>  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_ELLIPSIS           <span class="meta-string">'.'</span>  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_INT                <span class="meta-string">'i'</span>  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_INT64              <span class="meta-string">'I'</span>  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_FLOAT              <span class="meta-string">'f'</span>  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_BINARY_FLOAT       <span class="meta-string">'g'</span>  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_COMPLEX            <span class="meta-string">'x'</span>  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_BINARY_COMPLEX     <span class="meta-string">'y'</span>  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_LONG               <span class="meta-string">'l'</span>  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_STRING             <span class="meta-string">'s'</span>  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_INTERNED           <span class="meta-string">'t'</span>  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_STRINGREF          <span class="meta-string">'R'</span>  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_TUPLE              <span class="meta-string">'('</span>  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_LIST               <span class="meta-string">'['</span>  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_DICT               <span class="meta-string">'&#123;'</span>  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_CODE               <span class="meta-string">'c'</span>  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_UNICODE            <span class="meta-string">'u'</span>  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_UNKNOWN            <span class="meta-string">'?'</span>  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_SET                <span class="meta-string">'&lt;'</span>  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TYPE_FROZENSET          <span class="meta-string">'&gt;'</span></span></span><br></pre></td></tr></table></figure>
 <p>所有的PyCodeObject都是通过调用以下的函数得以运行的：<code>PyObject * PyEval_EvalFrameEx(PyFrameObject *f, int throwflag)</code>, 这个函数是Python的一个重量极的函数，它的作用即是执行中间码，Python的代码都是通过调用这个函数来运行的</p>
 <p>PyFrameObject这个数据结构：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">frame</span> &#123;</span>  </div><div class="line">    PyObject_VAR_HEAD  </div><div class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">frame</span> *<span class="title">f_back</span>;</span>  <span class="comment">/* previous frame, or NULL */</span>  </div><div class="line">    PyCodeObject *f_code;   <span class="comment">/* code segment */</span>  </div><div class="line">    PyObject *f_builtins;   <span class="comment">/* builtin symbol table (PyDictObject) */</span>  </div><div class="line">    PyObject *f_globals;    <span class="comment">/* global symbol table (PyDictObject) */</span>  </div><div class="line">    PyObject *f_locals;     <span class="comment">/* local symbol table (any mapping) */</span>  </div><div class="line">    PyObject **f_valuestack;    <span class="comment">/* points after the last local */</span>  </div><div class="line">    <span class="comment">/* Next free slot in f_valuestack.  Frame creation sets to f_valuestack.</span></div><div class="line"><span class="comment">       Frame evaluation usually NULLs it, but a frame that yields sets it</span></div><div class="line"><span class="comment">       to the current stack top. */</span>  </div><div class="line">    PyObject **f_stacktop;  </div><div class="line">    PyObject *f_trace;      <span class="comment">/* Trace function */</span>  </div><div class="line"></div><div class="line"></div><div class="line">    <span class="comment">/* If an exception is raised in this frame, the next three are used to</span></div><div class="line"><span class="comment">     * record the exception info (if any) originally in the thread state.  See</span></div><div class="line"><span class="comment">     * comments before set_exc_info() -- it's not obvious.</span></div><div class="line"><span class="comment">     * Invariant:  if _type is NULL, then so are _value and _traceback.</span></div><div class="line"><span class="comment">     * Desired invariant:  all three are NULL, or all three are non-NULL.  That</span></div><div class="line"><span class="comment">     * one isn't currently true, but "should be".</span></div><div class="line"><span class="comment">     */</span>  </div><div class="line">    PyObject *f_exc_type, *f_exc_value, *f_exc_traceback;  </div><div class="line"></div><div class="line"></div><div class="line">    PyThreadState *f_tstate;  </div><div class="line">    <span class="keyword">int</span> f_lasti;        <span class="comment">/* Last instruction if called */</span>  </div><div class="line">    <span class="comment">/* Call PyFrame_GetLineNumber() instead of reading this field</span></div><div class="line"><span class="comment">       directly.  As of 2.3 f_lineno is only valid when tracing is</span></div><div class="line"><span class="comment">       active (i.e. when f_trace is set).  At other times we use</span></div><div class="line"><span class="comment">       PyCode_Addr2Line to calculate the line from the current</span></div><div class="line"><span class="comment">       bytecode index. */</span>  </div><div class="line">    <span class="keyword">int</span> f_lineno;       <span class="comment">/* Current line number */</span>  </div><div class="line">    <span class="keyword">int</span> f_iblock;       <span class="comment">/* index in f_blockstack */</span>  </div><div class="line">    PyTryBlock f_blockstack[CO_MAXBLOCKS]; <span class="comment">/* for try and loop blocks */</span>  </div><div class="line">    PyObject *f_localsplus[<span class="number">1</span>];  <span class="comment">/* locals+stack, dynamically sized */</span>  </div><div class="line">&#125; PyFrameObject;</div></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">frame</span> &#123;</span>  </span><br><span class="line">    PyObject_VAR_HEAD  </span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">frame</span> *<span class="title">f_back</span>;</span>  <span class="comment">/* previous frame, or NULL */</span>  </span><br><span class="line">    PyCodeObject *f_code;   <span class="comment">/* code segment */</span>  </span><br><span class="line">    PyObject *f_builtins;   <span class="comment">/* builtin symbol table (PyDictObject) */</span>  </span><br><span class="line">    PyObject *f_globals;    <span class="comment">/* global symbol table (PyDictObject) */</span>  </span><br><span class="line">    PyObject *f_locals;     <span class="comment">/* local symbol table (any mapping) */</span>  </span><br><span class="line">    PyObject **f_valuestack;    <span class="comment">/* points after the last local */</span>  </span><br><span class="line">    <span class="comment">/* Next free slot in f_valuestack.  Frame creation sets to f_valuestack.</span></span><br><span class="line"><span class="comment">       Frame evaluation usually NULLs it, but a frame that yields sets it</span></span><br><span class="line"><span class="comment">       to the current stack top. */</span>  </span><br><span class="line">    PyObject **f_stacktop;  </span><br><span class="line">    PyObject *f_trace;      <span class="comment">/* Trace function */</span>  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* If an exception is raised in this frame, the next three are used to</span></span><br><span class="line"><span class="comment">     * record the exception info (if any) originally in the thread state.  See</span></span><br><span class="line"><span class="comment">     * comments before set_exc_info() -- it's not obvious.</span></span><br><span class="line"><span class="comment">     * Invariant:  if _type is NULL, then so are _value and _traceback.</span></span><br><span class="line"><span class="comment">     * Desired invariant:  all three are NULL, or all three are non-NULL.  That</span></span><br><span class="line"><span class="comment">     * one isn't currently true, but "should be".</span></span><br><span class="line"><span class="comment">     */</span>  </span><br><span class="line">    PyObject *f_exc_type, *f_exc_value, *f_exc_traceback;  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    PyThreadState *f_tstate;  </span><br><span class="line">    <span class="keyword">int</span> f_lasti;        <span class="comment">/* Last instruction if called */</span>  </span><br><span class="line">    <span class="comment">/* Call PyFrame_GetLineNumber() instead of reading this field</span></span><br><span class="line"><span class="comment">       directly.  As of 2.3 f_lineno is only valid when tracing is</span></span><br><span class="line"><span class="comment">       active (i.e. when f_trace is set).  At other times we use</span></span><br><span class="line"><span class="comment">       PyCode_Addr2Line to calculate the line from the current</span></span><br><span class="line"><span class="comment">       bytecode index. */</span>  </span><br><span class="line">    <span class="keyword">int</span> f_lineno;       <span class="comment">/* Current line number */</span>  </span><br><span class="line">    <span class="keyword">int</span> f_iblock;       <span class="comment">/* index in f_blockstack */</span>  </span><br><span class="line">    PyTryBlock f_blockstack[CO_MAXBLOCKS]; <span class="comment">/* for try and loop blocks */</span>  </span><br><span class="line">    PyObject *f_localsplus[<span class="number">1</span>];  <span class="comment">/* locals+stack, dynamically sized */</span>  </span><br><span class="line">&#125; PyFrameObject;</span><br></pre></td></tr></table></figure>
 <p>重点关注下以下的成员：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">PyObject **f_stacktop;  </div><div class="line"></div><div class="line">PyCodeObject *f_code;   <span class="comment">/* code segment */</span>  </div><div class="line">PyObject *f_globals;    <span class="comment">/* global symbol table (PyDictObject) */</span>  </div><div class="line">PyObject *f_locals;     <span class="comment">/* local symbol table (any mapping) */</span></div></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">PyObject **f_stacktop;  </span><br><span class="line"></span><br><span class="line">PyCodeObject *f_code;   <span class="comment">/* code segment */</span>  </span><br><span class="line">PyObject *f_globals;    <span class="comment">/* global symbol table (PyDictObject) */</span>  </span><br><span class="line">PyObject *f_locals;     <span class="comment">/* local symbol table (any mapping) */</span></span><br></pre></td></tr></table></figure>
 <p>可见PyFrameObject中包含一个PyCodeObject的结构体指针f_code,PyFrameObject中的f_globals和f_locals这两个dict对象分别用于保存全局对象和局部对象，可以说，PyFrameObject结构就是PyCodeObject的运行环境，PyCodeObject结构是静态的，创建以后就一般不会再变，而PyFrameObject则是动态的，在创建以后,f_globals和f_locals这两个dict都经常会发生变化，并且一个PyCodeObject可能对应好几个的PyFrameObject中。</p>
 <h2 id="实例演示"><a href="#实例演示" class="headerlink" title="实例演示"></a>实例演示</h2><ul>
 <li>新建test.py</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> dis  </div><div class="line">myglobal = <span class="keyword">True</span>  </div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(a)</span>:</span>  </div><div class="line">    b = <span class="number">1</span>  </div><div class="line">    a += b  </div><div class="line">    <span class="keyword">return</span> a  </div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">world</span>:</span>  </div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span>  </div><div class="line">        <span class="keyword">pass</span>  </div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sayHello</span><span class="params">(self)</span>:</span>  </div><div class="line">        <span class="keyword">print</span> <span class="string">'hello,world'</span>  </div><div class="line"></div><div class="line">w = world()  </div><div class="line">w.sayHello()</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> dis  </span><br><span class="line">myglobal = <span class="keyword">True</span>  </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(a)</span>:</span>  </span><br><span class="line">    b = <span class="number">1</span>  </span><br><span class="line">    a += b  </span><br><span class="line">    <span class="keyword">return</span> a  </span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">world</span>:</span>  </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span>  </span><br><span class="line">        <span class="keyword">pass</span>  </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sayHello</span><span class="params">(self)</span>:</span>  </span><br><span class="line">        <span class="keyword">print</span> <span class="string">'hello,world'</span>  </span><br><span class="line"></span><br><span class="line">w = world()  </span><br><span class="line">w.sayHello()</span><br></pre></td></tr></table></figure>
 <ul>
 <li>编译成pyc</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python -m compileall test.py</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m compileall test.py</span><br></pre></td></tr></table></figure>
 <ul>
 <li>分析test.pyc</li>
 </ul>
 <p>showfile.py</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> dis, marshal, struct, sys, time, types  </div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">show_file</span><span class="params">(fname)</span>:</span>  </div><div class="line">    f = open(fname, <span class="string">"rb"</span>)  </div><div class="line">    magic = f.read(<span class="number">4</span>)  </div><div class="line">    moddate = f.read(<span class="number">4</span>)  </div><div class="line">    modtime = time.asctime(time.localtime(struct.unpack(<span class="string">'L'</span>, moddate)[<span class="number">0</span>]))  </div><div class="line">    <span class="keyword">print</span> <span class="string">"magic %s"</span> % (magic.encode(<span class="string">'hex'</span>))  </div><div class="line">    <span class="keyword">print</span> <span class="string">"moddate %s (%s)"</span> % (moddate.encode(<span class="string">'hex'</span>), modtime)  </div><div class="line">    code = marshal.load(f)  </div><div class="line">    show_code(code)  </div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">show_code</span><span class="params">(code, indent=<span class="string">''</span>)</span>:</span>  </div><div class="line">    old_indent = indent  </div><div class="line">    <span class="keyword">print</span> <span class="string">"%s&lt;code&gt;"</span> % indent  </div><div class="line">    indent += <span class="string">'   '</span>  </div><div class="line">    <span class="keyword">print</span> <span class="string">"%s&lt;argcount&gt; %d &lt;/argcount&gt;"</span> % (indent, code.co_argcount)  </div><div class="line">    <span class="keyword">print</span> <span class="string">"%s&lt;nlocals&gt; %d&lt;/nlocals&gt;"</span> % (indent, code.co_nlocals)  </div><div class="line">    <span class="keyword">print</span> <span class="string">"%s&lt;stacksize&gt; %d&lt;/stacksize&gt;"</span> % (indent, code.co_stacksize)  </div><div class="line">    <span class="keyword">print</span> <span class="string">"%s&lt;flags&gt; %04x&lt;/flags&gt;"</span> % (indent, code.co_flags)  </div><div class="line">    show_hex(<span class="string">"code"</span>, code.co_code, indent=indent)  </div><div class="line">    <span class="keyword">print</span> <span class="string">"%s&lt;dis&gt;"</span> % indent  </div><div class="line">    dis.disassemble(code)  </div><div class="line">    <span class="keyword">print</span> <span class="string">"%s&lt;/dis&gt;"</span> % indent  </div><div class="line"></div><div class="line">    <span class="keyword">print</span> <span class="string">"%s&lt;names&gt; %r&lt;/names&gt;"</span> % (indent, code.co_names)  </div><div class="line">    <span class="keyword">print</span> <span class="string">"%s&lt;varnames&gt; %r&lt;/varnames&gt;"</span> % (indent, code.co_varnames)  </div><div class="line">    <span class="keyword">print</span> <span class="string">"%s&lt;freevars&gt; %r&lt;/freevars&gt;"</span> % (indent, code.co_freevars)  </div><div class="line">    <span class="keyword">print</span> <span class="string">"%s&lt;cellvars&gt; %r&lt;/cellvars&gt;"</span> % (indent, code.co_cellvars)  </div><div class="line">    <span class="keyword">print</span> <span class="string">"%s&lt;filename&gt; %r&lt;/filename&gt;"</span> % (indent, code.co_filename)  </div><div class="line">    <span class="keyword">print</span> <span class="string">"%s&lt;name&gt; %r&lt;/name&gt;"</span> % (indent, code.co_name)  </div><div class="line">    <span class="keyword">print</span> <span class="string">"%s&lt;firstlineno&gt; %d&lt;/firstlineno&gt;"</span> % (indent, code.co_firstlineno)  </div><div class="line"></div><div class="line">    <span class="keyword">print</span> <span class="string">"%s&lt;consts&gt;"</span> % indent  </div><div class="line">    <span class="keyword">for</span> const <span class="keyword">in</span> code.co_consts:  </div><div class="line">        <span class="keyword">if</span> type(const) == types.CodeType:  </div><div class="line">            show_code(const, indent+<span class="string">'   '</span>)  </div><div class="line">        <span class="keyword">else</span>:  </div><div class="line">            <span class="keyword">print</span> <span class="string">"   %s%r"</span> % (indent, const)  </div><div class="line">    <span class="keyword">print</span> <span class="string">"%s&lt;/consts&gt;"</span> % indent  </div><div class="line"></div><div class="line">    show_hex(<span class="string">"lnotab"</span>, code.co_lnotab, indent=indent)  </div><div class="line">    <span class="keyword">print</span> <span class="string">"%s&lt;/code&gt;"</span> % old_indent  </div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">show_hex</span><span class="params">(label, h, indent)</span>:</span>  </div><div class="line">    h = h.encode(<span class="string">'hex'</span>)  </div><div class="line">    <span class="keyword">if</span> len(h) &lt; <span class="number">60</span>:  </div><div class="line">        <span class="keyword">print</span> <span class="string">"%s&lt;%s&gt; %s&lt;/%s&gt;"</span> % (indent, label, h,label)  </div><div class="line">    <span class="keyword">else</span>:  </div><div class="line">        <span class="keyword">print</span> <span class="string">"%s&lt;%s&gt;"</span> % (indent, label)  </div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(h), <span class="number">60</span>):  </div><div class="line">            <span class="keyword">print</span> <span class="string">"%s   %s"</span> % (indent, h[i:i+<span class="number">60</span>])  </div><div class="line">        <span class="keyword">print</span> <span class="string">"%s&lt;/%s&gt;"</span> % (indent, label)  </div><div class="line"></div><div class="line">show_file(sys.argv[<span class="number">1</span>])</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">showfile.py test.pyc &gt; test.xml</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> dis, marshal, struct, sys, time, types  </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show_file</span><span class="params">(fname)</span>:</span>  </span><br><span class="line">    f = open(fname, <span class="string">"rb"</span>)  </span><br><span class="line">    magic = f.read(<span class="number">4</span>)  </span><br><span class="line">    moddate = f.read(<span class="number">4</span>)  </span><br><span class="line">    modtime = time.asctime(time.localtime(struct.unpack(<span class="string">'L'</span>, moddate)[<span class="number">0</span>]))  </span><br><span class="line">    <span class="keyword">print</span> <span class="string">"magic %s"</span> % (magic.encode(<span class="string">'hex'</span>))  </span><br><span class="line">    <span class="keyword">print</span> <span class="string">"moddate %s (%s)"</span> % (moddate.encode(<span class="string">'hex'</span>), modtime)  </span><br><span class="line">    code = marshal.load(f)  </span><br><span class="line">    show_code(code)  </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show_code</span><span class="params">(code, indent=<span class="string">''</span>)</span>:</span>  </span><br><span class="line">    old_indent = indent  </span><br><span class="line">    <span class="keyword">print</span> <span class="string">"%s&lt;code&gt;"</span> % indent  </span><br><span class="line">    indent += <span class="string">'   '</span>  </span><br><span class="line">    <span class="keyword">print</span> <span class="string">"%s&lt;argcount&gt; %d &lt;/argcount&gt;"</span> % (indent, code.co_argcount)  </span><br><span class="line">    <span class="keyword">print</span> <span class="string">"%s&lt;nlocals&gt; %d&lt;/nlocals&gt;"</span> % (indent, code.co_nlocals)  </span><br><span class="line">    <span class="keyword">print</span> <span class="string">"%s&lt;stacksize&gt; %d&lt;/stacksize&gt;"</span> % (indent, code.co_stacksize)  </span><br><span class="line">    <span class="keyword">print</span> <span class="string">"%s&lt;flags&gt; %04x&lt;/flags&gt;"</span> % (indent, code.co_flags)  </span><br><span class="line">    show_hex(<span class="string">"code"</span>, code.co_code, indent=indent)  </span><br><span class="line">    <span class="keyword">print</span> <span class="string">"%s&lt;dis&gt;"</span> % indent  </span><br><span class="line">    dis.disassemble(code)  </span><br><span class="line">    <span class="keyword">print</span> <span class="string">"%s&lt;/dis&gt;"</span> % indent  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">print</span> <span class="string">"%s&lt;names&gt; %r&lt;/names&gt;"</span> % (indent, code.co_names)  </span><br><span class="line">    <span class="keyword">print</span> <span class="string">"%s&lt;varnames&gt; %r&lt;/varnames&gt;"</span> % (indent, code.co_varnames)  </span><br><span class="line">    <span class="keyword">print</span> <span class="string">"%s&lt;freevars&gt; %r&lt;/freevars&gt;"</span> % (indent, code.co_freevars)  </span><br><span class="line">    <span class="keyword">print</span> <span class="string">"%s&lt;cellvars&gt; %r&lt;/cellvars&gt;"</span> % (indent, code.co_cellvars)  </span><br><span class="line">    <span class="keyword">print</span> <span class="string">"%s&lt;filename&gt; %r&lt;/filename&gt;"</span> % (indent, code.co_filename)  </span><br><span class="line">    <span class="keyword">print</span> <span class="string">"%s&lt;name&gt; %r&lt;/name&gt;"</span> % (indent, code.co_name)  </span><br><span class="line">    <span class="keyword">print</span> <span class="string">"%s&lt;firstlineno&gt; %d&lt;/firstlineno&gt;"</span> % (indent, code.co_firstlineno)  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">print</span> <span class="string">"%s&lt;consts&gt;"</span> % indent  </span><br><span class="line">    <span class="keyword">for</span> const <span class="keyword">in</span> code.co_consts:  </span><br><span class="line">        <span class="keyword">if</span> type(const) == types.CodeType:  </span><br><span class="line">            show_code(const, indent+<span class="string">'   '</span>)  </span><br><span class="line">        <span class="keyword">else</span>:  </span><br><span class="line">            <span class="keyword">print</span> <span class="string">"   %s%r"</span> % (indent, const)  </span><br><span class="line">    <span class="keyword">print</span> <span class="string">"%s&lt;/consts&gt;"</span> % indent  </span><br><span class="line"></span><br><span class="line">    show_hex(<span class="string">"lnotab"</span>, code.co_lnotab, indent=indent)  </span><br><span class="line">    <span class="keyword">print</span> <span class="string">"%s&lt;/code&gt;"</span> % old_indent  </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show_hex</span><span class="params">(label, h, indent)</span>:</span>  </span><br><span class="line">    h = h.encode(<span class="string">'hex'</span>)  </span><br><span class="line">    <span class="keyword">if</span> len(h) &lt; <span class="number">60</span>:  </span><br><span class="line">        <span class="keyword">print</span> <span class="string">"%s&lt;%s&gt; %s&lt;/%s&gt;"</span> % (indent, label, h,label)  </span><br><span class="line">    <span class="keyword">else</span>:  </span><br><span class="line">        <span class="keyword">print</span> <span class="string">"%s&lt;%s&gt;"</span> % (indent, label)  </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(h), <span class="number">60</span>):  </span><br><span class="line">            <span class="keyword">print</span> <span class="string">"%s   %s"</span> % (indent, h[i:i+<span class="number">60</span>])  </span><br><span class="line">        <span class="keyword">print</span> <span class="string">"%s&lt;/%s&gt;"</span> % (indent, label)  </span><br><span class="line"></span><br><span class="line">show_file(sys.argv[<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">showfile.py test.pyc &gt; test.xml</span><br></pre></td></tr></table></figure>
 <ul>
 <li>test.xml</li>
 </ul>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div></pre></td><td class="code"><pre><div class="line">magic 03f30d0a</div><div class="line">moddate 9c4cdf58 (Sat Apr  1 14:45:48 2017)</div><div class="line"><span class="tag">&lt;<span class="name">code</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">argcount</span>&gt;</span> 0 <span class="tag">&lt;/<span class="name">argcount</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">nlocals</span>&gt;</span> 0<span class="tag">&lt;/<span class="name">nlocals</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">stacksize</span>&gt;</span> 3<span class="tag">&lt;/<span class="name">stacksize</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">flags</span>&gt;</span> 0040<span class="tag">&lt;/<span class="name">flags</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">code</span>&gt;</span></div><div class="line">      6400006401006c00005a00006501005a02006402008400005a0300640300</div><div class="line">      640500640400840000830000595a04006504008300005a05006505006a06</div><div class="line">      008300000164010053</div><div class="line">   <span class="tag">&lt;/<span class="name">code</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">dis</span>&gt;</span></div><div class="line">  1           0 LOAD_CONST               0 (-1)</div><div class="line">              3 LOAD_CONST               1 (None)</div><div class="line">              6 IMPORT_NAME              0 (dis)</div><div class="line">              9 STORE_NAME               0 (dis)</div><div class="line"></div><div class="line">  2          12 LOAD_NAME                1 (True)</div><div class="line">             15 STORE_NAME               2 (myglobal)</div><div class="line"></div><div class="line">  4          18 LOAD_CONST               2 (<span class="tag">&lt;<span class="name">code</span> <span class="attr">object</span> <span class="attr">add</span> <span class="attr">at</span> <span class="attr">0x10e0b7ab0</span>, <span class="attr">file</span> "<span class="attr">test.py</span>", <span class="attr">line</span> <span class="attr">4</span>&gt;</span>)</div><div class="line">             21 MAKE_FUNCTION            0</div><div class="line">             24 STORE_NAME               3 (add)</div><div class="line"></div><div class="line">  9          27 LOAD_CONST               3 ('world')</div><div class="line">             30 LOAD_CONST               5 (())</div><div class="line">             33 LOAD_CONST               4 (<span class="tag">&lt;<span class="name">code</span> <span class="attr">object</span> <span class="attr">world</span> <span class="attr">at</span> <span class="attr">0x10e0b7db0</span>, <span class="attr">file</span> "<span class="attr">test.py</span>", <span class="attr">line</span> <span class="attr">9</span>&gt;</span>)</div><div class="line">             36 MAKE_FUNCTION            0</div><div class="line">             39 CALL_FUNCTION            0</div><div class="line">             42 BUILD_CLASS         </div><div class="line">             43 STORE_NAME               4 (world)</div><div class="line"></div><div class="line"> 15          46 LOAD_NAME                4 (world)</div><div class="line">             49 CALL_FUNCTION            0</div><div class="line">             52 STORE_NAME               5 (w)</div><div class="line"></div><div class="line"> 16          55 LOAD_NAME                5 (w)</div><div class="line">             58 LOAD_ATTR                6 (sayHello)</div><div class="line">             61 CALL_FUNCTION            0</div><div class="line">             64 POP_TOP             </div><div class="line">             65 LOAD_CONST               1 (None)</div><div class="line">             68 RETURN_VALUE        </div><div class="line">   <span class="tag">&lt;/<span class="name">dis</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">names</span>&gt;</span> ('dis', 'True', 'myglobal', 'add', 'world', 'w', 'sayHello')<span class="tag">&lt;/<span class="name">names</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">varnames</span>&gt;</span> ()<span class="tag">&lt;/<span class="name">varnames</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">freevars</span>&gt;</span> ()<span class="tag">&lt;/<span class="name">freevars</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">cellvars</span>&gt;</span> ()<span class="tag">&lt;/<span class="name">cellvars</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">filename</span>&gt;</span> 'test.py'<span class="tag">&lt;/<span class="name">filename</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">name</span>&gt;</span> '<span class="tag">&lt;<span class="name">module</span>&gt;</span>'<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">firstlineno</span>&gt;</span> 1<span class="tag">&lt;/<span class="name">firstlineno</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">consts</span>&gt;</span></div><div class="line">      -1</div><div class="line">      None</div><div class="line">      <span class="tag">&lt;<span class="name">code</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">argcount</span>&gt;</span> 1 <span class="tag">&lt;/<span class="name">argcount</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">nlocals</span>&gt;</span> 2<span class="tag">&lt;/<span class="name">nlocals</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">stacksize</span>&gt;</span> 2<span class="tag">&lt;/<span class="name">stacksize</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">flags</span>&gt;</span> 0043<span class="tag">&lt;/<span class="name">flags</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">code</span>&gt;</span> 6401007d01007c00007c0100377d00007c000053<span class="tag">&lt;/<span class="name">code</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">dis</span>&gt;</span></div><div class="line">  5           0 LOAD_CONST               1 (1)</div><div class="line">              3 STORE_FAST               1 (b)</div><div class="line"></div><div class="line">  6           6 LOAD_FAST                0 (a)</div><div class="line">              9 LOAD_FAST                1 (b)</div><div class="line">             12 INPLACE_ADD         </div><div class="line">             13 STORE_FAST               0 (a)</div><div class="line"></div><div class="line">  7          16 LOAD_FAST                0 (a)</div><div class="line">             19 RETURN_VALUE        </div><div class="line">         <span class="tag">&lt;/<span class="name">dis</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">names</span>&gt;</span> ()<span class="tag">&lt;/<span class="name">names</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">varnames</span>&gt;</span> ('a', 'b')<span class="tag">&lt;/<span class="name">varnames</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">freevars</span>&gt;</span> ()<span class="tag">&lt;/<span class="name">freevars</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">cellvars</span>&gt;</span> ()<span class="tag">&lt;/<span class="name">cellvars</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">filename</span>&gt;</span> 'test.py'<span class="tag">&lt;/<span class="name">filename</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">name</span>&gt;</span> 'add'<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">firstlineno</span>&gt;</span> 4<span class="tag">&lt;/<span class="name">firstlineno</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">consts</span>&gt;</span></div><div class="line">            None</div><div class="line">            1</div><div class="line">         <span class="tag">&lt;/<span class="name">consts</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">lnotab</span>&gt;</span> 000106010a01<span class="tag">&lt;/<span class="name">lnotab</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">code</span>&gt;</span></div><div class="line">      'world'</div><div class="line">      <span class="tag">&lt;<span class="name">code</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">argcount</span>&gt;</span> 0 <span class="tag">&lt;/<span class="name">argcount</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">nlocals</span>&gt;</span> 0<span class="tag">&lt;/<span class="name">nlocals</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">stacksize</span>&gt;</span> 1<span class="tag">&lt;/<span class="name">stacksize</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">flags</span>&gt;</span> 0042<span class="tag">&lt;/<span class="name">flags</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">code</span>&gt;</span> 6500005a01006400008400005a02006401008400005a03005253<span class="tag">&lt;/<span class="name">code</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">dis</span>&gt;</span></div><div class="line">  9           0 LOAD_NAME                0 (__name__)</div><div class="line">              3 STORE_NAME               1 (__module__)</div><div class="line"></div><div class="line"> 10           6 LOAD_CONST               0 (<span class="tag">&lt;<span class="name">code</span> <span class="attr">object</span> <span class="attr">__init__</span> <span class="attr">at</span> <span class="attr">0x10e0b7c30</span>, <span class="attr">file</span> "<span class="attr">test.py</span>", <span class="attr">line</span> <span class="attr">10</span>&gt;</span>)</div><div class="line">              9 MAKE_FUNCTION            0</div><div class="line">             12 STORE_NAME               2 (__init__)</div><div class="line"></div><div class="line"> 12          15 LOAD_CONST               1 (<span class="tag">&lt;<span class="name">code</span> <span class="attr">object</span> <span class="attr">sayHello</span> <span class="attr">at</span> <span class="attr">0x10e0b7d30</span>, <span class="attr">file</span> "<span class="attr">test.py</span>", <span class="attr">line</span> <span class="attr">12</span>&gt;</span>)</div><div class="line">             18 MAKE_FUNCTION            0</div><div class="line">             21 STORE_NAME               3 (sayHello)</div><div class="line">             24 LOAD_LOCALS         </div><div class="line">             25 RETURN_VALUE        </div><div class="line">         <span class="tag">&lt;/<span class="name">dis</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">names</span>&gt;</span> ('__name__', '__module__', '__init__', 'sayHello')<span class="tag">&lt;/<span class="name">names</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">varnames</span>&gt;</span> ()<span class="tag">&lt;/<span class="name">varnames</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">freevars</span>&gt;</span> ()<span class="tag">&lt;/<span class="name">freevars</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">cellvars</span>&gt;</span> ()<span class="tag">&lt;/<span class="name">cellvars</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">filename</span>&gt;</span> 'test.py'<span class="tag">&lt;/<span class="name">filename</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">name</span>&gt;</span> 'world'<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">firstlineno</span>&gt;</span> 9<span class="tag">&lt;/<span class="name">firstlineno</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">consts</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">code</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">argcount</span>&gt;</span> 1 <span class="tag">&lt;/<span class="name">argcount</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">nlocals</span>&gt;</span> 1<span class="tag">&lt;/<span class="name">nlocals</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">stacksize</span>&gt;</span> 1<span class="tag">&lt;/<span class="name">stacksize</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">flags</span>&gt;</span> 0043<span class="tag">&lt;/<span class="name">flags</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">code</span>&gt;</span> 64000053<span class="tag">&lt;/<span class="name">code</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">dis</span>&gt;</span></div><div class="line"> 11           0 LOAD_CONST               0 (None)</div><div class="line">              3 RETURN_VALUE        </div><div class="line">               <span class="tag">&lt;/<span class="name">dis</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">names</span>&gt;</span> ()<span class="tag">&lt;/<span class="name">names</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">varnames</span>&gt;</span> ('self',)<span class="tag">&lt;/<span class="name">varnames</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">freevars</span>&gt;</span> ()<span class="tag">&lt;/<span class="name">freevars</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">cellvars</span>&gt;</span> ()<span class="tag">&lt;/<span class="name">cellvars</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">filename</span>&gt;</span> 'test.py'<span class="tag">&lt;/<span class="name">filename</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">name</span>&gt;</span> '__init__'<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">firstlineno</span>&gt;</span> 10<span class="tag">&lt;/<span class="name">firstlineno</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">consts</span>&gt;</span></div><div class="line">                  None</div><div class="line">               <span class="tag">&lt;/<span class="name">consts</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">lnotab</span>&gt;</span> 0001<span class="tag">&lt;/<span class="name">lnotab</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">code</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">code</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">argcount</span>&gt;</span> 1 <span class="tag">&lt;/<span class="name">argcount</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">nlocals</span>&gt;</span> 1<span class="tag">&lt;/<span class="name">nlocals</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">stacksize</span>&gt;</span> 1<span class="tag">&lt;/<span class="name">stacksize</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">flags</span>&gt;</span> 0043<span class="tag">&lt;/<span class="name">flags</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">code</span>&gt;</span> 640100474864000053<span class="tag">&lt;/<span class="name">code</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">dis</span>&gt;</span></div><div class="line"> 13           0 LOAD_CONST               1 ('hello,world')</div><div class="line">              3 PRINT_ITEM          </div><div class="line">              4 PRINT_NEWLINE       </div><div class="line">              5 LOAD_CONST               0 (None)</div><div class="line">              8 RETURN_VALUE        </div><div class="line">               <span class="tag">&lt;/<span class="name">dis</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">names</span>&gt;</span> ()<span class="tag">&lt;/<span class="name">names</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">varnames</span>&gt;</span> ('self',)<span class="tag">&lt;/<span class="name">varnames</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">freevars</span>&gt;</span> ()<span class="tag">&lt;/<span class="name">freevars</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">cellvars</span>&gt;</span> ()<span class="tag">&lt;/<span class="name">cellvars</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">filename</span>&gt;</span> 'test.py'<span class="tag">&lt;/<span class="name">filename</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">name</span>&gt;</span> 'sayHello'<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">firstlineno</span>&gt;</span> 12<span class="tag">&lt;/<span class="name">firstlineno</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">consts</span>&gt;</span></div><div class="line">                  None</div><div class="line">                  'hello,world'</div><div class="line">               <span class="tag">&lt;/<span class="name">consts</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">lnotab</span>&gt;</span> 0001<span class="tag">&lt;/<span class="name">lnotab</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">code</span>&gt;</span></div><div class="line">         <span class="tag">&lt;/<span class="name">consts</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">lnotab</span>&gt;</span> 06010902<span class="tag">&lt;/<span class="name">lnotab</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">code</span>&gt;</span></div><div class="line">      ()</div><div class="line">   <span class="tag">&lt;/<span class="name">consts</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">lnotab</span>&gt;</span> 0c010602090513060901<span class="tag">&lt;/<span class="name">lnotab</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">code</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br></pre></td><td class="code"><pre><span class="line">magic 03f30d0a</span><br><span class="line">moddate 9c4cdf58 (Sat Apr  1 14:45:48 2017)</span><br><span class="line"><span class="tag">&lt;<span class="name">code</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">argcount</span>&gt;</span> 0 <span class="tag">&lt;/<span class="name">argcount</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">nlocals</span>&gt;</span> 0<span class="tag">&lt;/<span class="name">nlocals</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">stacksize</span>&gt;</span> 3<span class="tag">&lt;/<span class="name">stacksize</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">flags</span>&gt;</span> 0040<span class="tag">&lt;/<span class="name">flags</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">code</span>&gt;</span></span><br><span class="line">      6400006401006c00005a00006501005a02006402008400005a0300640300</span><br><span class="line">      640500640400840000830000595a04006504008300005a05006505006a06</span><br><span class="line">      008300000164010053</span><br><span class="line">   <span class="tag">&lt;/<span class="name">code</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">dis</span>&gt;</span></span><br><span class="line">  1           0 LOAD_CONST               0 (-1)</span><br><span class="line">              3 LOAD_CONST               1 (None)</span><br><span class="line">              6 IMPORT_NAME              0 (dis)</span><br><span class="line">              9 STORE_NAME               0 (dis)</span><br><span class="line"></span><br><span class="line">  2          12 LOAD_NAME                1 (True)</span><br><span class="line">             15 STORE_NAME               2 (myglobal)</span><br><span class="line"></span><br><span class="line">  4          18 LOAD_CONST               2 (<span class="tag">&lt;<span class="name">code</span> <span class="attr">object</span> <span class="attr">add</span> <span class="attr">at</span> <span class="attr">0x10e0b7ab0</span>, <span class="attr">file</span> "<span class="attr">test.py</span>", <span class="attr">line</span> <span class="attr">4</span>&gt;</span>)</span><br><span class="line">             21 MAKE_FUNCTION            0</span><br><span class="line">             24 STORE_NAME               3 (add)</span><br><span class="line"></span><br><span class="line">  9          27 LOAD_CONST               3 ('world')</span><br><span class="line">             30 LOAD_CONST               5 (())</span><br><span class="line">             33 LOAD_CONST               4 (<span class="tag">&lt;<span class="name">code</span> <span class="attr">object</span> <span class="attr">world</span> <span class="attr">at</span> <span class="attr">0x10e0b7db0</span>, <span class="attr">file</span> "<span class="attr">test.py</span>", <span class="attr">line</span> <span class="attr">9</span>&gt;</span>)</span><br><span class="line">             36 MAKE_FUNCTION            0</span><br><span class="line">             39 CALL_FUNCTION            0</span><br><span class="line">             42 BUILD_CLASS         </span><br><span class="line">             43 STORE_NAME               4 (world)</span><br><span class="line"></span><br><span class="line"> 15          46 LOAD_NAME                4 (world)</span><br><span class="line">             49 CALL_FUNCTION            0</span><br><span class="line">             52 STORE_NAME               5 (w)</span><br><span class="line"></span><br><span class="line"> 16          55 LOAD_NAME                5 (w)</span><br><span class="line">             58 LOAD_ATTR                6 (sayHello)</span><br><span class="line">             61 CALL_FUNCTION            0</span><br><span class="line">             64 POP_TOP             </span><br><span class="line">             65 LOAD_CONST               1 (None)</span><br><span class="line">             68 RETURN_VALUE        </span><br><span class="line">   <span class="tag">&lt;/<span class="name">dis</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">names</span>&gt;</span> ('dis', 'True', 'myglobal', 'add', 'world', 'w', 'sayHello')<span class="tag">&lt;/<span class="name">names</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">varnames</span>&gt;</span> ()<span class="tag">&lt;/<span class="name">varnames</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">freevars</span>&gt;</span> ()<span class="tag">&lt;/<span class="name">freevars</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">cellvars</span>&gt;</span> ()<span class="tag">&lt;/<span class="name">cellvars</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">filename</span>&gt;</span> 'test.py'<span class="tag">&lt;/<span class="name">filename</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">name</span>&gt;</span> '<span class="tag">&lt;<span class="name">module</span>&gt;</span>'<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">firstlineno</span>&gt;</span> 1<span class="tag">&lt;/<span class="name">firstlineno</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">consts</span>&gt;</span></span><br><span class="line">      -1</span><br><span class="line">      None</span><br><span class="line">      <span class="tag">&lt;<span class="name">code</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">argcount</span>&gt;</span> 1 <span class="tag">&lt;/<span class="name">argcount</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">nlocals</span>&gt;</span> 2<span class="tag">&lt;/<span class="name">nlocals</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">stacksize</span>&gt;</span> 2<span class="tag">&lt;/<span class="name">stacksize</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">flags</span>&gt;</span> 0043<span class="tag">&lt;/<span class="name">flags</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">code</span>&gt;</span> 6401007d01007c00007c0100377d00007c000053<span class="tag">&lt;/<span class="name">code</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">dis</span>&gt;</span></span><br><span class="line">  5           0 LOAD_CONST               1 (1)</span><br><span class="line">              3 STORE_FAST               1 (b)</span><br><span class="line"></span><br><span class="line">  6           6 LOAD_FAST                0 (a)</span><br><span class="line">              9 LOAD_FAST                1 (b)</span><br><span class="line">             12 INPLACE_ADD         </span><br><span class="line">             13 STORE_FAST               0 (a)</span><br><span class="line"></span><br><span class="line">  7          16 LOAD_FAST                0 (a)</span><br><span class="line">             19 RETURN_VALUE        </span><br><span class="line">         <span class="tag">&lt;/<span class="name">dis</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">names</span>&gt;</span> ()<span class="tag">&lt;/<span class="name">names</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">varnames</span>&gt;</span> ('a', 'b')<span class="tag">&lt;/<span class="name">varnames</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">freevars</span>&gt;</span> ()<span class="tag">&lt;/<span class="name">freevars</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">cellvars</span>&gt;</span> ()<span class="tag">&lt;/<span class="name">cellvars</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">filename</span>&gt;</span> 'test.py'<span class="tag">&lt;/<span class="name">filename</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">name</span>&gt;</span> 'add'<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">firstlineno</span>&gt;</span> 4<span class="tag">&lt;/<span class="name">firstlineno</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">consts</span>&gt;</span></span><br><span class="line">            None</span><br><span class="line">            1</span><br><span class="line">         <span class="tag">&lt;/<span class="name">consts</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">lnotab</span>&gt;</span> 000106010a01<span class="tag">&lt;/<span class="name">lnotab</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">code</span>&gt;</span></span><br><span class="line">      'world'</span><br><span class="line">      <span class="tag">&lt;<span class="name">code</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">argcount</span>&gt;</span> 0 <span class="tag">&lt;/<span class="name">argcount</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">nlocals</span>&gt;</span> 0<span class="tag">&lt;/<span class="name">nlocals</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">stacksize</span>&gt;</span> 1<span class="tag">&lt;/<span class="name">stacksize</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">flags</span>&gt;</span> 0042<span class="tag">&lt;/<span class="name">flags</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">code</span>&gt;</span> 6500005a01006400008400005a02006401008400005a03005253<span class="tag">&lt;/<span class="name">code</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">dis</span>&gt;</span></span><br><span class="line">  9           0 LOAD_NAME                0 (__name__)</span><br><span class="line">              3 STORE_NAME               1 (__module__)</span><br><span class="line"></span><br><span class="line"> 10           6 LOAD_CONST               0 (<span class="tag">&lt;<span class="name">code</span> <span class="attr">object</span> <span class="attr">__init__</span> <span class="attr">at</span> <span class="attr">0x10e0b7c30</span>, <span class="attr">file</span> "<span class="attr">test.py</span>", <span class="attr">line</span> <span class="attr">10</span>&gt;</span>)</span><br><span class="line">              9 MAKE_FUNCTION            0</span><br><span class="line">             12 STORE_NAME               2 (__init__)</span><br><span class="line"></span><br><span class="line"> 12          15 LOAD_CONST               1 (<span class="tag">&lt;<span class="name">code</span> <span class="attr">object</span> <span class="attr">sayHello</span> <span class="attr">at</span> <span class="attr">0x10e0b7d30</span>, <span class="attr">file</span> "<span class="attr">test.py</span>", <span class="attr">line</span> <span class="attr">12</span>&gt;</span>)</span><br><span class="line">             18 MAKE_FUNCTION            0</span><br><span class="line">             21 STORE_NAME               3 (sayHello)</span><br><span class="line">             24 LOAD_LOCALS         </span><br><span class="line">             25 RETURN_VALUE        </span><br><span class="line">         <span class="tag">&lt;/<span class="name">dis</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">names</span>&gt;</span> ('__name__', '__module__', '__init__', 'sayHello')<span class="tag">&lt;/<span class="name">names</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">varnames</span>&gt;</span> ()<span class="tag">&lt;/<span class="name">varnames</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">freevars</span>&gt;</span> ()<span class="tag">&lt;/<span class="name">freevars</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">cellvars</span>&gt;</span> ()<span class="tag">&lt;/<span class="name">cellvars</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">filename</span>&gt;</span> 'test.py'<span class="tag">&lt;/<span class="name">filename</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">name</span>&gt;</span> 'world'<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">firstlineno</span>&gt;</span> 9<span class="tag">&lt;/<span class="name">firstlineno</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">consts</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">code</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">argcount</span>&gt;</span> 1 <span class="tag">&lt;/<span class="name">argcount</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">nlocals</span>&gt;</span> 1<span class="tag">&lt;/<span class="name">nlocals</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">stacksize</span>&gt;</span> 1<span class="tag">&lt;/<span class="name">stacksize</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">flags</span>&gt;</span> 0043<span class="tag">&lt;/<span class="name">flags</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">code</span>&gt;</span> 64000053<span class="tag">&lt;/<span class="name">code</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">dis</span>&gt;</span></span><br><span class="line"> 11           0 LOAD_CONST               0 (None)</span><br><span class="line">              3 RETURN_VALUE        </span><br><span class="line">               <span class="tag">&lt;/<span class="name">dis</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">names</span>&gt;</span> ()<span class="tag">&lt;/<span class="name">names</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">varnames</span>&gt;</span> ('self',)<span class="tag">&lt;/<span class="name">varnames</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">freevars</span>&gt;</span> ()<span class="tag">&lt;/<span class="name">freevars</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">cellvars</span>&gt;</span> ()<span class="tag">&lt;/<span class="name">cellvars</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">filename</span>&gt;</span> 'test.py'<span class="tag">&lt;/<span class="name">filename</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">name</span>&gt;</span> '__init__'<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">firstlineno</span>&gt;</span> 10<span class="tag">&lt;/<span class="name">firstlineno</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">consts</span>&gt;</span></span><br><span class="line">                  None</span><br><span class="line">               <span class="tag">&lt;/<span class="name">consts</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">lnotab</span>&gt;</span> 0001<span class="tag">&lt;/<span class="name">lnotab</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">code</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">code</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">argcount</span>&gt;</span> 1 <span class="tag">&lt;/<span class="name">argcount</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">nlocals</span>&gt;</span> 1<span class="tag">&lt;/<span class="name">nlocals</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">stacksize</span>&gt;</span> 1<span class="tag">&lt;/<span class="name">stacksize</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">flags</span>&gt;</span> 0043<span class="tag">&lt;/<span class="name">flags</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">code</span>&gt;</span> 640100474864000053<span class="tag">&lt;/<span class="name">code</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">dis</span>&gt;</span></span><br><span class="line"> 13           0 LOAD_CONST               1 ('hello,world')</span><br><span class="line">              3 PRINT_ITEM          </span><br><span class="line">              4 PRINT_NEWLINE       </span><br><span class="line">              5 LOAD_CONST               0 (None)</span><br><span class="line">              8 RETURN_VALUE        </span><br><span class="line">               <span class="tag">&lt;/<span class="name">dis</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">names</span>&gt;</span> ()<span class="tag">&lt;/<span class="name">names</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">varnames</span>&gt;</span> ('self',)<span class="tag">&lt;/<span class="name">varnames</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">freevars</span>&gt;</span> ()<span class="tag">&lt;/<span class="name">freevars</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">cellvars</span>&gt;</span> ()<span class="tag">&lt;/<span class="name">cellvars</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">filename</span>&gt;</span> 'test.py'<span class="tag">&lt;/<span class="name">filename</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">name</span>&gt;</span> 'sayHello'<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">firstlineno</span>&gt;</span> 12<span class="tag">&lt;/<span class="name">firstlineno</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">consts</span>&gt;</span></span><br><span class="line">                  None</span><br><span class="line">                  'hello,world'</span><br><span class="line">               <span class="tag">&lt;/<span class="name">consts</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">lnotab</span>&gt;</span> 0001<span class="tag">&lt;/<span class="name">lnotab</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">code</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;/<span class="name">consts</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">lnotab</span>&gt;</span> 06010902<span class="tag">&lt;/<span class="name">lnotab</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">code</span>&gt;</span></span><br><span class="line">      ()</span><br><span class="line">   <span class="tag">&lt;/<span class="name">consts</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">lnotab</span>&gt;</span> 0c010602090513060901<span class="tag">&lt;/<span class="name">lnotab</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">code</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>可以看到，整个test.pyc就是一个嵌套的PyCodeObject结构的组合，对于每个函数，或者类的方法，都会生成一个对应的PyCodeObject结构，并且模块还会生成额外的一个PyCodeObject结构,pyc文件中一共保存了5个PyCodeObject结构：</p>
 <ul>
 <li>最外层的为模块test的PyCodeObject，其中的代码在import或者直接运行时会得到执行。</li>
 <li>在module的PyCodeObject中嵌套了add函数的PyCodeObject结构以及world类的PyCodeObject结构。</li>
 <li>在world类的PyCodeObject结构中，又嵌套了<strong>init</strong>方法和sayHello方法的PyCodeObject结构。</li>
 </ul>
-<h3 id="解析部分产生的opcode"><a href="#解析部分产生的opcode" class="headerlink" title="解析部分产生的opcode"></a>解析部分产生的opcode</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">1           0 LOAD_CONST               0 (-1) #加载consts数组中索引为0处的值，这里为数值-1  </div><div class="line">             3 LOAD_CONST               1 (None) #加载consts数组中索引为1处的值，这里为None  </div><div class="line"></div><div class="line"></div><div class="line">             6 IMPORT_NAME              0 (dis) #加载dis模块：names[0]即为&quot;dis&quot;  </div><div class="line">             9 STORE_NAME               0 (dis) #将模块保存到一个dict中，这个dict专门用来保存局部变量的值，key为names[0],即&quot;dis&quot;  </div><div class="line"></div><div class="line"></div><div class="line"> 2          12 LOAD_NAME                1 (True) #将names[1]，即True压栈。  </div><div class="line">            15 STORE_NAME               2 (myglobal) #将栈顶的元素，即True保存到locals[&apos;myglobal&apos;]中,names[2]即为字符串&apos;myglobal&apos;  </div><div class="line"></div><div class="line"></div><div class="line"> 4          18 LOAD_CONST               2 (&lt;code object add at 024E3B60, file &quot;test.py&quot;, line 4&gt;) #将consts[2]，即add函数的PyCodeObject压栈。  </div><div class="line">            21 MAKE_FUNCTION            0 #通过add函数的PyCodeObject创建一个函数，并压入栈顶。  </div><div class="line">            24 STORE_NAME               3 (add) #将创建的函数出栈并保存到locals[&apos;add&apos;]中  </div><div class="line"></div><div class="line"></div><div class="line"> 9          27 LOAD_CONST               3 (&apos;world&apos;) #consts[3],即&quot;world&quot;入栈  </div><div class="line">            30 LOAD_CONST               5 (()) #consts[5],即空数组入栈  </div><div class="line">            33 LOAD_CONST               4 (&lt;code object world at 024E3650, file &quot;test.py&quot;, line 9&gt;) #将consts[4]，即world的PyCodeObject入栈。  </div><div class="line">            36 MAKE_FUNCTION            0 #创建函数  </div><div class="line">            39 CALL_FUNCTION            0 #调用刚创建的函数，用于初始化类，会返回一个dict到栈顶，这个dict中保存了类的方法以及一些全局变量，  </div><div class="line">                                        #具体的实现要看world类的PyCodeObject中的opcode  </div><div class="line">            42 BUILD_CLASS               #创建类，注意BUILD_CLASS会用到栈中的三个对象，这里分别为：保存在dict中的类的信息，基类数组，这里为空数组(),类的名称：&quot;world&quot;  </div><div class="line">            43 STORE_NAME               4 (world) #将类保存到locals[&apos;world&apos;]中  </div><div class="line"></div><div class="line"></div><div class="line">15          46 LOAD_NAME                4 (world)  </div><div class="line">            49 CALL_FUNCTION            0  </div><div class="line">            52 STORE_NAME               5 (w)  </div><div class="line">#以上三行代码创建一个world对象  </div><div class="line">16          55 LOAD_NAME                5 (w)  </div><div class="line">            58 LOAD_ATTR                6 (sayHello)  </div><div class="line">            61 CALL_FUNCTION            0  </div><div class="line">#以上三行代码调用w.sayHello()  </div><div class="line">            64 POP_TOP               </div><div class="line">            65 LOAD_CONST               1 (None)  </div><div class="line">            68 RETURN_VALUE</div></pre></td></tr></table></figure>
+<h3 id="解析部分产生的opcode"><a href="#解析部分产生的opcode" class="headerlink" title="解析部分产生的opcode"></a>解析部分产生的opcode</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">1           0 LOAD_CONST               0 (-1) #加载consts数组中索引为0处的值，这里为数值-1  </span><br><span class="line">             3 LOAD_CONST               1 (None) #加载consts数组中索引为1处的值，这里为None  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">             6 IMPORT_NAME              0 (dis) #加载dis模块：names[0]即为&quot;dis&quot;  </span><br><span class="line">             9 STORE_NAME               0 (dis) #将模块保存到一个dict中，这个dict专门用来保存局部变量的值，key为names[0],即&quot;dis&quot;  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> 2          12 LOAD_NAME                1 (True) #将names[1]，即True压栈。  </span><br><span class="line">            15 STORE_NAME               2 (myglobal) #将栈顶的元素，即True保存到locals[&apos;myglobal&apos;]中,names[2]即为字符串&apos;myglobal&apos;  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> 4          18 LOAD_CONST               2 (&lt;code object add at 024E3B60, file &quot;test.py&quot;, line 4&gt;) #将consts[2]，即add函数的PyCodeObject压栈。  </span><br><span class="line">            21 MAKE_FUNCTION            0 #通过add函数的PyCodeObject创建一个函数，并压入栈顶。  </span><br><span class="line">            24 STORE_NAME               3 (add) #将创建的函数出栈并保存到locals[&apos;add&apos;]中  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> 9          27 LOAD_CONST               3 (&apos;world&apos;) #consts[3],即&quot;world&quot;入栈  </span><br><span class="line">            30 LOAD_CONST               5 (()) #consts[5],即空数组入栈  </span><br><span class="line">            33 LOAD_CONST               4 (&lt;code object world at 024E3650, file &quot;test.py&quot;, line 9&gt;) #将consts[4]，即world的PyCodeObject入栈。  </span><br><span class="line">            36 MAKE_FUNCTION            0 #创建函数  </span><br><span class="line">            39 CALL_FUNCTION            0 #调用刚创建的函数，用于初始化类，会返回一个dict到栈顶，这个dict中保存了类的方法以及一些全局变量，  </span><br><span class="line">                                        #具体的实现要看world类的PyCodeObject中的opcode  </span><br><span class="line">            42 BUILD_CLASS               #创建类，注意BUILD_CLASS会用到栈中的三个对象，这里分别为：保存在dict中的类的信息，基类数组，这里为空数组(),类的名称：&quot;world&quot;  </span><br><span class="line">            43 STORE_NAME               4 (world) #将类保存到locals[&apos;world&apos;]中  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">15          46 LOAD_NAME                4 (world)  </span><br><span class="line">            49 CALL_FUNCTION            0  </span><br><span class="line">            52 STORE_NAME               5 (w)  </span><br><span class="line">#以上三行代码创建一个world对象  </span><br><span class="line">16          55 LOAD_NAME                5 (w)  </span><br><span class="line">            58 LOAD_ATTR                6 (sayHello)  </span><br><span class="line">            61 CALL_FUNCTION            0  </span><br><span class="line">#以上三行代码调用w.sayHello()  </span><br><span class="line">            64 POP_TOP               </span><br><span class="line">            65 LOAD_CONST               1 (None)  </span><br><span class="line">            68 RETURN_VALUE</span><br></pre></td></tr></table></figure>
 
       
     </div>
+    
+    
+    
 
-    <div>
-      
-        
+    
 
-      
-    </div>
+    
 
-    <div>
-      
-        
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Ethan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://www.beesfun.com/2017/04/01/PyCodeObject和opcode/" title="PyCodeObject和opcode">http://www.beesfun.com/2017/04/01/PyCodeObject和opcode/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
 
-      
-    </div>
-
+      </div>
+    
 
     <footer class="post-footer">
       
@@ -486,7 +508,7 @@
       
 
       
-        
+      
       
 
       
@@ -514,6 +536,10 @@
       
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -523,15 +549,22 @@
     </div>
   </div>
 
-          
+
           </div>
           
 
 
           
-  <div class="comments" id="comments">
-    
-  </div>
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
 
 
         </div>
@@ -547,110 +580,116 @@
   </div>
 
   <aside id="sidebar" class="sidebar">
+    
     <div class="sidebar-inner">
 
       
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
             站点概览
           </li>
         </ul>
       
 
-      <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="https://avatars3.githubusercontent.com/u/15061633"
-               alt="Ethan" />
-          <p class="site-author-name" itemprop="name">Ethan</p>
-           
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://avatars3.githubusercontent.com/u/15061633"
+                alt="Ethan" />
+            
+              <p class="site-author-name" itemprop="name">Ethan</p>
               <p class="site-description motion-element" itemprop="description">personal blog :)</p>
-          
-        </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">46</span>
-                <span class="site-state-item-name">日志</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-categories">
-              <a href="/categories/index.html">
-                <span class="site-state-item-count">14</span>
-                <span class="site-state-item-name">分类</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">56</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-            
-              <span class="links-of-author-item">
-                <a href="https://github.com/hxer/" target="_blank" title="GitHub">
-                  
-                    <i class="fa fa-fw fa-github"></i>
-                  
-                  GitHub
-                </a>
-              </span>
-            
-          
-        </div>
-
-        
-        
-
-        
-        
-          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
-            <div class="links-of-blogroll-title">
-              <i class="fa  fa-fw fa-globe"></i>
-              友链
-            </div>
-            <ul class="links-of-blogroll-list">
-              
-                <li class="links-of-blogroll-item">
-                  <a href="http://www.wupco.cn" title="wupco" target="_blank">wupco</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://danaive.github.io" title="danlei" target="_blank">danlei</a>
-                </li>
-              
-            </ul>
           </div>
-        
 
-        
+          <nav class="site-state motion-element">
 
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/hxer/" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友链
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://badcode.cc/" title="badcode" target="_blank">badcode</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.wupco.cn" title="wupco" target="_blank">wupco</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://danaive.github.io" title="danlei" target="_blank">danlei</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
       </section>
 
       
@@ -683,30 +722,45 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy;  2017 - 
-  <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Ethan</span>
+
+  
 </div>
 
 
-<div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
-</div>
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
-  </a>
-</div>
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
 
 
         
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=63078337";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
 
         
       </div>
@@ -718,7 +772,9 @@
         
       </div>
     
+
     
+
   </div>
 
   
@@ -742,59 +798,78 @@
 
 
 
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
-  
 
 
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
 
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
 
 
 
   
   
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
 
 
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+  
 
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
 
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
 
 
 
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
 
 
 
   
-
 
 
   
@@ -820,161 +895,371 @@
 
 
 
-  
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'hxer',
+            repo: 'hxer.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '7147116f4ae9df31961313af13fad164bdbf0fe3',
+            
+                client_id: 'ac1236f9efefa7d5580f'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
 
 
 
+
+
+
+
   
-  
+
   <script type="text/javascript">
     // Popup Window;
     var isfetched = false;
+    var isXml = true;
     // Search DB path;
     var search_path = "search.xml";
-    if (search_path.length == 0) {
+    if (search_path.length === 0) {
       search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
     }
     var path = "/" + search_path;
     // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
 
     function proceedsearch() {
       $("body")
         .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
         .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
       $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
     }
+
     // search function;
     var searchFunc = function(path, search_id, content_id) {
       'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
       $.ajax({
         url: path,
-        dataType: "xml",
+        dataType: isXml ? "xml" : "json",
         async: true,
-        success: function( xmlResponse ) {
+        success: function(res) {
           // get the contents from search data
           isfetched = true;
           $('.popup').detach().appendTo('.header-inner');
-          var datas = $( "entry", xmlResponse ).map(function() {
+          var datas = isXml ? $("entry", res).map(function() {
             return {
-              title: $( "title", this ).text(),
+              title: $("title", this).text(),
               content: $("content",this).text(),
-              url: $( "url" , this).text()
+              url: $("url" , this).text()
             };
-          }).get();
-          var $input = document.getElementById(search_id);
-          var $resultContent = document.getElementById(content_id);
-          $input.addEventListener('input', function(){
-            var matchcounts = 0;
-            var str='<ul class=\"search-result-list\">';
-            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
-            $resultContent.innerHTML = "";
-            if (this.value.trim().length > 1) {
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
               // perform local searching
               datas.forEach(function(data) {
                 var isMatch = false;
-                var content_index = [];
-                var data_title = data.title.trim().toLowerCase();
-                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
-                var data_url = decodeURIComponent(data.url);
-                var index_title = -1;
-                var index_content = -1;
-                var first_occur = -1;
-                // only match artiles with not empty titles and contents
-                if(data_title != '') {
-                  keywords.forEach(function(keyword, i) {
-                    index_title = data_title.indexOf(keyword);
-                    index_content = data_content.indexOf(keyword);
-                    if( index_title >= 0 || index_content >= 0 ){
-                      isMatch = true;
-                      if (i == 0) {
-                        first_occur = index_content;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
                       }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
                     }
 
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
                   });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
                 }
+
                 // show search results
+
                 if (isMatch) {
-                  matchcounts += 1;
-                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
-                  var content = data.content.trim().replace(/<[^>]+>/g,"");
-                  if (first_occur >= 0) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
                     // cut out 100 characters
-                    var start = first_occur - 20;
-                    var end = first_occur + 80;
+                    var start = position - 20;
+                    var end = position + 80;
                     if(start < 0){
                       start = 0;
                     }
-                    if(start == 0){
-                      end = 50;
+                    if (end < position + word.length) {
+                      end = position + word.length;
                     }
                     if(end > content.length){
                       end = content.length;
                     }
-                    var match_content = content.substring(start, end);
-                    // highlight all keywords
-                    keywords.forEach(function(keyword){
-                      var regS = new RegExp(keyword, "gi");
-                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
-                    });
-
-                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
                   }
-                  str += "</li>";
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
                 }
-              })};
-            str += "</ul>";
-            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
-            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
-            $resultContent.innerHTML = str;
-          });
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
           proceedsearch();
         }
-      });}
+      });
+    }
 
     // handle and trigger popup window;
     $('.popup-trigger').click(function(e) {
       e.stopPropagation();
-      if (isfetched == false) {
+      if (isfetched === false) {
         searchFunc(path, 'local-search-input', 'local-search-result');
       } else {
         proceedsearch();
       };
     });
 
-    $('.popup-btn-close').click(function(e){
-      $('.popup').hide();
-      $(".local-search-pop-overlay").remove();
-      $('body').css('overflow', '');
-    });
+    $('.popup-btn-close').click(onPopupClose);
     $('.popup').click(function(e){
       e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
     });
   </script>
 
 
-  
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
 
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-  
 
 
   
@@ -983,6 +1268,12 @@
 
   
 
+  
+  
+
+  
+
+  
 
   
 

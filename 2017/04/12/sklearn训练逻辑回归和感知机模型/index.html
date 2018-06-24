@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 
 
 
@@ -10,11 +10,19 @@
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
 
 
 
 <meta http-equiv="Cache-Control" content="no-transform" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
+
 
 
 
@@ -68,7 +76,18 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+
+
 
 
   <meta name="keywords" content="感知机,逻辑回归,sklearn," />
@@ -76,11 +95,6 @@
 
 
 
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/ico/favicon.ico?v=5.1.0" />
 
 
 
@@ -107,11 +121,13 @@
   var CONFIG = {
     root: '/',
     scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
-    motion: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     duoshuo: {
-      userId: 'undefined',
+      userId: '0',
       author: '博主'
     },
     algolia: {
@@ -132,11 +148,7 @@
 
 
 
-  <title> sklearn训练逻辑回归和感知机模型 | Ethan' Blog </title>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
+  <title>sklearn训练逻辑回归和感知机模型 | Ethan' Blog</title>
   
 
 
@@ -145,28 +157,17 @@
 
 
 
-  <script type="text/javascript">
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "//tajs.qq.com/stats?sId=63078337";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
 
+</head>
 
-
-
-
-
-
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -213,7 +214,7 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
+          <a href="/archives/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
@@ -223,7 +224,7 @@
       
         
         <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
+          <a href="/categories/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
             
@@ -233,7 +234,7 @@
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
+          <a href="/tags/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
@@ -243,7 +244,7 @@
       
         
         <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
+          <a href="/about/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
@@ -279,7 +280,7 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+      <input autocomplete="off"
              placeholder="搜索..." spellcheck="false"
              type="text" id="local-search-input">
     </div>
@@ -313,7 +314,11 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.beesfun.com/2017/04/12/sklearn训练逻辑回归和感知机模型/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -331,14 +336,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                sklearn训练逻辑回归和感知机模型
-              
-            
-          </h1>
+          <h1 class="post-title" itemprop="name headline">sklearn训练逻辑回归和感知机模型</h1>
         
 
         <div class="post-meta">
@@ -386,6 +384,16 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/04/12/sklearn训练逻辑回归和感知机模型/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2017/04/12/sklearn训练逻辑回归和感知机模型/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -401,7 +409,9 @@
       </header>
     
 
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -409,25 +419,37 @@
 
       
         <p>调用sklearn内置的逻辑回归和感知机训练鸢尾花（Iris）数据集。<br><a id="more"></a></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># -*- coding: utf-8 -*-</span></div><div class="line"><span class="comment"># author: janes</span></div><div class="line"><span class="comment"># date: 2017年4月11日 18:30</span></div><div class="line"></div><div class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</div><div class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</div><div class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler</div><div class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> Perceptron</div><div class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</div><div class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score</div><div class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</div><div class="line"><span class="keyword">from</span> matplotlib.colors <span class="keyword">import</span> ListedColormap</div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">plot_decision_regions</span><span class="params">(X, y, classifier, test_idx=None, resolution=<span class="number">0.02</span>)</span>:</span></div><div class="line">    <span class="comment"># setup marker generator and color map</span></div><div class="line">    markers = (<span class="string">'s'</span>, <span class="string">'x'</span>, <span class="string">'o'</span>, <span class="string">'^'</span>, <span class="string">'v'</span>)</div><div class="line">    colors = (<span class="string">'red'</span>, <span class="string">'blue'</span>, <span class="string">'lightgreen'</span>, <span class="string">'gray'</span>, <span class="string">'cyan'</span>)</div><div class="line">    cmap = ListedColormap(colors[:len(np.unique(y))])</div><div class="line">    <span class="comment"># plot the decision surface</span></div><div class="line">    x1_min, x1_max = X[:, <span class="number">0</span>].min() - <span class="number">1</span>, X[:, <span class="number">0</span>].max() + <span class="number">1</span></div><div class="line">    x2_min, x2_max = X[:, <span class="number">1</span>].min() - <span class="number">1</span>, X[:, <span class="number">1</span>].max() + <span class="number">1</span></div><div class="line">    xx1, xx2 = np.meshgrid(np.arange(x1_min, x1_max, resolution),</div><div class="line">                           np.arange(x2_min, x2_max, resolution))</div><div class="line">    Z = classifier.predict(np.array([xx1.ravel(), xx2.ravel()]).T)</div><div class="line">    Z = Z.reshape(xx1.shape)</div><div class="line">    plt.contourf(xx1, xx2, Z, alpha=<span class="number">0.4</span>, cmap=cmap)</div><div class="line">    plt.xlim(xx1.min(), xx1.max())</div><div class="line">    plt.ylim(xx2.min(), xx2.max())</div><div class="line">    <span class="comment"># plot class samples</span></div><div class="line">    <span class="keyword">for</span> idx, cl <span class="keyword">in</span> enumerate(np.unique(y)):</div><div class="line">        plt.scatter(x=X[y == cl, <span class="number">0</span>], y=X[y == cl, <span class="number">1</span>], alpha=<span class="number">0.8</span>, c=cmap(idx),</div><div class="line">                    marker=markers[idx], label=cl)</div><div class="line">    <span class="comment"># highlight test samples</span></div><div class="line">    <span class="keyword">if</span> test_idx:</div><div class="line">        X_test, y_test = X[test_idx, :], y[test_idx]</div><div class="line">        plt.scatter(X_test[:, <span class="number">0</span>], X_test[:, <span class="number">1</span>], c=<span class="string">''</span>, alpha=<span class="number">1.0</span>, linewidth=<span class="number">1</span>,</div><div class="line">                    marker=<span class="string">'o'</span>, s=<span class="number">55</span>, label=<span class="string">'test set'</span>)</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_perceptron</span><span class="params">()</span>:</span></div><div class="line">    iris = datasets.load_iris()</div><div class="line">    <span class="comment"># choose petal length and petal width as feature</span></div><div class="line">    X = iris.data[:, [<span class="number">2</span>, <span class="number">3</span>]]</div><div class="line">    y = iris.target</div><div class="line">    <span class="comment"># 随机拿出数据集中30%的部分做测试,</span></div><div class="line">    <span class="comment"># 设置random_state(not None), 相当于设置随机数种子，每次运行随机抽样的结果相同</span></div><div class="line">    X_train, X_test, y_train, y_test = train_test_split(X, y,</div><div class="line">                                                        test_size=<span class="number">0.3</span>,</div><div class="line">                                                        random_state=<span class="keyword">None</span>)</div><div class="line"></div><div class="line">    <span class="comment"># 为了追求机器学习和最优化算法的最佳性能，进行特征缩放</span></div><div class="line">    sc = StandardScaler()</div><div class="line">    sc.fit(X_train)</div><div class="line">    X_train_std = sc.transform(X_train)</div><div class="line">    <span class="comment"># 用"同样的参数"来标准化测试集，使得测试集和训练集之间有可比性</span></div><div class="line">    X_test_std = sc.transform(X_test)</div><div class="line"></div><div class="line">    <span class="comment"># n_iter：可以理解成梯度下降中迭代的次数</span></div><div class="line">    <span class="comment"># eta0：可以理解成梯度下降中的学习率</span></div><div class="line">    <span class="comment"># random_state：设置随机种子(not None)，为了每次迭代都有相同的训练集顺序</span></div><div class="line">    ppn = Perceptron(n_iter=<span class="number">100</span>, eta0=<span class="number">0.05</span>, random_state=<span class="keyword">None</span>)</div><div class="line">    ppn.fit(X_train_std, y_train)</div><div class="line"></div><div class="line">    <span class="comment"># 分类测试集，将返回一个测试结果的数组</span></div><div class="line">    y_pred = ppn.predict(X_test_std)</div><div class="line"></div><div class="line">    <span class="comment"># plt.scatter(np.arange(0, len(y_pred)), y_pred, c='b', marker='|',)</span></div><div class="line">    <span class="comment"># plt.scatter(np.arange(0, len(y_test)), y_test, c='r', marker='_',)</span></div><div class="line">    <span class="comment"># plt.show()</span></div><div class="line"></div><div class="line">    <span class="comment"># 计算模型在测试集上的准确性</span></div><div class="line">    score = accuracy_score(y_test, y_pred)</div><div class="line">    <span class="keyword">return</span> score</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_logistic</span><span class="params">()</span>:</span></div><div class="line">    iris = datasets.load_iris()</div><div class="line">    <span class="comment"># choose petal length and petal width as feature</span></div><div class="line">    X = iris.data[:, [<span class="number">2</span>, <span class="number">3</span>]]</div><div class="line">    y = iris.target</div><div class="line">    <span class="comment"># 随机拿出数据集中30%的部分做测试,</span></div><div class="line">    <span class="comment"># 设置random_state(not None), 相当于设置随机数种子，每次运行随机抽样的结果相同</span></div><div class="line">    X_train, X_test, y_train, y_test = train_test_split(X, y,</div><div class="line">                                                        test_size=<span class="number">0.3</span>,</div><div class="line">                                                        random_state=<span class="keyword">None</span>)</div><div class="line"></div><div class="line">    <span class="comment"># 为了追求机器学习和最优化算法的最佳性能，进行特征缩放</span></div><div class="line">    sc = StandardScaler()</div><div class="line">    sc.fit(X_train)</div><div class="line">    X_train_std = sc.transform(X_train)</div><div class="line">    <span class="comment"># 用"同样的参数"来标准化测试集，使得测试集和训练集之间有可比性</span></div><div class="line">    X_test_std = sc.transform(X_test)</div><div class="line"></div><div class="line">    lr = LogisticRegression(C=<span class="number">1000.0</span>, random_state=<span class="number">0</span>)</div><div class="line">    lr.fit(X_train_std, y_train)</div><div class="line">    <span class="comment"># 查看第一个测试样本属于各个类别的概率</span></div><div class="line">    <span class="comment"># predict_proba返回的是一个两列的矩阵，矩阵的每一行代表的是对一个事件的预测结果，</span></div><div class="line">    <span class="comment"># 第一列代表该事件不会发生的概率，第二列代表的是该事件会发生的概率</span></div><div class="line">    lr.predict_proba(X_test_std[<span class="number">0</span>, :].reshape(<span class="number">1</span>, <span class="number">-1</span>))</div><div class="line"></div><div class="line">    <span class="comment"># vstack(): Stack arrays in sequence vertically(row wise).</span></div><div class="line">    X_combined_std = np.vstack((X_train_std, X_test_std))</div><div class="line">    y_combined = np.hstack((y_train, y_test))</div><div class="line">    plot_decision_regions(X_combined_std, y_combined, classifier=lr,</div><div class="line">                          test_idx=range(<span class="number">105</span>, <span class="number">150</span>))</div><div class="line">    plt.xlabel(<span class="string">'petal length [standardized]'</span>)</div><div class="line">    plt.ylabel(<span class="string">'petal width [standardized]'</span>)</div><div class="line">    plt.legend(loc=<span class="string">'upper left'</span>)</div><div class="line">    plt.show()</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    <span class="comment"># for _ in range(30):</span></div><div class="line">    <span class="comment">#     print(test_perceptron())</span></div><div class="line">    test_logistic()</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># author: janes</span></span><br><span class="line"><span class="comment"># date: 2017年4月11日 18:30</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler</span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> Perceptron</span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> matplotlib.colors <span class="keyword">import</span> ListedColormap</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">plot_decision_regions</span><span class="params">(X, y, classifier, test_idx=None, resolution=<span class="number">0.02</span>)</span>:</span></span><br><span class="line">    <span class="comment"># setup marker generator and color map</span></span><br><span class="line">    markers = (<span class="string">'s'</span>, <span class="string">'x'</span>, <span class="string">'o'</span>, <span class="string">'^'</span>, <span class="string">'v'</span>)</span><br><span class="line">    colors = (<span class="string">'red'</span>, <span class="string">'blue'</span>, <span class="string">'lightgreen'</span>, <span class="string">'gray'</span>, <span class="string">'cyan'</span>)</span><br><span class="line">    cmap = ListedColormap(colors[:len(np.unique(y))])</span><br><span class="line">    <span class="comment"># plot the decision surface</span></span><br><span class="line">    x1_min, x1_max = X[:, <span class="number">0</span>].min() - <span class="number">1</span>, X[:, <span class="number">0</span>].max() + <span class="number">1</span></span><br><span class="line">    x2_min, x2_max = X[:, <span class="number">1</span>].min() - <span class="number">1</span>, X[:, <span class="number">1</span>].max() + <span class="number">1</span></span><br><span class="line">    xx1, xx2 = np.meshgrid(np.arange(x1_min, x1_max, resolution),</span><br><span class="line">                           np.arange(x2_min, x2_max, resolution))</span><br><span class="line">    Z = classifier.predict(np.array([xx1.ravel(), xx2.ravel()]).T)</span><br><span class="line">    Z = Z.reshape(xx1.shape)</span><br><span class="line">    plt.contourf(xx1, xx2, Z, alpha=<span class="number">0.4</span>, cmap=cmap)</span><br><span class="line">    plt.xlim(xx1.min(), xx1.max())</span><br><span class="line">    plt.ylim(xx2.min(), xx2.max())</span><br><span class="line">    <span class="comment"># plot class samples</span></span><br><span class="line">    <span class="keyword">for</span> idx, cl <span class="keyword">in</span> enumerate(np.unique(y)):</span><br><span class="line">        plt.scatter(x=X[y == cl, <span class="number">0</span>], y=X[y == cl, <span class="number">1</span>], alpha=<span class="number">0.8</span>, c=cmap(idx),</span><br><span class="line">                    marker=markers[idx], label=cl)</span><br><span class="line">    <span class="comment"># highlight test samples</span></span><br><span class="line">    <span class="keyword">if</span> test_idx:</span><br><span class="line">        X_test, y_test = X[test_idx, :], y[test_idx]</span><br><span class="line">        plt.scatter(X_test[:, <span class="number">0</span>], X_test[:, <span class="number">1</span>], c=<span class="string">''</span>, alpha=<span class="number">1.0</span>, linewidth=<span class="number">1</span>,</span><br><span class="line">                    marker=<span class="string">'o'</span>, s=<span class="number">55</span>, label=<span class="string">'test set'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_perceptron</span><span class="params">()</span>:</span></span><br><span class="line">    iris = datasets.load_iris()</span><br><span class="line">    <span class="comment"># choose petal length and petal width as feature</span></span><br><span class="line">    X = iris.data[:, [<span class="number">2</span>, <span class="number">3</span>]]</span><br><span class="line">    y = iris.target</span><br><span class="line">    <span class="comment"># 随机拿出数据集中30%的部分做测试,</span></span><br><span class="line">    <span class="comment"># 设置random_state(not None), 相当于设置随机数种子，每次运行随机抽样的结果相同</span></span><br><span class="line">    X_train, X_test, y_train, y_test = train_test_split(X, y,</span><br><span class="line">                                                        test_size=<span class="number">0.3</span>,</span><br><span class="line">                                                        random_state=<span class="keyword">None</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 为了追求机器学习和最优化算法的最佳性能，进行特征缩放</span></span><br><span class="line">    sc = StandardScaler()</span><br><span class="line">    sc.fit(X_train)</span><br><span class="line">    X_train_std = sc.transform(X_train)</span><br><span class="line">    <span class="comment"># 用"同样的参数"来标准化测试集，使得测试集和训练集之间有可比性</span></span><br><span class="line">    X_test_std = sc.transform(X_test)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># n_iter：可以理解成梯度下降中迭代的次数</span></span><br><span class="line">    <span class="comment"># eta0：可以理解成梯度下降中的学习率</span></span><br><span class="line">    <span class="comment"># random_state：设置随机种子(not None)，为了每次迭代都有相同的训练集顺序</span></span><br><span class="line">    ppn = Perceptron(n_iter=<span class="number">100</span>, eta0=<span class="number">0.05</span>, random_state=<span class="keyword">None</span>)</span><br><span class="line">    ppn.fit(X_train_std, y_train)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 分类测试集，将返回一个测试结果的数组</span></span><br><span class="line">    y_pred = ppn.predict(X_test_std)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># plt.scatter(np.arange(0, len(y_pred)), y_pred, c='b', marker='|',)</span></span><br><span class="line">    <span class="comment"># plt.scatter(np.arange(0, len(y_test)), y_test, c='r', marker='_',)</span></span><br><span class="line">    <span class="comment"># plt.show()</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 计算模型在测试集上的准确性</span></span><br><span class="line">    score = accuracy_score(y_test, y_pred)</span><br><span class="line">    <span class="keyword">return</span> score</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_logistic</span><span class="params">()</span>:</span></span><br><span class="line">    iris = datasets.load_iris()</span><br><span class="line">    <span class="comment"># choose petal length and petal width as feature</span></span><br><span class="line">    X = iris.data[:, [<span class="number">2</span>, <span class="number">3</span>]]</span><br><span class="line">    y = iris.target</span><br><span class="line">    <span class="comment"># 随机拿出数据集中30%的部分做测试,</span></span><br><span class="line">    <span class="comment"># 设置random_state(not None), 相当于设置随机数种子，每次运行随机抽样的结果相同</span></span><br><span class="line">    X_train, X_test, y_train, y_test = train_test_split(X, y,</span><br><span class="line">                                                        test_size=<span class="number">0.3</span>,</span><br><span class="line">                                                        random_state=<span class="keyword">None</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 为了追求机器学习和最优化算法的最佳性能，进行特征缩放</span></span><br><span class="line">    sc = StandardScaler()</span><br><span class="line">    sc.fit(X_train)</span><br><span class="line">    X_train_std = sc.transform(X_train)</span><br><span class="line">    <span class="comment"># 用"同样的参数"来标准化测试集，使得测试集和训练集之间有可比性</span></span><br><span class="line">    X_test_std = sc.transform(X_test)</span><br><span class="line"></span><br><span class="line">    lr = LogisticRegression(C=<span class="number">1000.0</span>, random_state=<span class="number">0</span>)</span><br><span class="line">    lr.fit(X_train_std, y_train)</span><br><span class="line">    <span class="comment"># 查看第一个测试样本属于各个类别的概率</span></span><br><span class="line">    <span class="comment"># predict_proba返回的是一个两列的矩阵，矩阵的每一行代表的是对一个事件的预测结果，</span></span><br><span class="line">    <span class="comment"># 第一列代表该事件不会发生的概率，第二列代表的是该事件会发生的概率</span></span><br><span class="line">    lr.predict_proba(X_test_std[<span class="number">0</span>, :].reshape(<span class="number">1</span>, <span class="number">-1</span>))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># vstack(): Stack arrays in sequence vertically(row wise).</span></span><br><span class="line">    X_combined_std = np.vstack((X_train_std, X_test_std))</span><br><span class="line">    y_combined = np.hstack((y_train, y_test))</span><br><span class="line">    plot_decision_regions(X_combined_std, y_combined, classifier=lr,</span><br><span class="line">                          test_idx=range(<span class="number">105</span>, <span class="number">150</span>))</span><br><span class="line">    plt.xlabel(<span class="string">'petal length [standardized]'</span>)</span><br><span class="line">    plt.ylabel(<span class="string">'petal width [standardized]'</span>)</span><br><span class="line">    plt.legend(loc=<span class="string">'upper left'</span>)</span><br><span class="line">    plt.show()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># for _ in range(30):</span></span><br><span class="line">    <span class="comment">#     print(test_perceptron())</span></span><br><span class="line">    test_logistic()</span><br></pre></td></tr></table></figure>
 
       
     </div>
+    
+    
+    
 
-    <div>
-      
-        
+    
 
-      
-    </div>
+    
 
-    <div>
-      
-        
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Ethan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://www.beesfun.com/2017/04/12/sklearn训练逻辑回归和感知机模型/" title="sklearn训练逻辑回归和感知机模型">http://www.beesfun.com/2017/04/12/sklearn训练逻辑回归和感知机模型/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
 
-      
-    </div>
-
+      </div>
+    
 
     <footer class="post-footer">
       
@@ -443,7 +465,7 @@
       
 
       
-        
+      
       
 
       
@@ -471,6 +493,10 @@
       
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -480,15 +506,22 @@
     </div>
   </div>
 
-          
+
           </div>
           
 
 
           
-  <div class="comments" id="comments">
-    
-  </div>
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
 
 
         </div>
@@ -504,101 +537,107 @@
   </div>
 
   <aside id="sidebar" class="sidebar">
+    
     <div class="sidebar-inner">
 
       
 
       
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="https://avatars3.githubusercontent.com/u/15061633"
-               alt="Ethan" />
-          <p class="site-author-name" itemprop="name">Ethan</p>
-           
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://avatars3.githubusercontent.com/u/15061633"
+                alt="Ethan" />
+            
+              <p class="site-author-name" itemprop="name">Ethan</p>
               <p class="site-description motion-element" itemprop="description">personal blog :)</p>
-          
-        </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">46</span>
-                <span class="site-state-item-name">日志</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-categories">
-              <a href="/categories/index.html">
-                <span class="site-state-item-count">14</span>
-                <span class="site-state-item-name">分类</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">56</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-            
-              <span class="links-of-author-item">
-                <a href="https://github.com/hxer/" target="_blank" title="GitHub">
-                  
-                    <i class="fa fa-fw fa-github"></i>
-                  
-                  GitHub
-                </a>
-              </span>
-            
-          
-        </div>
-
-        
-        
-
-        
-        
-          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
-            <div class="links-of-blogroll-title">
-              <i class="fa  fa-fw fa-globe"></i>
-              友链
-            </div>
-            <ul class="links-of-blogroll-list">
-              
-                <li class="links-of-blogroll-item">
-                  <a href="http://www.wupco.cn" title="wupco" target="_blank">wupco</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://danaive.github.io" title="danlei" target="_blank">danlei</a>
-                </li>
-              
-            </ul>
           </div>
-        
 
-        
+          <nav class="site-state motion-element">
 
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/hxer/" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友链
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://badcode.cc/" title="badcode" target="_blank">badcode</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.wupco.cn" title="wupco" target="_blank">wupco</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://danaive.github.io" title="danlei" target="_blank">danlei</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
       </section>
 
       
@@ -615,30 +654,45 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy;  2017 - 
-  <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Ethan</span>
+
+  
 </div>
 
 
-<div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
-</div>
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
-  </a>
-</div>
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
 
 
         
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=63078337";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
 
         
       </div>
@@ -650,7 +704,9 @@
         
       </div>
     
+
     
+
   </div>
 
   
@@ -674,59 +730,78 @@
 
 
 
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
-  
 
 
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
 
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
 
 
 
   
   
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
 
 
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+  
 
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
 
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
 
 
 
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
 
 
 
   
-
 
 
   
@@ -752,161 +827,371 @@
 
 
 
-  
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'hxer',
+            repo: 'hxer.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '7147116f4ae9df31961313af13fad164bdbf0fe3',
+            
+                client_id: 'ac1236f9efefa7d5580f'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
 
 
 
+
+
+
+
   
-  
+
   <script type="text/javascript">
     // Popup Window;
     var isfetched = false;
+    var isXml = true;
     // Search DB path;
     var search_path = "search.xml";
-    if (search_path.length == 0) {
+    if (search_path.length === 0) {
       search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
     }
     var path = "/" + search_path;
     // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
 
     function proceedsearch() {
       $("body")
         .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
         .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
       $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
     }
+
     // search function;
     var searchFunc = function(path, search_id, content_id) {
       'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
       $.ajax({
         url: path,
-        dataType: "xml",
+        dataType: isXml ? "xml" : "json",
         async: true,
-        success: function( xmlResponse ) {
+        success: function(res) {
           // get the contents from search data
           isfetched = true;
           $('.popup').detach().appendTo('.header-inner');
-          var datas = $( "entry", xmlResponse ).map(function() {
+          var datas = isXml ? $("entry", res).map(function() {
             return {
-              title: $( "title", this ).text(),
+              title: $("title", this).text(),
               content: $("content",this).text(),
-              url: $( "url" , this).text()
+              url: $("url" , this).text()
             };
-          }).get();
-          var $input = document.getElementById(search_id);
-          var $resultContent = document.getElementById(content_id);
-          $input.addEventListener('input', function(){
-            var matchcounts = 0;
-            var str='<ul class=\"search-result-list\">';
-            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
-            $resultContent.innerHTML = "";
-            if (this.value.trim().length > 1) {
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
               // perform local searching
               datas.forEach(function(data) {
                 var isMatch = false;
-                var content_index = [];
-                var data_title = data.title.trim().toLowerCase();
-                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
-                var data_url = decodeURIComponent(data.url);
-                var index_title = -1;
-                var index_content = -1;
-                var first_occur = -1;
-                // only match artiles with not empty titles and contents
-                if(data_title != '') {
-                  keywords.forEach(function(keyword, i) {
-                    index_title = data_title.indexOf(keyword);
-                    index_content = data_content.indexOf(keyword);
-                    if( index_title >= 0 || index_content >= 0 ){
-                      isMatch = true;
-                      if (i == 0) {
-                        first_occur = index_content;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
                       }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
                     }
 
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
                   });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
                 }
+
                 // show search results
+
                 if (isMatch) {
-                  matchcounts += 1;
-                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
-                  var content = data.content.trim().replace(/<[^>]+>/g,"");
-                  if (first_occur >= 0) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
                     // cut out 100 characters
-                    var start = first_occur - 20;
-                    var end = first_occur + 80;
+                    var start = position - 20;
+                    var end = position + 80;
                     if(start < 0){
                       start = 0;
                     }
-                    if(start == 0){
-                      end = 50;
+                    if (end < position + word.length) {
+                      end = position + word.length;
                     }
                     if(end > content.length){
                       end = content.length;
                     }
-                    var match_content = content.substring(start, end);
-                    // highlight all keywords
-                    keywords.forEach(function(keyword){
-                      var regS = new RegExp(keyword, "gi");
-                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
-                    });
-
-                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
                   }
-                  str += "</li>";
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
                 }
-              })};
-            str += "</ul>";
-            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
-            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
-            $resultContent.innerHTML = str;
-          });
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
           proceedsearch();
         }
-      });}
+      });
+    }
 
     // handle and trigger popup window;
     $('.popup-trigger').click(function(e) {
       e.stopPropagation();
-      if (isfetched == false) {
+      if (isfetched === false) {
         searchFunc(path, 'local-search-input', 'local-search-result');
       } else {
         proceedsearch();
       };
     });
 
-    $('.popup-btn-close').click(function(e){
-      $('.popup').hide();
-      $(".local-search-pop-overlay").remove();
-      $('body').css('overflow', '');
-    });
+    $('.popup-btn-close').click(onPopupClose);
     $('.popup').click(function(e){
       e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
     });
   </script>
 
 
-  
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
 
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-  
 
 
   
@@ -915,6 +1200,12 @@
 
   
 
+  
+  
+
+  
+
+  
 
   
 

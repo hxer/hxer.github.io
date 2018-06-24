@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 
 
 
@@ -10,11 +10,19 @@
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
 
 
 
 <meta http-equiv="Cache-Control" content="no-transform" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
+
 
 
 
@@ -68,7 +76,18 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+
+
 
 
   <meta name="keywords" content="同源策略," />
@@ -76,11 +95,6 @@
 
 
 
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/ico/favicon.ico?v=5.1.0" />
 
 
 
@@ -109,11 +123,13 @@
   var CONFIG = {
     root: '/',
     scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
-    motion: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     duoshuo: {
-      userId: 'undefined',
+      userId: '0',
       author: '博主'
     },
     algolia: {
@@ -134,11 +150,7 @@
 
 
 
-  <title> 跨域 | Ethan' Blog </title>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
+  <title>跨域 | Ethan' Blog</title>
   
 
 
@@ -147,28 +159,17 @@
 
 
 
-  <script type="text/javascript">
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "//tajs.qq.com/stats?sId=63078337";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
 
+</head>
 
-
-
-
-
-
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -215,7 +216,7 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
+          <a href="/archives/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
@@ -225,7 +226,7 @@
       
         
         <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
+          <a href="/categories/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
             
@@ -235,7 +236,7 @@
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
+          <a href="/tags/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
@@ -245,7 +246,7 @@
       
         
         <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
+          <a href="/about/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
@@ -281,7 +282,7 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+      <input autocomplete="off"
              placeholder="搜索..." spellcheck="false"
              type="text" id="local-search-input">
     </div>
@@ -315,7 +316,11 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.beesfun.com/2017/03/26/跨域/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -333,14 +338,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                跨域
-              
-            
-          </h1>
+          <h1 class="post-title" itemprop="name headline">跨域</h1>
         
 
         <div class="post-meta">
@@ -388,6 +386,16 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/03/26/跨域/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2017/03/26/跨域/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -403,7 +411,9 @@
       </header>
     
 
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -412,13 +422,13 @@
       
         <h2 id="同源策略和跨域"><a href="#同源策略和跨域" class="headerlink" title="同源策略和跨域"></a>同源策略和跨域</h2><p>浏览器的同源策略限制从一个源加载的文档或脚本如何与来自另一个源的资源进行交互。同源是指：协议相同，域名相同，端口相同。同源政策的目的，是为了保证用户信息的安全，防止恶意的网站窃取数据。</p>
 <p>非同源限制: 无法读取Cookie、LocalStorage 和 IndexDB, 无法获得DOM, 不能发送AJAX 请求。</p>
-<img src="/2017/03/26/跨域/跨域.png" alt="跨域.png" title="">
+<img src="/2017/03/26/跨域/跨域.png">
 <a id="more"></a>
 <h2 id="JSONP-JSON-Padding"><a href="#JSONP-JSON-Padding" class="headerlink" title="JSONP(JSON Padding)"></a>JSONP(JSON Padding)</h2><p>jsonp在页面上引入不同域上的js脚本文件,利用了script标签的src属性是没有跨域的限制的，从而达到跨域访问的目的。因此它的最基本原理就是：动态添加一个<code>&lt;script&gt;</code>标签来实现。</p>
 <h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>这里是使用ajax来请求的，看起来和ajax没啥区别，其实还是有区别的。ajax的核心是通过XmlHttpRequest获取非本页内容，而jsonp的核心则是动态添加<code>&lt;script&gt;</code>标签来调用服务器提供的js脚本。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$.ajax(&#123;  </div><div class="line">        url:&quot;http://crossdomain.com/services.php&quot;,  </div><div class="line">        dataType:&apos;jsonp&apos;,  </div><div class="line">        data:&apos;&apos;,  </div><div class="line">        jsonp:&apos;callback&apos;,  </div><div class="line">        success:function(result) &#123;  </div><div class="line">            // some code</div><div class="line">        &#125;  </div><div class="line">    &#125;);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;  </span><br><span class="line">        url:&quot;http://crossdomain.com/services.php&quot;,  </span><br><span class="line">        dataType:&apos;jsonp&apos;,  </span><br><span class="line">        data:&apos;&apos;,  </span><br><span class="line">        jsonp:&apos;callback&apos;,  </span><br><span class="line">        success:function(result) &#123;  </span><br><span class="line">            // some code</span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
 <p>上面的代码中，callback是必须的，callback是什么值要跟后台拿。获取到的jsonp数据格式如下：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">flightHandler(&#123;</div><div class="line">    <span class="string">"code"</span>: <span class="string">"CA1998"</span>,</div><div class="line">    <span class="string">"price"</span>: <span class="number">1780</span>,</div><div class="line">    <span class="string">"tickets"</span>: <span class="number">5</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">flightHandler(&#123;</span><br><span class="line">    <span class="string">"code"</span>: <span class="string">"CA1998"</span>,</span><br><span class="line">    <span class="string">"price"</span>: <span class="number">1780</span>,</span><br><span class="line">    <span class="string">"tickets"</span>: <span class="number">5</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>jsonp的全称为json with padding，上面的数据中，flightHandler就是那个padding.</p>
 <h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><ul>
 <li>只能使用get方法，不能使用post方法：</li>
@@ -431,9 +441,9 @@
 <li>前端方面</li>
 </ul>
 <p>以前我们使用Ajax，代码类似于如下的方式：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</div><div class="line"><span class="comment">// 这里的“/hfahe”是本域的相对路径。</span></div><div class="line">xhr.open(<span class="string">"GET"</span>, <span class="string">"/hfahe"</span>, <span class="literal">true</span>);</div><div class="line">xhr.send();</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line"><span class="comment">// 这里的“/hfahe”是本域的相对路径。</span></span><br><span class="line">xhr.open(<span class="string">"GET"</span>, <span class="string">"/hfahe"</span>, <span class="literal">true</span>);</span><br><span class="line">xhr.send();</span><br></pre></td></tr></table></figure>
 <p>如果我们要使用CORS，相关Ajax代码可能如下所示：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</div><div class="line"><span class="comment">// 请注意，代码与之前的区别就在于相对路径换成了其他域的绝对路径，也就是要跨域访问的接口地址。</span></div><div class="line">xhr.open(<span class="string">"GET"</span>, <span class="string">"http://blog.csdn.net/hfahe"</span>, <span class="literal">true</span>);</div><div class="line">xhr.send();</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line"><span class="comment">// 请注意，代码与之前的区别就在于相对路径换成了其他域的绝对路径，也就是要跨域访问的接口地址。</span></span><br><span class="line">xhr.open(<span class="string">"GET"</span>, <span class="string">"http://blog.csdn.net/hfahe"</span>, <span class="literal">true</span>);</span><br><span class="line">xhr.send();</span><br></pre></td></tr></table></figure>
 <ul>
 <li>服务器方面</li>
 </ul>
@@ -448,40 +458,40 @@
 <p>比如，有一个页面的地址是 <code>http://www.example.com/a.html</code> ， 在这个页面里面有一个iframe，它的src是 <code>http://example.com/b.html</code>, 很显然，这个页面与它里面的iframe框架是不同域的，所以无法通过在页面中书写js代码来获取iframe中的东西的。这个时候，document.domain就可以派上用场了，只要把 <code>http://www.example.com/a.html</code> 和 <code>http://example.com/b.html</code> 这两个页面的document.domain都设成相同的域名就可以了。</p>
 <p>但要注意的是，document.domain的设置是有限制的，我们只能把document.domain设置成自身或更高一级的父域，且主域必须相同。例如：<code>a.b.example.com</code> 中某个文档的document.domain 可以设成<code>a.b.example.com</code>、<code>b.example.com</code> 、<code>example.com</code>中的任意一个，但是不可以设成 <code>c.a.b.example.com</code>,因为这是<br>当前域的子域，也不可以设成<code>baidu.com</code>,因为主域已经不相同了.</p>
 <h3 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h3><p>比如在<code>http://www.example.com/a.html</code> 的页面里要访问 <code>http://example.com/b.html</code>里面的东西。在页面 <code>http://www.example.com/a.html</code> 中设置document.domain:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//http://www.example.com/a.html</span></div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;title&gt;A页面&lt;<span class="regexp">/title&gt;</span></div><div class="line"><span class="regexp">    &lt;script type="text/</span>javascript<span class="string">" src="</span>jquery.js<span class="string">"&gt;&lt;/script&gt;</span></div><div class="line"><span class="string">&lt;/head&gt;</span></div><div class="line"><span class="string">&lt;body&gt;</span></div><div class="line"><span class="string">    &lt;div&gt;A页面&lt;/div&gt;</span></div><div class="line"><span class="string">    // 相当于用一个隐藏的iframe来做代理</span></div><div class="line"><span class="string">    &lt;iframe id="</span>iframe<span class="string">" src="</span>http:<span class="comment">//example.com/b.html" style="display:none;"&gt;&lt;/iframe&gt;</span></div><div class="line">    &lt;script&gt;</div><div class="line">        $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            <span class="keyword">try</span>&#123;</div><div class="line">                <span class="built_in">document</span>.domain = <span class="string">"example.com"</span>; <span class="comment">//这里将document.domain设置成一样</span></div><div class="line">            &#125;<span class="keyword">catch</span>(e)&#123;&#125;</div><div class="line">            $(<span class="string">"#iframe"</span>).load(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">                <span class="keyword">var</span> iframe = $(<span class="string">"#iframe"</span>).contentDocument.$;</div><div class="line">                ifram.get(<span class="string">"http://example.com/接口"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;&#125;);</div><div class="line">            &#125;);</div><div class="line">        &#125;);</div><div class="line">    &lt;<span class="regexp">/script&gt;</span></div><div class="line"><span class="regexp">&lt;body&gt;</span></div><div class="line"><span class="regexp">&lt;/</span>html&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//http://www.example.com/a.html</span></span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;A页面&lt;<span class="regexp">/title&gt;</span></span><br><span class="line"><span class="regexp">    &lt;script type="text/</span>javascript<span class="string">" src="</span>jquery.js<span class="string">"&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="string">&lt;/head&gt;</span></span><br><span class="line"><span class="string">&lt;body&gt;</span></span><br><span class="line"><span class="string">    &lt;div&gt;A页面&lt;/div&gt;</span></span><br><span class="line"><span class="string">    // 相当于用一个隐藏的iframe来做代理</span></span><br><span class="line"><span class="string">    &lt;iframe id="</span>iframe<span class="string">" src="</span>http:<span class="comment">//example.com/b.html" style="display:none;"&gt;&lt;/iframe&gt;</span></span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="keyword">try</span>&#123;</span><br><span class="line">                <span class="built_in">document</span>.domain = <span class="string">"example.com"</span>; <span class="comment">//这里将document.domain设置成一样</span></span><br><span class="line">            &#125;<span class="keyword">catch</span>(e)&#123;&#125;</span><br><span class="line">            $(<span class="string">"#iframe"</span>).load(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                <span class="keyword">var</span> iframe = $(<span class="string">"#iframe"</span>).contentDocument.$;</span><br><span class="line">                ifram.get(<span class="string">"http://example.com/接口"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;&#125;);</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">    &lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&lt;body&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>html&gt;</span><br></pre></td></tr></table></figure>
 <p>在页面 <code>http://example.com/b.html</code> 中也设置document.domain，而且这也是必须的，虽然这个文档的domain就是example.com,但是还是必须显示的设置document.domain的值：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//http://example.com/b.html</span></div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;title&gt;B页面&lt;<span class="regexp">/title&gt;</span></div><div class="line"><span class="regexp">    &lt;script type="text/</span>javascript<span class="string">" src="</span>jquery.js<span class="string">"&gt;&lt;/script&gt;</span></div><div class="line"><span class="string">&lt;/head&gt;</span></div><div class="line"><span class="string">&lt;body&gt;</span></div><div class="line"><span class="string">    &lt;div&gt;B页面&lt;/div&gt;</span></div><div class="line"><span class="string">    &lt;script&gt;        </span></div><div class="line"><span class="string">        $(function()&#123;</span></div><div class="line"><span class="string">            try&#123;</span></div><div class="line"><span class="string">            document.domain = "</span>example.com<span class="string">"; //这里将document.domain设置成一样</span></div><div class="line"><span class="string">            &#125;catch(e)&#123;&#125;</span></div><div class="line"><span class="string">        &#125;);</span></div><div class="line"><span class="string">    &lt;/script&gt;</span></div><div class="line"><span class="string">&lt;/body&gt;</span></div><div class="line"><span class="string">&lt;/html&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//http://example.com/b.html</span></span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;B页面&lt;<span class="regexp">/title&gt;</span></span><br><span class="line"><span class="regexp">    &lt;script type="text/</span>javascript<span class="string">" src="</span>jquery.js<span class="string">"&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="string">&lt;/head&gt;</span></span><br><span class="line"><span class="string">&lt;body&gt;</span></span><br><span class="line"><span class="string">    &lt;div&gt;B页面&lt;/div&gt;</span></span><br><span class="line"><span class="string">    &lt;script&gt;        </span></span><br><span class="line"><span class="string">        $(function()&#123;</span></span><br><span class="line"><span class="string">            try&#123;</span></span><br><span class="line"><span class="string">            document.domain = "</span>example.com<span class="string">"; //这里将document.domain设置成一样</span></span><br><span class="line"><span class="string">            &#125;catch(e)&#123;&#125;</span></span><br><span class="line"><span class="string">        &#125;);</span></span><br><span class="line"><span class="string">    &lt;/script&gt;</span></span><br><span class="line"><span class="string">&lt;/body&gt;</span></span><br><span class="line"><span class="string">&lt;/html&gt;</span></span><br></pre></td></tr></table></figure>
 <p>这里有个注意点，就是在A页面中，要等iframe标签完成加载B页面之后，再取iframe对象的contentDocument,否则如果B页面没有被iframe完全加载，在A页面中通过contentDocument属性就取不到B页面中的jQuery对象。一旦取到B页面中的jQuery对象，就可以直接发ajax请求了，这种类似“代理”方式可以解决主子域的跨域问题</p>
 <h2 id="HTML5-postMessage"><a href="#HTML5-postMessage" class="headerlink" title="HTML5 postMessage"></a>HTML5 postMessage</h2><p>HTML5 window.postMessage是一个安全的、基于事件的消息API</p>
 <p>在需要发送消息的源窗口调用postMessage方法即可发送消息。其中, 源窗口可以是全局的window对象，也可以是以下类型的窗口：</p>
 <ul>
 <li>文档窗口中的iframe:</li>
 </ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> iframe = <span class="built_in">document</span>.getElementById(<span class="string">'my-iframe'</span>);</div><div class="line"><span class="keyword">var</span> win = iframe.documentWindow;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> iframe = <span class="built_in">document</span>.getElementById(<span class="string">'my-iframe'</span>);</span><br><span class="line"><span class="keyword">var</span> win = iframe.documentWindow;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>JavaScript打开的弹窗：</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var win = window.open();</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var win = window.open();</span><br></pre></td></tr></table></figure>
 <ul>
 <li>当前文档窗口的父窗口：</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var win = window.parent;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var win = window.parent;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>window.opener</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var win = window.opener();</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var win = window.opener();</span><br></pre></td></tr></table></figure>
 <p>发送消息：找到源window对象后，即可调用postMessage API向目标窗口发送消息：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">win.postMessage(msg, targetOrigin);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">win.postMessage(msg, targetOrigin);</span><br></pre></td></tr></table></figure>
 <p>接收消息：那目标窗口要怎么接收传过来的数据呢，只要监听window的message事件就可以接收了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">var onmessage = function (event) &#123;</div><div class="line">    var data = event.data;</div><div class="line">    var origin = event.origin;</div><div class="line">    //do someing</div><div class="line">&#125;;</div><div class="line">if (typeof window.addEventListener != &apos;undefined&apos;) &#123;</div><div class="line">    window.addEventListener(&apos;message&apos;, onmessage, false);</div><div class="line">&#125; else if (typeof window.attachEvent != &apos;undefined&apos;) &#123;</div><div class="line">    //for ie</div><div class="line">    window.attachEvent(&apos;onmessage&apos;, onmessage);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var onmessage = function (event) &#123;</span><br><span class="line">    var data = event.data;</span><br><span class="line">    var origin = event.origin;</span><br><span class="line">    //do someing</span><br><span class="line">&#125;;</span><br><span class="line">if (typeof window.addEventListener != &apos;undefined&apos;) &#123;</span><br><span class="line">    window.addEventListener(&apos;message&apos;, onmessage, false);</span><br><span class="line">&#125; else if (typeof window.attachEvent != &apos;undefined&apos;) &#123;</span><br><span class="line">    //for ie</span><br><span class="line">    window.attachEvent(&apos;onmessage&apos;, onmessage);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="实现-2"><a href="#实现-2" class="headerlink" title="实现"></a>实现</h2><ul>
 <li><code>http://test.com/index.html</code> —&gt; 发送消息的页面</li>
 </ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;!-- 这个是 http:<span class="comment">//test.com/index.html 页面 --&gt;</span></div><div class="line"></div><div class="line"> &lt;div&gt;</div><div class="line">    &lt;!-- 要给下面的页面传一个妹子过去 --&gt;</div><div class="line">    &lt;iframe id=<span class="string">"child"</span> src=<span class="string">"http://lsLib.com/lsLib.html"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span>  </div><div class="line">&lt;<span class="regexp">/div&gt;</span></div><div class="line"><span class="regexp">&lt;script type="text/</span>javascript<span class="string">"&gt;</span></div><div class="line"><span class="string">    window.onload=function()&#123;</span></div><div class="line"><span class="string">        window.frames[0].postMessage('xxx','http://lslib.com');</span></div><div class="line"><span class="string">    &#125;</span></div><div class="line"><span class="string">&lt;/script&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 这个是 http:<span class="comment">//test.com/index.html 页面 --&gt;</span></span><br><span class="line"></span><br><span class="line"> &lt;div&gt;</span><br><span class="line">    &lt;!-- 要给下面的页面传一个妹子过去 --&gt;</span><br><span class="line">    &lt;iframe id=<span class="string">"child"</span> src=<span class="string">"http://lsLib.com/lsLib.html"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span>  </span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;script type="text/</span>javascript<span class="string">"&gt;</span></span><br><span class="line"><span class="string">    window.onload=function()&#123;</span></span><br><span class="line"><span class="string">        window.frames[0].postMessage('xxx','http://lslib.com');</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>http://lslib.com/lslib.html</code> —&gt; 接收消息的页面</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;!-- 这个是 http://lslib.com/lslib.html 页面 --&gt;</div><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">    window.addEventListener(&apos;message&apos;,function(e) &#123;</div><div class="line">        console.log(e.origin,e.data);</div><div class="line">        alert(&apos;收到妹子一枚：&apos;+e.data);</div><div class="line">    &#125;);</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 这个是 http://lslib.com/lslib.html 页面 --&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">    window.addEventListener(&apos;message&apos;,function(e) &#123;</span><br><span class="line">        console.log(e.origin,e.data);</span><br><span class="line">        alert(&apos;收到妹子一枚：&apos;+e.data);</span><br><span class="line">    &#125;);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
 <h2 id="window-name"><a href="#window-name" class="headerlink" title="window.name"></a>window.name</h2><p>原理：当iframe的页面跳到其他地址时，其<code>window.name值保持不变</code>，并且可以支持非常长的 name 值（2MB）。</p>
 <p>浏览器跨域iframe禁止互相调用/传值.但是调用iframe时 window.name 却不变,正是利用这个特性来互相传值,当然跨域下是不容许读取ifram的window.name值.所以这里我们还要准备一个和主页面<code>http://www.a.com/main.html</code> 相同域下的代理页面<code>http://www.a.com/other.html</code> ,iframe调用子页面<code>http://www.b.com/data.html</code></p>
 <h2 id="实现-3"><a href="#实现-3" class="headerlink" title="实现"></a>实现</h2><ul>
@@ -496,32 +506,44 @@
 </li>
 </ul>
 <p><code>http://www.b.com/data.html</code>中的 data.html</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">// data.html</div><div class="line">window.name=&quot;xxx&quot;;       //可以是其他类型的数据，比如数组，对象等等</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// data.html</span><br><span class="line">window.name=&quot;xxx&quot;;       //可以是其他类型的数据，比如数组，对象等等</span><br></pre></td></tr></table></figure>
 <p>应用页面 <code>http://www.a.com/main.html</code> 的代码如下：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">&lt;!-- main.html --&gt;</div><div class="line"><span class="keyword">var</span> iframeData;</div><div class="line"></div><div class="line"><span class="keyword">var</span> state = <span class="number">0</span>;<span class="comment">//开关变量</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> iframe = <span class="built_in">document</span>.createElement(<span class="string">'iframe'</span>); <span class="comment">//创建iframe</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> loadfn = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (state === <span class="number">1</span>) &#123;</div><div class="line"></div><div class="line">        iframeData = iframe.contentWindow.name;  <span class="comment">// 读取数据</span></div><div class="line"></div><div class="line">        alert(<span class="string">'获取到了iframe传过来的妹子'</span>+iframeData);</div><div class="line"></div><div class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span> (state === <span class="number">0</span>) &#123;</div><div class="line"></div><div class="line">         state = <span class="number">1</span>;</div><div class="line">         iframe.contentWindow.location = <span class="string">'http://www.a.com/other.html'</span>;  <span class="comment">//这里是代理页面 other.html</span></div><div class="line"></div><div class="line">         <span class="comment">/**</span></div><div class="line"><span class="comment">             这里说明一下:</span></div><div class="line"><span class="comment">             由于iframe的location改变了，相当于重新载入页面（这是iframe的性质决定的），于是重新执行loadfn方法。</span></div><div class="line"><span class="comment">　　　　　　　 由于当iframe的页面跳到其他地址时，其window.name值保持不变，并且此时开关变量 state已经变为1，</span></div><div class="line"><span class="comment">             于是就可以获取到window.name值，也就达到了跨域访问的目的了。</span></div><div class="line"><span class="comment"></span></div><div class="line"><span class="comment">        **/</span></div><div class="line"></div><div class="line">    &#125;;</div><div class="line">&#125;</div><div class="line">iframe.src = <span class="string">'http://www.b.com/data.html'</span>; <span class="comment">//这是是数据页面，data.html</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> (iframe.attachEvent) &#123;</div><div class="line"></div><div class="line">    iframe.attachEvent(<span class="string">'onload'</span>, loadfn);</div><div class="line"></div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line"></div><div class="line">    iframe.onload  = loadfn;</div><div class="line">&#125;</div><div class="line"><span class="built_in">document</span>.body.appendChild(iframe);</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- main.html --&gt;</span><br><span class="line"><span class="keyword">var</span> iframeData;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> state = <span class="number">0</span>;<span class="comment">//开关变量</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> iframe = <span class="built_in">document</span>.createElement(<span class="string">'iframe'</span>); <span class="comment">//创建iframe</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> loadfn = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (state === <span class="number">1</span>) &#123;</span><br><span class="line"></span><br><span class="line">        iframeData = iframe.contentWindow.name;  <span class="comment">// 读取数据</span></span><br><span class="line"></span><br><span class="line">        alert(<span class="string">'获取到了iframe传过来的妹子'</span>+iframeData);</span><br><span class="line"></span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span> (state === <span class="number">0</span>) &#123;</span><br><span class="line"></span><br><span class="line">         state = <span class="number">1</span>;</span><br><span class="line">         iframe.contentWindow.location = <span class="string">'http://www.a.com/other.html'</span>;  <span class="comment">//这里是代理页面 other.html</span></span><br><span class="line"></span><br><span class="line">         <span class="comment">/**</span></span><br><span class="line"><span class="comment">             这里说明一下:</span></span><br><span class="line"><span class="comment">             由于iframe的location改变了，相当于重新载入页面（这是iframe的性质决定的），于是重新执行loadfn方法。</span></span><br><span class="line"><span class="comment">　　　　　　　 由于当iframe的页面跳到其他地址时，其window.name值保持不变，并且此时开关变量 state已经变为1，</span></span><br><span class="line"><span class="comment">             于是就可以获取到window.name值，也就达到了跨域访问的目的了。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">        **/</span></span><br><span class="line"></span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line">iframe.src = <span class="string">'http://www.b.com/data.html'</span>; <span class="comment">//这是是数据页面，data.html</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (iframe.attachEvent) &#123;</span><br><span class="line"></span><br><span class="line">    iframe.attachEvent(<span class="string">'onload'</span>, loadfn);</span><br><span class="line"></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">    iframe.onload  = loadfn;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">document</span>.body.appendChild(iframe);</span><br></pre></td></tr></table></figure>
 <ul>
 <li>获取数据以后销毁这个iframe，释放内存；这也保证了安全（不被其他域frame js访问）。</li>
 </ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">iframe.contentWindow.document.write(<span class="string">''</span>);</div><div class="line">iframe.contentWindow.close();</div><div class="line"><span class="built_in">document</span>.body.removeChild(iframe);</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">iframe.contentWindow.document.write(<span class="string">''</span>);</span><br><span class="line">iframe.contentWindow.close();</span><br><span class="line"><span class="built_in">document</span>.body.removeChild(iframe);</span><br></pre></td></tr></table></figure>
 <h2 id="WebSocket"><a href="#WebSocket" class="headerlink" title="WebSocket"></a>WebSocket</h2><p>WebSocket是一种通信协议，使用<code>ws://</code>（非加密）和<code>wss://</code>（加密）作为协议前缀。该协议不实行同源政策，只要服务器支持，就可以通过它进行跨源通信</p>
 
       
     </div>
+    
+    
+    
 
-    <div>
-      
-        
+    
 
-      
-    </div>
+    
 
-    <div>
-      
-        
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Ethan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://www.beesfun.com/2017/03/26/跨域/" title="跨域">http://www.beesfun.com/2017/03/26/跨域/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
 
-      
-    </div>
-
+      </div>
+    
 
     <footer class="post-footer">
       
@@ -533,7 +555,7 @@
       
 
       
-        
+      
       
 
       
@@ -561,6 +583,10 @@
       
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -570,15 +596,22 @@
     </div>
   </div>
 
-          
+
           </div>
           
 
 
           
-  <div class="comments" id="comments">
-    
-  </div>
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
 
 
         </div>
@@ -594,110 +627,116 @@
   </div>
 
   <aside id="sidebar" class="sidebar">
+    
     <div class="sidebar-inner">
 
       
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
             站点概览
           </li>
         </ul>
       
 
-      <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="https://avatars3.githubusercontent.com/u/15061633"
-               alt="Ethan" />
-          <p class="site-author-name" itemprop="name">Ethan</p>
-           
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://avatars3.githubusercontent.com/u/15061633"
+                alt="Ethan" />
+            
+              <p class="site-author-name" itemprop="name">Ethan</p>
               <p class="site-description motion-element" itemprop="description">personal blog :)</p>
-          
-        </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">46</span>
-                <span class="site-state-item-name">日志</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-categories">
-              <a href="/categories/index.html">
-                <span class="site-state-item-count">14</span>
-                <span class="site-state-item-name">分类</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">56</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-            
-              <span class="links-of-author-item">
-                <a href="https://github.com/hxer/" target="_blank" title="GitHub">
-                  
-                    <i class="fa fa-fw fa-github"></i>
-                  
-                  GitHub
-                </a>
-              </span>
-            
-          
-        </div>
-
-        
-        
-
-        
-        
-          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
-            <div class="links-of-blogroll-title">
-              <i class="fa  fa-fw fa-globe"></i>
-              友链
-            </div>
-            <ul class="links-of-blogroll-list">
-              
-                <li class="links-of-blogroll-item">
-                  <a href="http://www.wupco.cn" title="wupco" target="_blank">wupco</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://danaive.github.io" title="danlei" target="_blank">danlei</a>
-                </li>
-              
-            </ul>
           </div>
-        
 
-        
+          <nav class="site-state motion-element">
 
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/hxer/" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友链
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://badcode.cc/" title="badcode" target="_blank">badcode</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.wupco.cn" title="wupco" target="_blank">wupco</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://danaive.github.io" title="danlei" target="_blank">danlei</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
       </section>
 
       
@@ -730,30 +769,45 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy;  2017 - 
-  <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Ethan</span>
+
+  
 </div>
 
 
-<div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
-</div>
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
-  </a>
-</div>
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
 
 
         
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=63078337";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
 
         
       </div>
@@ -765,7 +819,9 @@
         
       </div>
     
+
     
+
   </div>
 
   
@@ -789,59 +845,78 @@
 
 
 
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
-  
 
 
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
 
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
 
 
 
   
   
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
 
 
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+  
 
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
 
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
 
 
 
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
 
 
 
   
-
 
 
   
@@ -867,161 +942,371 @@
 
 
 
-  
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'hxer',
+            repo: 'hxer.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '7147116f4ae9df31961313af13fad164bdbf0fe3',
+            
+                client_id: 'ac1236f9efefa7d5580f'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
 
 
 
+
+
+
+
   
-  
+
   <script type="text/javascript">
     // Popup Window;
     var isfetched = false;
+    var isXml = true;
     // Search DB path;
     var search_path = "search.xml";
-    if (search_path.length == 0) {
+    if (search_path.length === 0) {
       search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
     }
     var path = "/" + search_path;
     // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
 
     function proceedsearch() {
       $("body")
         .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
         .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
       $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
     }
+
     // search function;
     var searchFunc = function(path, search_id, content_id) {
       'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
       $.ajax({
         url: path,
-        dataType: "xml",
+        dataType: isXml ? "xml" : "json",
         async: true,
-        success: function( xmlResponse ) {
+        success: function(res) {
           // get the contents from search data
           isfetched = true;
           $('.popup').detach().appendTo('.header-inner');
-          var datas = $( "entry", xmlResponse ).map(function() {
+          var datas = isXml ? $("entry", res).map(function() {
             return {
-              title: $( "title", this ).text(),
+              title: $("title", this).text(),
               content: $("content",this).text(),
-              url: $( "url" , this).text()
+              url: $("url" , this).text()
             };
-          }).get();
-          var $input = document.getElementById(search_id);
-          var $resultContent = document.getElementById(content_id);
-          $input.addEventListener('input', function(){
-            var matchcounts = 0;
-            var str='<ul class=\"search-result-list\">';
-            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
-            $resultContent.innerHTML = "";
-            if (this.value.trim().length > 1) {
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
               // perform local searching
               datas.forEach(function(data) {
                 var isMatch = false;
-                var content_index = [];
-                var data_title = data.title.trim().toLowerCase();
-                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
-                var data_url = decodeURIComponent(data.url);
-                var index_title = -1;
-                var index_content = -1;
-                var first_occur = -1;
-                // only match artiles with not empty titles and contents
-                if(data_title != '') {
-                  keywords.forEach(function(keyword, i) {
-                    index_title = data_title.indexOf(keyword);
-                    index_content = data_content.indexOf(keyword);
-                    if( index_title >= 0 || index_content >= 0 ){
-                      isMatch = true;
-                      if (i == 0) {
-                        first_occur = index_content;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
                       }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
                     }
 
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
                   });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
                 }
+
                 // show search results
+
                 if (isMatch) {
-                  matchcounts += 1;
-                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
-                  var content = data.content.trim().replace(/<[^>]+>/g,"");
-                  if (first_occur >= 0) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
                     // cut out 100 characters
-                    var start = first_occur - 20;
-                    var end = first_occur + 80;
+                    var start = position - 20;
+                    var end = position + 80;
                     if(start < 0){
                       start = 0;
                     }
-                    if(start == 0){
-                      end = 50;
+                    if (end < position + word.length) {
+                      end = position + word.length;
                     }
                     if(end > content.length){
                       end = content.length;
                     }
-                    var match_content = content.substring(start, end);
-                    // highlight all keywords
-                    keywords.forEach(function(keyword){
-                      var regS = new RegExp(keyword, "gi");
-                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
-                    });
-
-                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
                   }
-                  str += "</li>";
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
                 }
-              })};
-            str += "</ul>";
-            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
-            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
-            $resultContent.innerHTML = str;
-          });
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
           proceedsearch();
         }
-      });}
+      });
+    }
 
     // handle and trigger popup window;
     $('.popup-trigger').click(function(e) {
       e.stopPropagation();
-      if (isfetched == false) {
+      if (isfetched === false) {
         searchFunc(path, 'local-search-input', 'local-search-result');
       } else {
         proceedsearch();
       };
     });
 
-    $('.popup-btn-close').click(function(e){
-      $('.popup').hide();
-      $(".local-search-pop-overlay").remove();
-      $('body').css('overflow', '');
-    });
+    $('.popup-btn-close').click(onPopupClose);
     $('.popup').click(function(e){
       e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
     });
   </script>
 
 
-  
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
 
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-  
 
 
   
@@ -1030,6 +1315,12 @@
 
   
 
+  
+  
+
+  
+
+  
 
   
 

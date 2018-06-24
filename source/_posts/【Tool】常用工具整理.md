@@ -23,6 +23,10 @@ tags:
 
 [tcpdump](http://www.tcpdump.org/)
 
+## 客户端
+
+[Valentina Studio](https://www.valentina-db.com/en/studio/download/current): 跨平台数据库管理
+
 ## 指纹识别工具
 
 [nmap](https://nmap.org/)

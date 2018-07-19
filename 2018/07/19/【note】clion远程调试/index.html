@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+
+
+
+
+  <meta name="keywords" content="security, Ethan" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="mac上使用CLION远程调试centos上的C或C++可执行程序，clion使用GDB Remote Debug进行配置。  宿主机： OSX 10.13.6 虚拟机：CentOS 6.5 x64  虚拟机基本配置首先在CentOS上安装必备的软件，包括 gcc, gcc-c++, gdb gdbserver, cmake, make。其中gcc-c++是用来编译cpp, cmake是由于cli">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【note】clion远程调试">
+<meta property="og:url" content="http://www.beesfun.com/2018/07/19/【note】clion远程调试/index.html">
+<meta property="og:site_name" content="Ethan&#39; Blog">
+<meta property="og:description" content="mac上使用CLION远程调试centos上的C或C++可执行程序，clion使用GDB Remote Debug进行配置。  宿主机： OSX 10.13.6 虚拟机：CentOS 6.5 x64  虚拟机基本配置首先在CentOS上安装必备的软件，包括 gcc, gcc-c++, gdb gdbserver, cmake, make。其中gcc-c++是用来编译cpp, cmake是由于cli">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-07-19T13:48:07.917Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【note】clion远程调试">
+<meta name="twitter:description" content="mac上使用CLION远程调试centos上的C或C++可执行程序，clion使用GDB Remote Debug进行配置。  宿主机： OSX 10.13.6 虚拟机：CentOS 6.5 x64  虚拟机基本配置首先在CentOS上安装必备的软件，包括 gcc, gcc-c++, gdb gdbserver, cmake, make。其中gcc-c++是用来编译cpp, cmake是由于cli">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.beesfun.com/2018/07/19/【note】clion远程调试/"/>
+
+
+
+
+
+  <title>【note】clion远程调试 | Ethan' Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ethan' Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.beesfun.com/2018/07/19/【note】clion远程调试/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ethan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/15061633">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ethan' Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【note】clion远程调试</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-19T21:43:58+08:00">
+                2018-07-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/note/" itemprop="url" rel="index">
+                    <span itemprop="name">note</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/19/【note】clion远程调试/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/07/19/【note】clion远程调试/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>mac上使用CLION远程调试centos上的C或C++可执行程序，clion使用GDB Remote Debug进行配置。</p>
+<ul>
+<li>宿主机： OSX 10.13.6</li>
+<li>虚拟机：CentOS 6.5 x64</li>
+</ul>
+<h2 id="虚拟机基本配置"><a href="#虚拟机基本配置" class="headerlink" title="虚拟机基本配置"></a>虚拟机基本配置</h2><p>首先在CentOS上安装必备的软件，包括 gcc, gcc-c++, gdb gdbserver, cmake, make。其中gcc-c++是用来编译cpp, cmake是由于clion使用cmake进行构建，因此CentOS上也要使用cmake来进行构建，保证本地和虚拟机的文件一致，在clion上使用GDB Remote Debug 进行远程调试。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y gcc gcc-c++ make cmake gdb gdb-gdbserve</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="cmake-构建"><a href="#cmake-构建" class="headerlink" title="cmake 构建"></a>cmake 构建</h3><p>假设代码的根目录：/root/work/hello， 源代码为单文件main.cpp</p>
+<p>项目目录下编写CMakeLists.txt文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># Make 最低版本号要求</span><br><span class="line">cmake_minimum_required(VERSION 2.8)</span><br><span class="line"></span><br><span class="line"># 项目信息</span><br><span class="line">project(hello)</span><br><span class="line"></span><br><span class="line"># 指定源文件</span><br><span class="line">set(SOURCE_FILES main.cpp)</span><br><span class="line"></span><br><span class="line">set(CMAKE_SOURCE_DIR .)</span><br><span class="line"></span><br><span class="line"># 配置gdb调试</span><br><span class="line">set(CMAKE_BUILD_TYPE &quot;Debug&quot;)</span><br><span class="line">set(CMAKE_CXX_FLAGS_DEBUG &quot;$ENV&#123;CXXFLAGS&#125; -O0 -Wall -g3 -ggdb&quot;)</span><br><span class="line">set(CMAKE_CXX_FLAGS_RELEASE &quot;$ENV&#123;CXXFLAGS&#125; -O3 -Wall&quot;)</span><br><span class="line"></span><br><span class="line"># 指定生成目标</span><br><span class="line">add_executable(hello $&#123;SOURCE_FILES&#125;)</span><br></pre></td></tr></table></figure>
+<p>使用cmake构建</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd /root/work/hello</span><br><span class="line">mkdir build</span><br><span class="line">cd build</span><br><span class="line">cmake .. </span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+<p>在根目录下生成build目录，存放cmake构建的结果，其中包含生成的Makefile文件，然后使用make命令，会在build目录中生成可执行文件hello。</p>
+<p>运行gdbserver</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gdbserver 0.0.0.0:1234 /root/work/hello/build/hello</span><br></pre></td></tr></table></figure>
+<h2 id="Mac-远程连接调试"><a href="#Mac-远程连接调试" class="headerlink" title="Mac 远程连接调试"></a>Mac 远程连接调试</h2><p>将虚拟机上的构建完成的整个项目文件拷贝到Mac上，存放路径为/Users/xxxuser/Pictures/hello</p>
+<p>使用clion打开，配置debug选项为GDB Remote Debug。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GDB: Bundled GDB multiarch</span><br><span class="line">&apos;target remote&apos; args: tcp:172.16.40.130:1234</span><br><span class="line">Symbol file: /Users/xxxuser/Pictures/hello/build/hello</span><br><span class="line">Path mapping: /root/work/hello /Users/xxxuser/Pictures/hello</span><br></pre></td></tr></table></figure>
+<p>‘target remote’ 参数中 172.16.40.130 为虚拟机的ip地址。</p>
+<p>然后点击调试按钮，若连接上gdbserver, Console会显示 Debugger connected to tcp:172.16.40.130:1234。gdbserver 也会显示相应的连接信息。之后就可以愉快的使用clion进行远程调试了。</p>
+<h2 id="踩坑之旅"><a href="#踩坑之旅" class="headerlink" title="踩坑之旅"></a>踩坑之旅</h2><p>上面的步骤基本可以实现正常调试的功能。当然为了达成这个目标也是踩了不少坑，记录一下，备忘或给他人提供一些参考。</p>
+<h3 id="clion-gdb-连不上。"><a href="#clion-gdb-连不上。" class="headerlink" title="clion gdb 连不上。"></a>clion gdb 连不上。</h3><p>clion进行远程调试，出现连接不上的问题，结果如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tcp:172.16.40.130:1234: Operation timed out.</span><br><span class="line">Debugger disconnected</span><br></pre></td></tr></table></figure>
+<p>在mac上可以ssh登录虚拟机，但是clion死活连不上虚拟机的gdbserver。排除clion软件的代理等问题，首先在虚拟机上使用gdb进行远程连接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$gdb</span><br><span class="line">(gdb) target remote 127.0.0.1:1234</span><br><span class="line">(gdb) q</span><br><span class="line"></span><br><span class="line">$gdb</span><br><span class="line">(gdb) target remote 172.16.40.130:1234</span><br><span class="line">(gdb) q</span><br></pre></td></tr></table></figure>
+<p>在虚拟机上使用gdb连接127.0.0.1和172.16.40.130两种方式进行连接，发现可以连上127.0.0.1，不能连上172.16.40.130，那么很可能是iptables的问题，禁用iptables后连接正常。</p>
+<p>配置CentOS关闭防火墙</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service iptables stop</span><br><span class="line">chkconfig iptables off</span><br></pre></td></tr></table></figure>
+<h3 id="No-source-file-named-main-cpp-问题"><a href="#No-source-file-named-main-cpp-问题" class="headerlink" title="No source file named main.cpp 问题"></a>No source file named main.cpp 问题</h3><ul>
+<li>第一种 CMake 源文件路径配置</li>
+</ul>
+<p>当CMakeLists.txt中未配置源文件路径时，clion启动gdb时，Debugger-&gt;GDB页面会出现No source file named main.cpp。</p>
+<p>例如之前的错误配置为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># Make 最低版本号要求</span><br><span class="line">cmake_minimum_required(VERSION 2.8)</span><br><span class="line"></span><br><span class="line"># 项目信息</span><br><span class="line">project(hello)</span><br><span class="line"></span><br><span class="line"># 配置gdb调试</span><br><span class="line">set(CMAKE_BUILD_TYPE &quot;Debug&quot;)</span><br><span class="line">set(CMAKE_CXX_FLAGS_DEBUG &quot;$ENV&#123;CXXFLAGS&#125; -O0 -Wall -g3 -ggdb&quot;)</span><br><span class="line">set(CMAKE_CXX_FLAGS_RELEASE &quot;$ENV&#123;CXXFLAGS&#125; -O3 -Wall&quot;)</span><br><span class="line"></span><br><span class="line"># 指定生成目标</span><br><span class="line">add_executable(hello main.cpp)</span><br></pre></td></tr></table></figure>
+<p>在CMakeLists.txt文件中添加<code>set(SOURCE_FILES main.cpp)</code>指定源文件，解决读取不到main.cpp的问题</p>
+<ul>
+<li>第二种 程序编译选项</li>
+</ul>
+<p>clion正常连接gdbserver后，在main.cpp文件中设置断点，出现No source file named main.cpp, 并且程断点也无效。</p>
+<p>对应的cmake文件配置为<code>set(CMAKE_CXX_FLAGS_DEBUG &quot;$ENV{CXXFLAGS} -O0 -Wall -g -ggdb&quot;)</code>,使用的是-g选项, 经过网上一番搜索，设置-g3选项生效，即<code>set(CMAKE_CXX_FLAGS_DEBUG &quot;$ENV{CXXFLAGS} -O0 -Wall -g3 -ggdb&quot;)</code>。其中-g对应的是-g2, -g3产生更多的调试信息，例如-g3级别支持宏扩展。</p>
+<p>可能是clion远程调试需要更多的调试信息，-g2级别不够，设置成-g3后就可以正常下断点调试，和本地调试无异。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Ethan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://www.beesfun.com/2018/07/19/【note】clion远程调试/" title="【note】clion远程调试">http://www.beesfun.com/2018/07/19/【note】clion远程调试/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/19/【note】CentOS免密登录问题排查/" rel="next" title="【note】CentOS免密登录问题排查">
+                <i class="fa fa-chevron-left"></i> 【note】CentOS免密登录问题排查
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://avatars3.githubusercontent.com/u/15061633"
+                alt="Ethan" />
+            
+              <p class="site-author-name" itemprop="name">Ethan</p>
+              <p class="site-description motion-element" itemprop="description">personal blog :)</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/hxer/" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友链
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://badcode.cc/" title="badcode" target="_blank">badcode</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.wupco.cn" title="wupco" target="_blank">wupco</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://danaive.github.io" title="danlei" target="_blank">danlei</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟机基本配置"><span class="nav-number">1.</span> <span class="nav-text">虚拟机基本配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cmake-构建"><span class="nav-number">1.1.</span> <span class="nav-text">cmake 构建</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mac-远程连接调试"><span class="nav-number">2.</span> <span class="nav-text">Mac 远程连接调试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#踩坑之旅"><span class="nav-number">3.</span> <span class="nav-text">踩坑之旅</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#clion-gdb-连不上。"><span class="nav-number">3.1.</span> <span class="nav-text">clion gdb 连不上。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#No-source-file-named-main-cpp-问题"><span class="nav-number">3.2.</span> <span class="nav-text">No source file named main.cpp 问题</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ethan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=63078337";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: '1532007838000', 
+            owner: 'hxer',
+            repo: 'blogComment',
+            
+            lang: "zh-Hans" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '7147116f4ae9df31961313af13fad164bdbf0fe3',
+            
+                client_id: 'ac1236f9efefa7d5580f'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -108,7 +108,7 @@
 <meta property="og:site_name" content="Ethan&#39; Blog">
 <meta property="og:description" content="mac上使用CLION远程调试centos上的C或C++可执行程序，clion使用GDB Remote Debug进行配置。  宿主机： OSX 10.13.6 虚拟机：CentOS 6.5 x64  虚拟机基本配置首先在CentOS上安装必备的软件，包括 gcc, gcc-c++, gdb gdbserver, cmake, make。其中gcc-c++是用来编译cpp, cmake是由于cli">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-19T13:48:07.917Z">
+<meta property="og:updated_time" content="2018-07-30T02:22:02.392Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【note】clion远程调试">
 <meta name="twitter:description" content="mac上使用CLION远程调试centos上的C或C++可执行程序，clion使用GDB Remote Debug进行配置。  宿主机： OSX 10.13.6 虚拟机：CentOS 6.5 x64  虚拟机基本配置首先在CentOS上安装必备的软件，包括 gcc, gcc-c++, gdb gdbserver, cmake, make。其中gcc-c++是用来编译cpp, cmake是由于cli">
@@ -425,6 +425,10 @@
 <p>clion正常连接gdbserver后，在main.cpp文件中设置断点，出现No source file named main.cpp, 并且程断点也无效。</p>
 <p>对应的cmake文件配置为<code>set(CMAKE_CXX_FLAGS_DEBUG &quot;$ENV{CXXFLAGS} -O0 -Wall -g -ggdb&quot;)</code>,使用的是-g选项, 经过网上一番搜索，设置-g3选项生效，即<code>set(CMAKE_CXX_FLAGS_DEBUG &quot;$ENV{CXXFLAGS} -O0 -Wall -g3 -ggdb&quot;)</code>。其中-g对应的是-g2, -g3产生更多的调试信息，例如-g3级别支持宏扩展。</p>
 <p>可能是clion远程调试需要更多的调试信息，-g2级别不够，设置成-g3后就可以正常下断点调试，和本地调试无异。</p>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h2><ul>
+<li>cmake不是必须的</li>
+</ul>
+<p>虽然clion默认使用cmake构建，使用gdbserver进行远程调试，可以不使用cmake构建，构建工具不重要，只要满足源码目录和二进制程序，本地和远程相同即可。文中先前理解有误，特此修正。</p>
 
       
     </div>
@@ -567,7 +571,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-count">50</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -654,7 +658,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟机基本配置"><span class="nav-number">1.</span> <span class="nav-text">虚拟机基本配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cmake-构建"><span class="nav-number">1.1.</span> <span class="nav-text">cmake 构建</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mac-远程连接调试"><span class="nav-number">2.</span> <span class="nav-text">Mac 远程连接调试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#踩坑之旅"><span class="nav-number">3.</span> <span class="nav-text">踩坑之旅</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#clion-gdb-连不上。"><span class="nav-number">3.1.</span> <span class="nav-text">clion gdb 连不上。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#No-source-file-named-main-cpp-问题"><span class="nav-number">3.2.</span> <span class="nav-text">No source file named main.cpp 问题</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟机基本配置"><span class="nav-number">1.</span> <span class="nav-text">虚拟机基本配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cmake-构建"><span class="nav-number">1.1.</span> <span class="nav-text">cmake 构建</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mac-远程连接调试"><span class="nav-number">2.</span> <span class="nav-text">Mac 远程连接调试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#踩坑之旅"><span class="nav-number">3.</span> <span class="nav-text">踩坑之旅</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#clion-gdb-连不上。"><span class="nav-number">3.1.</span> <span class="nav-text">clion gdb 连不上。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#No-source-file-named-main-cpp-问题"><span class="nav-number">3.2.</span> <span class="nav-text">No source file named main.cpp 问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备注"><span class="nav-number">4.</span> <span class="nav-text">备注</span></a></li></ol></div>
             
 
           </div>

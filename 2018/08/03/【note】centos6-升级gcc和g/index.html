@@ -109,7 +109,7 @@
 <meta property="og:site_name" content="呆萌的技术笔记">
 <meta property="og:description" content="对 gcc或g++ 升级无法直接使用： 1yum update gcc 以下是升级的详细过程。 1.使用 redhat developer toolset 2 的repo，安装GCC123cd /etc/yum.repos.dwget https://people.centos.org/tru/devtools-2/devtools-2.repoyum --enablerepo=testing-2">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-03T05:32:52.024Z">
+<meta property="og:updated_time" content="2018-08-24T11:11:23.423Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【note】centos6 升级gcc和g++">
 <meta name="twitter:description" content="对 gcc或g++ 升级无法直接使用： 1yum update gcc 以下是升级的详细过程。 1.使用 redhat developer toolset 2 的repo，安装GCC123cd /etc/yum.repos.dwget https://people.centos.org/tru/devtools-2/devtools-2.repoyum --enablerepo=testing-2">
@@ -398,6 +398,10 @@
 <p>g++版本升级到4.8.2了。</p>
 <h3 id="3-副作用"><a href="#3-副作用" class="headerlink" title="3. 副作用"></a>3. 副作用</h3><p>gcc 4.8生成“rep;ret”指令，避免AMD芯片的性能损失，而老版的assemblers会识别为错误，<br>解决方法是更新binutils，使用更新的assemblers接受此指令。参考：<a href="https://gcc.gnu.org/ml/gcc-help/2011-03/msg00286.html" target="_blank" rel="noopener">https://gcc.gnu.org/ml/gcc-help/2011-03/msg00286.html</a></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y devtoolset-2-binutils-devel</span><br></pre></td></tr></table></figure>
+<h2 id="更优雅的方式"><a href="#更优雅的方式" class="headerlink" title="更优雅的方式"></a>更优雅的方式</h2><p>centos为了稳定性，发行版的软件版本通常都比较低，为了解决用户使用软件不同版本的需求，RedHat 推出 Software Collections，更多说明可自行谷歌。</p>
+<p>解决上述更新gcc版本，可以使用 <code>devtoolset + scl</code>, devtoolset不同的版本内置了不同版本的gcc等多个软件包，devtoolset-3使用的是gcc4.9.2的版本。</p>
+<p>安装scl支持: <code>yum install scl-utils</code></p>
+<p>例如在bash命令中更新使用的gcc，如<code>scl enable devtoolset-3 bash</code>, 这点和python的venv很类似。如果只是一次性使用，可以使用以下命令：<code>scl enable devtoolset-3 &quot;gcc --version&quot;</code></p>
 
       
     </div>
@@ -633,7 +637,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-使用-redhat-developer-toolset-2-的repo，安装GCC"><span class="nav-number">1.</span> <span class="nav-text">1.使用 redhat developer toolset 2 的repo，安装GCC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-替换系统中原来的GCC"><span class="nav-number">2.</span> <span class="nav-text">2. 替换系统中原来的GCC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-副作用"><span class="nav-number">3.</span> <span class="nav-text">3. 副作用</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-使用-redhat-developer-toolset-2-的repo，安装GCC"><span class="nav-number">1.</span> <span class="nav-text">1.使用 redhat developer toolset 2 的repo，安装GCC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-替换系统中原来的GCC"><span class="nav-number">2.</span> <span class="nav-text">2. 替换系统中原来的GCC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-副作用"><span class="nav-number">3.</span> <span class="nav-text">3. 副作用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更优雅的方式"><span class="nav-number"></span> <span class="nav-text">更优雅的方式</span></a></div>
             
 
           </div>

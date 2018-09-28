@@ -5,8 +5,8 @@
   <span class="with-love">
     <i class="fa fa-{{ theme.footer.icon }}"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">{{ theme.footer.copyright || config.author }}</span>
-
+  <span class="author" itemprop="copyrightHolder">{{ theme.footer.copyright || config.author }} <a href="http://www.miitbeian.gov.cn">渝ICP备18007542号</a></span>
+  
   {% if theme.post_wordcount.totalcount %}
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">

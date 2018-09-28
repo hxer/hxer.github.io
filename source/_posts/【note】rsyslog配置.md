@@ -21,7 +21,7 @@ rsyslog的配置文件为/etc/rsyslog.conf和/etc/rsyslog.d/*.conf。
 
 ```shell
 # Create dynamic file template
-$template DynLogs,"/var/log/app/%PROGRAMNAME%_%$YEAR%-%$MONTH%-%$DAY%.log" *
+$template DynLogs,"/var/log/app/%PROGRAMNAME%_%$YEAR%-%$MONTH%-%$DAY%.log"
 # save localhost
 local5.alert  ?DynLogs
 ```

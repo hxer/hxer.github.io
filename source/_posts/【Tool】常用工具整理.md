@@ -12,16 +12,24 @@ tags:
 * [在线编程](http://www.shucunwang.com/RunCode/csharp/)
 * [JSON在线格式化](http://zaa.ch/jsonlint/)
 * [shell在线语法检测](http://www.shellcheck.net/)
+* [代码转图片](https://carbon.now.sh/)
 
 <!-- more-->
 
 ## 威胁情报平台
 
 * [threat crowd](https://www.threatcrowd.org/)
+* [360威胁情报中心](https://ti.360.net/) 
 * [微步在线](https://x.threatbook.cn/)
 * [AlienVault](https://otx.alienvault.com/)
 * [启明星辰 VenusEye](https://www.venuseye.com.cn/)
 
+## 恶意软件分析
+
+* [Free Automated Malware Analysis Service - powered by Falcon Sandbox](https://www.hybrid-analysis.com/)
+* [virustotal](https://www.virustotal.com/#/home/upload)
+* [cuckoo](https://linux.huntingmalware.com/submit/)
+* [哈勃分析系统](https://habo.qq.com/)
 
 ## 数据包分析工具
 

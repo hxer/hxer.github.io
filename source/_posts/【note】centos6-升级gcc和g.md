@@ -59,4 +59,12 @@ gcc 4.8生成“rep;ret”指令，避免AMD芯片的性能损失，而老版的
 yum install -y devtoolset-2-binutils-devel
 ```
 
+## 更优雅的方式
 
+centos为了稳定性，发行版的软件版本通常都比较低，为了解决用户使用软件不同版本的需求，RedHat 推出 Software Collections，更多说明可自行谷歌。
+
+解决上述更新gcc版本，可以使用 `devtoolset + scl`, devtoolset不同的版本内置了不同版本的gcc等多个软件包，devtoolset-3使用的是gcc4.9.2的版本。
+
+安装scl支持: `yum install scl-utils`
+
+例如在bash命令中更新使用的gcc，如`scl enable devtoolset-3 bash`, 这点和python的venv很类似。如果只是一次性使用，可以使用以下命令：`scl enable devtoolset-3 "gcc --version"`

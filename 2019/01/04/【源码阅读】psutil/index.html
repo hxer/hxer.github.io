@@ -109,7 +109,7 @@
 <meta property="og:site_name" content="呆萌的技术笔记">
 <meta property="og:description" content="psutil(Python system and process utilities)是一个跨平台的进程管理和系统工具的python库，可以获取进程、系统CPU，memory，disks，network等信息。psutil主要用于系统资源的监控，分析，以及对进程进行一定的管理。支持的系统有Linux, Windows, OSX, FreeBSD and Sun Solaris，32和64位系统都支">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-04T14:14:57.941Z">
+<meta property="og:updated_time" content="2019-01-04T14:17:07.742Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【源码阅读】psutil">
 <meta name="twitter:description" content="psutil(Python system and process utilities)是一个跨平台的进程管理和系统工具的python库，可以获取进程、系统CPU，memory，disks，network等信息。psutil主要用于系统资源的监控，分析，以及对进程进行一定的管理。支持的系统有Linux, Windows, OSX, FreeBSD and Sun Solaris，32和64位系统都支">
@@ -384,8 +384,7 @@
       
 
       
-        <p>psutil(Python system and process utilities)是一个跨平台的进程管理和系统工具的python库，<br>可以获取进程、系统CPU，memory，disks，network等信息。psutil主要用于系统资源的监控，分析，以及对进程进行一定的管理。支持的系统有Linux, Windows, OSX, FreeBSD and Sun Solaris，32和64位系统都支持。</p>
-<p>如果有写过python C扩展的经验，阅读psutil源码是比较轻松的，psutil源码文件结构清晰，根据操作系统平台的不同组织文件结构。假如没有这方面经验，也不影响，可以查阅官方文档的开发者指南，快速对psutil源码结构有个大致了解。</p>
+        <p>psutil(Python system and process utilities)是一个跨平台的进程管理和系统工具的python库，<br>可以获取进程、系统CPU，memory，disks，network等信息。psutil主要用于系统资源的监控，分析，以及对进程进行一定的管理。支持的系统有Linux, Windows, OSX, FreeBSD and Sun Solaris，32和64位系统都支持。<br><a id="more"></a><br>如果有写过python C扩展的经验，阅读psutil源码是比较轻松的，psutil源码文件结构清晰，根据操作系统平台的不同组织文件结构。假如没有这方面经验，也不影响，可以查阅官方文档的开发者指南，快速对psutil源码结构有个大致了解。</p>
 <p>阅读psutil官方文档的<a href="https://github.com/giampaolo/psutil/blob/master/DEVGUIDE.rst" target="_blank" rel="noopener">开发者指南</a>,开发者增加新的功能特性，通常涉及如下文件:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">psutil/__init__.py                   # main psutil namespace</span><br><span class="line">psutil/_ps&#123;platform&#125;.py              # python platform wrapper</span><br><span class="line">psutil/_psutil_&#123;platform&#125;.c          # C platform extension</span><br><span class="line">psutil/_psutil_&#123;platform&#125;.h          # C header file</span><br><span class="line">psutil/tests/test_process|system.py  # main test suite</span><br><span class="line">psutil/tests/test_&#123;platform&#125;.py      # platform specific test suite</span><br></pre></td></tr></table></figure>
 <p>在<code>psutil/__init__.py</code>文件中定义新的函数，然后在<code>psutil/_ps{platform}.py</code>实现函数功能，其中<code>{platform}</code>泛指不同的操作系统平台。涉及C扩展，在对应的c文件实现，例如<code>_pswindows.py</code>对应的c文件为<code>_psutil_windows.c</code>。</p>

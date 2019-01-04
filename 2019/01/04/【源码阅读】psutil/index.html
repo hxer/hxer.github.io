@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+
+
+
+
+  <meta name="keywords" content="psutil,python," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="psutil(Python system and process utilities)是一个跨平台的进程管理和系统工具的python库，可以获取进程、系统CPU，memory，disks，network等信息。psutil主要用于系统资源的监控，分析，以及对进程进行一定的管理。支持的系统有Linux, Windows, OSX, FreeBSD and Sun Solaris，32和64位系统都支">
+<meta name="keywords" content="psutil,python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【源码阅读】psutil">
+<meta property="og:url" content="http://www.beesfun.com/2019/01/04/【源码阅读】psutil/index.html">
+<meta property="og:site_name" content="呆萌的技术笔记">
+<meta property="og:description" content="psutil(Python system and process utilities)是一个跨平台的进程管理和系统工具的python库，可以获取进程、系统CPU，memory，disks，network等信息。psutil主要用于系统资源的监控，分析，以及对进程进行一定的管理。支持的系统有Linux, Windows, OSX, FreeBSD and Sun Solaris，32和64位系统都支">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-04T14:14:57.941Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【源码阅读】psutil">
+<meta name="twitter:description" content="psutil(Python system and process utilities)是一个跨平台的进程管理和系统工具的python库，可以获取进程、系统CPU，memory，disks，network等信息。psutil主要用于系统资源的监控，分析，以及对进程进行一定的管理。支持的系统有Linux, Windows, OSX, FreeBSD and Sun Solaris，32和64位系统都支">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.beesfun.com/2019/01/04/【源码阅读】psutil/"/>
+
+
+
+
+
+  <title>【源码阅读】psutil | 呆萌的技术笔记</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">呆萌的技术笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.beesfun.com/2019/01/04/【源码阅读】psutil/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ethan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/15061633">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="呆萌的技术笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【源码阅读】psutil</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-04T22:13:11+08:00">
+                2019-01-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/source-code/" itemprop="url" rel="index">
+                    <span itemprop="name">source code</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/01/04/【源码阅读】psutil/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/01/04/【源码阅读】psutil/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>psutil(Python system and process utilities)是一个跨平台的进程管理和系统工具的python库，<br>可以获取进程、系统CPU，memory，disks，network等信息。psutil主要用于系统资源的监控，分析，以及对进程进行一定的管理。支持的系统有Linux, Windows, OSX, FreeBSD and Sun Solaris，32和64位系统都支持。</p>
+<p>如果有写过python C扩展的经验，阅读psutil源码是比较轻松的，psutil源码文件结构清晰，根据操作系统平台的不同组织文件结构。假如没有这方面经验，也不影响，可以查阅官方文档的开发者指南，快速对psutil源码结构有个大致了解。</p>
+<p>阅读psutil官方文档的<a href="https://github.com/giampaolo/psutil/blob/master/DEVGUIDE.rst" target="_blank" rel="noopener">开发者指南</a>,开发者增加新的功能特性，通常涉及如下文件:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">psutil/__init__.py                   # main psutil namespace</span><br><span class="line">psutil/_ps&#123;platform&#125;.py              # python platform wrapper</span><br><span class="line">psutil/_psutil_&#123;platform&#125;.c          # C platform extension</span><br><span class="line">psutil/_psutil_&#123;platform&#125;.h          # C header file</span><br><span class="line">psutil/tests/test_process|system.py  # main test suite</span><br><span class="line">psutil/tests/test_&#123;platform&#125;.py      # platform specific test suite</span><br></pre></td></tr></table></figure>
+<p>在<code>psutil/__init__.py</code>文件中定义新的函数，然后在<code>psutil/_ps{platform}.py</code>实现函数功能，其中<code>{platform}</code>泛指不同的操作系统平台。涉及C扩展，在对应的c文件实现，例如<code>_pswindows.py</code>对应的c文件为<code>_psutil_windows.c</code>。</p>
+<h3 id="单点深入"><a href="#单点深入" class="headerlink" title="单点深入"></a>单点深入</h3><p>以<code>pids()</code> 为切入点，深入分析底层实现方式。函数如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pids</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">"""Return a list of current running PIDs."""</span></span><br><span class="line">    <span class="keyword">return</span> _psplatform.pids()</span><br></pre></td></tr></table></figure>
+<p>其中<code>_psplatform</code>表示当前的操作系统平台，例如windows平台下定义为<code>from . import _pswindows as _psplatform</code>，跟入<code>_pswindows.py</code>文件的<code>pids()</code>函数如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> . <span class="keyword">import</span> _psutil_windows <span class="keyword">as</span> cext</span><br><span class="line">pids = cext.pids</span><br></pre></td></tr></table></figure>
+<p><code>pids()</code>函数功能由底层c扩展实现，继续跟入<code>_psutil_windows.c</code>文件</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Return a Python list of all the PIDs running on the system.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> PyObject *</span><br><span class="line">psutil_pids(PyObject *self, PyObject *args) &#123;</span><br><span class="line">    DWORD *proclist = <span class="literal">NULL</span>;</span><br><span class="line">    DWORD numberOfReturnedPIDs;</span><br><span class="line">    DWORD i;</span><br><span class="line">    PyObject *py_pid = <span class="literal">NULL</span>;</span><br><span class="line">    PyObject *py_retlist = PyList_New(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (py_retlist == <span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    proclist = psutil_get_pids(&amp;numberOfReturnedPIDs);</span><br><span class="line">    <span class="keyword">if</span> (proclist == <span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">goto</span> error;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; numberOfReturnedPIDs; i++) &#123;</span><br><span class="line">        py_pid = Py_BuildValue(<span class="string">"I"</span>, proclist[i]);</span><br><span class="line">        <span class="keyword">if</span> (!py_pid)</span><br><span class="line">            <span class="keyword">goto</span> error;</span><br><span class="line">        <span class="keyword">if</span> (PyList_Append(py_retlist, py_pid))</span><br><span class="line">            <span class="keyword">goto</span> error;</span><br><span class="line">        Py_DECREF(py_pid);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// free C array allocated for PIDs</span></span><br><span class="line">    <span class="built_in">free</span>(proclist);</span><br><span class="line">    <span class="keyword">return</span> py_retlist;</span><br><span class="line"></span><br><span class="line">error:</span><br><span class="line">    Py_XDECREF(py_pid);</span><br><span class="line">    Py_DECREF(py_retlist);</span><br><span class="line">    <span class="keyword">if</span> (proclist != <span class="literal">NULL</span>)</span><br><span class="line">        <span class="built_in">free</span>(proclist);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>函数实现核心为<code>psutil_get_pids</code>函数，定义在<code>arch/windows/process_info.c</code>文件中</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">DWORD *</span><br><span class="line">psutil_get_pids(DWORD *numberOfReturnedPIDs) &#123;</span><br><span class="line">    <span class="comment">// Win32 SDK says the only way to know if our process array</span></span><br><span class="line">    <span class="comment">// wasn't large enough is to check the returned size and make</span></span><br><span class="line">    <span class="comment">// sure that it doesn't match the size of the array.</span></span><br><span class="line">    <span class="comment">// If it does we allocate a larger array and try again</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Stores the actual array</span></span><br><span class="line">    DWORD *procArray = <span class="literal">NULL</span>;</span><br><span class="line">    DWORD procArrayByteSz;</span><br><span class="line">    <span class="keyword">int</span> procArraySz = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Stores the byte size of the returned array from enumprocesses</span></span><br><span class="line">    DWORD enumReturnSz = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        procArraySz += <span class="number">1024</span>;</span><br><span class="line">        <span class="keyword">if</span> (procArray != <span class="literal">NULL</span>)</span><br><span class="line">            <span class="built_in">free</span>(procArray);</span><br><span class="line">        procArrayByteSz = procArraySz * <span class="keyword">sizeof</span>(DWORD);</span><br><span class="line">        procArray = <span class="built_in">malloc</span>(procArrayByteSz);</span><br><span class="line">        <span class="keyword">if</span> (procArray == <span class="literal">NULL</span>) &#123;</span><br><span class="line">            PyErr_NoMemory();</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (! EnumProcesses(procArray, procArrayByteSz, &amp;enumReturnSz)) &#123;</span><br><span class="line">            <span class="built_in">free</span>(procArray);</span><br><span class="line">            PyErr_SetFromWindowsErr(<span class="number">0</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">while</span> (enumReturnSz == procArraySz * <span class="keyword">sizeof</span>(DWORD));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// The number of elements is the returned size / size of each element</span></span><br><span class="line">    *numberOfReturnedPIDs = enumReturnSz / <span class="keyword">sizeof</span>(DWORD);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> procArray;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>调用<a href="https://docs.microsoft.com/en-us/windows/desktop/api/psapi/nf-psapi-enumprocesses" target="_blank" rel="noopener">EnumProcesses api</a>枚举进程，procArray为指向进程ID数组的指针，numberOfReturnedPIDs存储了进程数。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Ethan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://www.beesfun.com/2019/01/04/【源码阅读】psutil/" title="【源码阅读】psutil">http://www.beesfun.com/2019/01/04/【源码阅读】psutil/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/psutil/" rel="tag"># psutil</a>
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/10/【note】前后端分离跨域问题/" rel="next" title="【note】前后端分离跨域问题">
+                <i class="fa fa-chevron-left"></i> 【note】前后端分离跨域问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://avatars3.githubusercontent.com/u/15061633"
+                alt="Ethan" />
+            
+              <p class="site-author-name" itemprop="name">Ethan</p>
+              <p class="site-description motion-element" itemprop="description">personal blog :)</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/hxer/" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友链
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://badcode.cc/" title="badcode" target="_blank">badcode</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.wupco.cn" title="wupco" target="_blank">wupco</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://danaive.github.io" title="danlei" target="_blank">danlei</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#单点深入"><span class="nav-number">1.</span> <span class="nav-text">单点深入</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ethan <a href="http://www.miitbeian.gov.cn">渝ICP备18007542号</a></span>
+  
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=63078337";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: '1546611191000', 
+            owner: 'hxer',
+            repo: 'blogComment',
+            
+            lang: "zh-Hans" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '7147116f4ae9df31961313af13fad164bdbf0fe3',
+            
+                client_id: 'ac1236f9efefa7d5580f'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -10,7 +10,7 @@ tags:
 
 psutil(Python system and process utilities)是一个跨平台的进程管理和系统工具的python库，
 可以获取进程、系统CPU，memory，disks，network等信息。psutil主要用于系统资源的监控，分析，以及对进程进行一定的管理。支持的系统有Linux, Windows, OSX, FreeBSD and Sun Solaris，32和64位系统都支持。
-
+<!--more-->
 如果有写过python C扩展的经验，阅读psutil源码是比较轻松的，psutil源码文件结构清晰，根据操作系统平台的不同组织文件结构。假如没有这方面经验，也不影响，可以查阅官方文档的开发者指南，快速对psutil源码结构有个大致了解。
 
 阅读psutil官方文档的[开发者指南](https://github.com/giampaolo/psutil/blob/master/DEVGUIDE.rst),开发者增加新的功能特性，通常涉及如下文件:

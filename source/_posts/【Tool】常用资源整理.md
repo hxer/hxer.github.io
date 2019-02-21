@@ -1,5 +1,5 @@
 ---
-title: 【Tool】常用工具整理
+title: 【Tool】常用资源整理
 date: 2017-12-27 13:00:07
 categories: Tool
 tags:
@@ -13,6 +13,7 @@ tags:
 * [JSON在线格式化](http://zaa.ch/jsonlint/)
 * [shell在线语法检测](http://www.shellcheck.net/)
 * [代码转图片](https://carbon.now.sh/)
+* [video转gif](https://ezgif.com/video-to-gif)
 
 <!-- more-->
 
@@ -23,6 +24,7 @@ tags:
 * [微步在线](https://x.threatbook.cn/)
 * [AlienVault](https://otx.alienvault.com/)
 * [启明星辰 VenusEye](https://www.venuseye.com.cn/)
+* [天际友盟RED UEEN](https://redqueen.tj-un.com/IntelHome.html)
 
 ## 恶意软件分析
 

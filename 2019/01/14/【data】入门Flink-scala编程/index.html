@@ -104,14 +104,14 @@
 <meta name="description" content="flink scala编程入门的教程网上有一些，看着步骤相对比较简单，但是实践起来还是遇到不少的坑，这里记录下过程，供日后查阅，备注附录了遇到的一些问题。至于代码解释可自行查阅网上其他资料，这里不再赘述。">
 <meta name="keywords" content="flink,scala">
 <meta property="og:type" content="article">
-<meta property="og:title" content="入门Flink scala编程">
-<meta property="og:url" content="http://www.beesfun.com/2019/01/14/入门Flink-scala编程/index.html">
-<meta property="og:site_name" content="呆萌的技术笔记">
+<meta property="og:title" content="【data】入门Flink scala编程">
+<meta property="og:url" content="http://www.beesfun.com/2019/01/14/【data】入门Flink-scala编程/index.html">
+<meta property="og:site_name" content="Ethan&#39;s Blog">
 <meta property="og:description" content="flink scala编程入门的教程网上有一些，看着步骤相对比较简单，但是实践起来还是遇到不少的坑，这里记录下过程，供日后查阅，备注附录了遇到的一些问题。至于代码解释可自行查阅网上其他资料，这里不再赘述。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-14T08:48:01.076Z">
+<meta property="og:updated_time" content="2019-02-22T06:11:37.020Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="入门Flink scala编程">
+<meta name="twitter:title" content="【data】入门Flink scala编程">
 <meta name="twitter:description" content="flink scala编程入门的教程网上有一些，看着步骤相对比较简单，但是实践起来还是遇到不少的坑，这里记录下过程，供日后查阅，备注附录了遇到的一些问题。至于代码解释可自行查阅网上其他资料，这里不再赘述。">
 
 
@@ -142,13 +142,13 @@
 
 
 
-  <link rel="canonical" href="http://www.beesfun.com/2019/01/14/入门Flink-scala编程/"/>
+  <link rel="canonical" href="http://www.beesfun.com/2019/01/14/【data】入门Flink-scala编程/"/>
 
 
 
 
 
-  <title>入门Flink scala编程 | 呆萌的技术笔记</title>
+  <title>【data】入门Flink scala编程 | Ethan's Blog</title>
   
 
 
@@ -178,7 +178,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">呆萌的技术笔记</span>
+        <span class="site-title">Ethan's Blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -285,7 +285,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.beesfun.com/2019/01/14/入门Flink-scala编程/">
+    <link itemprop="mainEntityOfPage" href="http://www.beesfun.com/2019/01/14/【data】入门Flink-scala编程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Ethan">
@@ -294,7 +294,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="呆萌的技术笔记">
+      <meta itemprop="name" content="Ethan's Blog">
     </span>
 
     
@@ -302,7 +302,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">入门Flink scala编程</h1>
+          <h1 class="post-title" itemprop="name headline">【data】入门Flink scala编程</h1>
         
 
         <div class="post-meta">
@@ -337,8 +337,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/develop/" itemprop="url" rel="index">
-                    <span itemprop="name">develop</span>
+                  <a href="/categories/data/" itemprop="url" rel="index">
+                    <span itemprop="name">data</span>
                   </a>
                 </span>
 
@@ -355,8 +355,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/01/14/入门Flink-scala编程/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/01/14/入门Flink-scala编程/" itemprop="commentsCount"></span>
+                <a href="/2019/01/14/【data】入门Flink-scala编程/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/01/14/【data】入门Flink-scala编程/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -404,7 +404,7 @@
 </ul>
 <h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h2><ol>
 <li><p>maven更换阿里云源</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">cp /usr/local/Cellar/maven@3.3/3.3.9/libexec/conf/settings.xml ~/.m2</span><br><span class="line"></span><br><span class="line">vim ~/.m2/settings.xml</span><br><span class="line"></span><br><span class="line">&lt;mirrors&gt;</span><br><span class="line">  &lt;!-- mirror</span><br><span class="line">   | Specifies a repository mirror site to use instead of a given repository. The repository that</span><br><span class="line">   | this mirror serves has an ID that matches the mirrorOf element of this mirror. IDs are used</span><br><span class="line">   | for inheritance and direct lookup purposes, and must be unique across the set of mirrors.</span><br><span class="line">   |</span><br><span class="line">  &lt;mirror&gt;</span><br><span class="line">    &lt;id&gt;mirrorId&lt;/id&gt;</span><br><span class="line">    &lt;mirrorOf&gt;repositoryId&lt;/mirrorOf&gt;</span><br><span class="line">    &lt;name&gt;Human Readable Name for this Mirror.&lt;/name&gt;</span><br><span class="line">    &lt;url&gt;http://my.repository.com/repo/path&lt;/url&gt;</span><br><span class="line">  &lt;/mirror&gt;</span><br><span class="line"><span class="meta">   --&gt;</span><span class="bash"></span></span><br><span class="line">   &lt;mirror&gt;</span><br><span class="line">    &lt;id&gt;alimaven&lt;/id&gt;</span><br><span class="line">    &lt;name&gt;aliyun maven&lt;/name&gt;</span><br><span class="line">    &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt;</span><br><span class="line">    &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;       </span><br><span class="line">  &lt;/mirror&gt;</span><br><span class="line">&lt;/mirrors&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">cp /usr/local/Cellar/maven@3.3/3.3.9/libexec/conf/settings.xml ~/.m2</span><br><span class="line"></span><br><span class="line">vim ~/.m2/settings.xml</span><br><span class="line"></span><br><span class="line">&lt;mirrors&gt;</span><br><span class="line">  &lt;!-- mirror</span><br><span class="line">   | Specifies a repository mirror site to use instead of a given repository. The repository that</span><br><span class="line">   | this mirror serves has an ID that matches the mirrorOf element of this mirror. IDs are used</span><br><span class="line">   | for inheritance and direct lookup purposes, and must be unique across the set of mirrors.</span><br><span class="line">   |</span><br><span class="line">  &lt;mirror&gt;</span><br><span class="line">    &lt;id&gt;mirrorId&lt;/id&gt;</span><br><span class="line">    &lt;mirrorOf&gt;repositoryId&lt;/mirrorOf&gt;</span><br><span class="line">    &lt;name&gt;Human Readable Name for this Mirror.&lt;/name&gt;</span><br><span class="line">    &lt;url&gt;http://my.repository.com/repo/path&lt;/url&gt;</span><br><span class="line">  &lt;/mirror&gt;</span><br><span class="line"><span class="meta">   --&gt;</span></span><br><span class="line">   &lt;mirror&gt;</span><br><span class="line">    &lt;id&gt;alimaven&lt;/id&gt;</span><br><span class="line">    &lt;name&gt;aliyun maven&lt;/name&gt;</span><br><span class="line">    &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt;</span><br><span class="line">    &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;       </span><br><span class="line">  &lt;/mirror&gt;</span><br><span class="line">&lt;/mirrors&gt;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>包导入问题</p>
 <p>IDEA根据编写的代码能够自动或手动提示导入所需要的包，但是构建官方给的代码中会报如下错误：</p>
@@ -475,7 +475,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://www.beesfun.com/2019/01/14/入门Flink-scala编程/" title="入门Flink scala编程">http://www.beesfun.com/2019/01/14/入门Flink-scala编程/</a>
+    <a href="http://www.beesfun.com/2019/01/14/【data】入门Flink-scala编程/" title="【data】入门Flink scala编程">http://www.beesfun.com/2019/01/14/【data】入门Flink-scala编程/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -514,6 +514,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/22/【pwn】IDA远程调试方法/" rel="prev" title="【pwn】IDA远程调试方法">
+                【pwn】IDA远程调试方法 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -601,7 +605,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">58</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -612,7 +616,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -623,7 +627,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

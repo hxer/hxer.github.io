@@ -1,7 +1,7 @@
 ---
-title: 入门Flink scala编程
+title: 【data】入门Flink scala编程
 date: 2019-01-14 16:45:10
-categories: develop
+categories: data
 tags:
     - flink
     - scala

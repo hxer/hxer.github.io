@@ -1,7 +1,7 @@
 ---
-title: 【实验】linux x64栈溢出
+title: 【pwn】linux x64栈溢出
 date: 2017-10-11 16:42:01
-categories: 二进制安全
+categories: pwn
 tags:
     - linux
     - 栈溢出

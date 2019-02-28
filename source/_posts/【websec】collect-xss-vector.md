@@ -1,5 +1,5 @@
 ---
-title: collect xss vector
+title: 【websec】collect xss vector
 date: 2017-06-08 17:25:44
 categories: Web安全
 tags:

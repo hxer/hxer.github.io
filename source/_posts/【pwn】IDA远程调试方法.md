@@ -34,4 +34,4 @@ tags:
 3. 打开IDA64
     {% asset_img ida01.png %}
    选择Debugger->run->Remote Linux debugger
-   {% asset_img ida02.png %}
+   {% asset_img ida2.png %}

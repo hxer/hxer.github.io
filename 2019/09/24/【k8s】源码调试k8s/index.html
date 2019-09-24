@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+
+
+
+
+  <meta name="keywords" content="debug,k8s," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="虚拟机搭建k8s源码编译调试环境，宿主机使用golang IDE远程连接进行调试。">
+<meta name="keywords" content="debug,k8s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【k8s】源码调试k8s">
+<meta property="og:url" content="http://www.beesfun.com/2019/09/24/【k8s】源码调试k8s/index.html">
+<meta property="og:site_name" content="bees&#39; blog">
+<meta property="og:description" content="虚拟机搭建k8s源码编译调试环境，宿主机使用golang IDE远程连接进行调试。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.beesfun.com/2019/09/24/【k8s】源码调试k8s/debug-api-server-conf.png">
+<meta property="og:image" content="http://www.beesfun.com/2019/09/24/【k8s】源码调试k8s/debug-api-server.png">
+<meta property="og:image" content="http://www.beesfun.com/2019/09/24/【k8s】源码调试k8s/debug-api-kubelet.png">
+<meta property="og:updated_time" content="2019-09-24T05:33:33.711Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【k8s】源码调试k8s">
+<meta name="twitter:description" content="虚拟机搭建k8s源码编译调试环境，宿主机使用golang IDE远程连接进行调试。">
+<meta name="twitter:image" content="http://www.beesfun.com/2019/09/24/【k8s】源码调试k8s/debug-api-server-conf.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.beesfun.com/2019/09/24/【k8s】源码调试k8s/"/>
+
+
+
+
+
+  <title>【k8s】源码调试k8s | bees' blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">bees' blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.beesfun.com/2019/09/24/【k8s】源码调试k8s/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="bees">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/15061633">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="bees' blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【k8s】源码调试k8s</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-24T13:30:19+08:00">
+                2019-09-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/k8s/" itemprop="url" rel="index">
+                    <span itemprop="name">k8s</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/09/24/【k8s】源码调试k8s/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/09/24/【k8s】源码调试k8s/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>虚拟机搭建k8s源码编译调试环境，宿主机使用golang IDE远程连接进行调试。</p>
+<a id="more"></a>
+<h3 id="虚拟机配置调试环境"><a href="#虚拟机配置调试环境" class="headerlink" title="虚拟机配置调试环境"></a>虚拟机配置调试环境</h3><p>虚拟机内存设置大于4G，内存过小可能导致源码编译失败。操作系统：Centos7</p>
+<h4 id="安装必要软件"><a href="#安装必要软件" class="headerlink" title="安装必要软件"></a>安装必要软件</h4><p>参考<a href="https://github.com/kubernetes/community/blob/master/contributors/devel/running-locally.md" target="_blank" rel="noopener">官方文档</a>，在虚拟机中安装必要的软件</p>
+<ul>
+<li><p>Docker</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yum install -y yum-utils device-mapper-persistent-data lvm2</span><br><span class="line">yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line">yum install -y docker-ce</span><br><span class="line">systemctl <span class="built_in">enable</span> docker</span><br><span class="line">systemctl start docker</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>etcd</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y etcd</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>openssl</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y openssl</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>go</p>
+<p><a href="https://github.com/kubernetes/community/blob/master/contributors/devel/development.md#go-versions" target="_blank" rel="noopener">k8s go兼容列表</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">wget https://dl.google.com/go/go1.12.7.linux-amd64.tar.gz</span><br><span class="line">tar -C /usr/<span class="built_in">local</span> -xzf go1.12.7.linux-amd64.tar.gz</span><br><span class="line">mkdir <span class="variable">$HOME</span>/go</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"</span></span><br><span class="line"><span class="string">export GOROOT=/usr/local/go</span></span><br><span class="line"><span class="string">export GOPATH=<span class="variable">$HOME</span>/go</span></span><br><span class="line"><span class="string">export PATH=<span class="variable">$PATH</span>:<span class="variable">$GOROOT</span>/bin</span></span><br><span class="line"><span class="string">"</span> &gt;&gt; ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
+<ul>
+<li>环境变量<ul>
+<li>GOROOT: 指向golang的安装路径</li>
+<li>GOPATH: 指向golang的工作空间</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>cfssl</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go get -u -v github.com/cloudflare/cfssl/cmd/...</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>  创建软链接避免源码编译时找不到cfssl，<code>ln -s $GOPATH/bin/cfssl $GOROOT/bin/cfssl</code>。</p>
+<h4 id="安装delve调试工具"><a href="#安装delve调试工具" class="headerlink" title="安装delve调试工具"></a>安装delve调试工具</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go get -u -v github.com/go-delve/delve/cmd/dlv</span><br></pre></td></tr></table></figure>
+<p>创建软链接</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s <span class="variable">$GOPATH</span>/bin/dlv <span class="variable">$GOROOT</span>/bin/dlv</span><br></pre></td></tr></table></figure>
+<h4 id="源码编译"><a href="#源码编译" class="headerlink" title="源码编译"></a>源码编译</h4><ul>
+<li><p>获取代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/kubernetes/kubernetes.git $GOPATH/src/k8s.io/kubernetes</span><br><span class="line">cd $GOPATH/src/k8s.io/kubernetes</span><br><span class="line">git checkout -b v1.10.3 v1.10.3  # 切换到v1.10.3分支</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>单机集群启动</p>
+<p>参考<a href="https://github.com/kubernetes/community/blob/master/contributors/devel/running-locally.md" target="_blank" rel="noopener">这里</a>，直接执行<code>hack/local-up-cluster.sh</code>脚本即可启动一个轻量的k8s集群，但由于 <code>local-up-cluster.sh</code> 默认使用的是 <code>hyperkube</code> 镜像在容器中启动 k8s 服务，这样不方便使用dlv调试代码。</p>
+<p>使用<a href="https://gist.github.com/hxer/8f38c725614d5af3317d1a6bc1db36a9" target="_blank" rel="noopener">local-debug-cluster.sh</a>启动单集群，直接编译出带调试信息的可执行文件，并在主机中启动k8s相关进程。<code>local-debug-cluster.sh</code>文件主要是修改<code>hyperkube</code>为对应的组件，如下所示：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="built_in">local</span> hyperkube_path=$(kube::util::find-binary <span class="string">"hyperkube"</span>)</span></span><br><span class="line">local hyperkube_path=$(kube::util::find-binary "kube-apiserver")</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">if [ "x$GO_OUT" == "x" ]; then</span><br><span class="line">    #make -C "$&#123;KUBE_ROOT&#125;" WHAT="cmd/kubectl cmd/hyperkube"</span><br><span class="line">    make -C "$&#123;KUBE_ROOT&#125;" GOGCFLAGS="-N -l" WHAT="cmd/kubectl cmd/kube-proxy cmd/kube-apiserver cmd/kube-controller-manager cmd/cloud-controller-manager cmd/kube-scheduler cmd/kubelet"</span><br><span class="line">else</span><br><span class="line">    echo "skipped the build."</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="variable">$&#123;CONTROLPLANE_SUDO&#125;</span> <span class="string">"<span class="variable">$&#123;GO_OUT&#125;</span>/hyperkube"</span> apiserver <span class="variable">$&#123;swagger_arg&#125;</span> <span class="variable">$&#123;audit_arg&#125;</span> <span class="variable">$&#123;authorizer_arg&#125;</span> <span class="variable">$&#123;priv_arg&#125;</span> <span class="variable">$&#123;runtime_config&#125;</span> \</span></span><br><span class="line"><span class="meta">$</span><span class="bash">&#123;CONTROLPLANE_SUDO&#125; <span class="string">"<span class="variable">$&#123;GO_OUT&#125;</span>/kube-apiserver"</span> <span class="variable">$&#123;swagger_arg&#125;</span> <span class="variable">$&#123;audit_arg&#125;</span> <span class="variable">$&#123;authorizer_arg&#125;</span> <span class="variable">$&#123;priv_arg&#125;</span> <span class="variable">$&#123;runtime_config&#125;</span> \</span></span><br><span class="line">    </span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>编译并启动集群</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./hack/local-debug-cluster.sh</span><br></pre></td></tr></table></figure>
+<p>第一次执行上面的命令编译并启动集群，后面修改了某个模块的代码，执行以下代码即可单独编译该模块：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make GOGCFLAGS="-N -l" WHAT="cmd/kube-apiserver" # 假设只编译kube-apiserver这一个模块</span><br></pre></td></tr></table></figure>
+<p>执行下面的命令直接启动集群（跳过编译）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./hack/local-debug-cluster.sh -O</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="调试k8s代码"><a href="#调试k8s代码" class="headerlink" title="调试k8s代码"></a>调试k8s代码</h3><h4 id="虚拟机dlv启动k8s"><a href="#虚拟机dlv启动k8s" class="headerlink" title="虚拟机dlv启动k8s"></a>虚拟机dlv启动k8s</h4><p>正常启动k8s单机集群后，ps看一下，可以到启动了7个进程：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef|grep kube|grep -v grep</span><br></pre></td></tr></table></figure>
+<p>假设要调试kube-apiserver这个进程，则<code>先查出kube-apiserver启动时的运行参数</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ps -ef|grep kube|grep -v grep</span><br><span class="line"></span><br><span class="line">root      <span class="number">29540</span>  <span class="number">12913</span> <span class="number">13</span> <span class="number">20</span>:<span class="number">55</span> pts/<span class="number">0</span>    <span class="number">00</span>:<span class="number">01</span>:<span class="number">26</span> /root/go/src/k8s.io/kubernetes/_output/local/bin/linux/amd64/kube-apiserver --authorization-mode=Node,RBAC --runtime-config=admissionregistration.k8s.io/v1alpha1,settings.k8s.io/v1alpha1 --cloud-provider= --cloud-config= --v=<span class="number">3</span> --vmodule= --cert-dir=<span class="regexp">/var/</span>run/kubernetes --client-ca-file=<span class="regexp">/var/</span>run/kubernetes/client-ca.crt --service-account-key-file=<span class="regexp">/tmp/</span>kube-serviceaccount.key --service-account-lookup=<span class="literal">true</span> --enable-admission-plugins=Initializers,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,PodPreset,StorageObjectInUseProtection --disable-admission-plugins= --admission-control-config-file= --bind-address=<span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span> --secure-port=<span class="number">6443</span> --tls-cert-file=<span class="regexp">/var/</span>run/kubernetes/serving-kube-apiserver.crt --tls-private-key-file=<span class="regexp">/var/</span>run/kubernetes/serving-kube-apiserver.key --insecure-bind-address=<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> --insecure-port=<span class="number">8080</span> --storage-backend=etcd3 --etcd-servers=http:<span class="comment">//127.0.0.1:2379 --service-cluster-ip-range=10.0.0.0/24 --feature-gates=AllAlpha=false --external-hostname=localhost --requestheader-username-headers=X-Remote-User --requestheader-group-headers=X-Remote-Group --requestheader-extra-headers-prefix=X-Remote-Extra- --requestheader-client-ca-file=/var/run/kubernetes/request-header-ca.crt --requestheader-allowed-names=system:auth-proxy --proxy-client-cert-file=/var/run/kubernetes/client-auth-proxy.crt --proxy-client-key-file=/var/run/kubernetes/client-auth-proxy.key --cors-allowed-origins=/127.0.0.1(:[0-9]+)?$,/localhost(:[0-9]+)?$</span></span><br></pre></td></tr></table></figure>
+<p>可以看到该进程的PID是29540，于是停掉该进程，并用dlv启动：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kill <span class="number">-15</span> <span class="number">29540</span></span><br><span class="line">dlv --listen=:<span class="number">2333</span> --headless=<span class="literal">true</span> --api-version=<span class="number">2</span> exec /root/go/src/k8s.io/kubernetes/_output/local/bin/linux/amd64/kube-apiserver -- --authorization-mode=Node,RBAC --runtime-config=admissionregistration.k8s.io/v1alpha1,settings.k8s.io/v1alpha1 --cloud-provider= --cloud-config= --v=<span class="number">3</span> --vmodule= --cert-dir=<span class="regexp">/var/</span>run/kubernetes --client-ca-file=<span class="regexp">/var/</span>run/kubernetes/client-ca.crt --service-account-key-file=<span class="regexp">/tmp/</span>kube-serviceaccount.key --service-account-lookup=<span class="literal">true</span> --enable-admission-plugins=Initializers,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,PodPreset,StorageObjectInUseProtection --disable-admission-plugins= --admission-control-config-file= --bind-address=<span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span> --secure-port=<span class="number">6443</span> --tls-cert-file=<span class="regexp">/var/</span>run/kubernetes/serving-kube-apiserver.crt --tls-private-key-file=<span class="regexp">/var/</span>run/kubernetes/serving-kube-apiserver.key --insecure-bind-address=<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> --insecure-port=<span class="number">8080</span> --storage-backend=etcd3 --etcd-servers=http:<span class="comment">//127.0.0.1:2379 --service-cluster-ip-range=10.0.0.0/24 --feature-gates=AllAlpha=false --external-hostname=localhost --requestheader-username-headers=X-Remote-User --requestheader-group-headers=X-Remote-Group --requestheader-extra-headers-prefix=X-Remote-Extra- --requestheader-client-ca-file=/var/run/kubernetes/request-header-ca.crt --requestheader-allowed-names=system:auth-proxy --proxy-client-cert-file=/var/run/kubernetes/client-auth-proxy.crt --proxy-client-key-file=/var/run/kubernetes/client-auth-proxy.key --cors-allowed-origins='/127.0.0.1(:[0-9]+)?$,/localhost(:[0-9]+)?$'</span></span><br></pre></td></tr></table></figure>
+<p><code>--cors-allowed-origins</code>参数值涉及特殊字符，需要引号包裹。</p>
+<p>允许防火墙允许2333端口接入：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --add-port=<span class="number">2333</span>/tcp --permanent</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+<h4 id="宿主机IDE远程连接"><a href="#宿主机IDE远程连接" class="headerlink" title="宿主机IDE远程连接"></a>宿主机IDE远程连接</h4><p>配置go语言环境，拉取k8s源码，切换和虚拟机相同的版本。</p>
+<p>然后在goland里新建一个远程调试任务，这里的<code>10.211.55.3</code>为虚拟机的IP，<code>39999</code>为dlv的远程调试端口。在<code>kubernetes/cmd/kube-apiserver/apiserver.go</code>的main方法处打上断点后，启动该远程调试任务，即可正常进行断点调试了。</p>
+<img src="/2019/09/24/【k8s】源码调试k8s/debug-api-server-conf.png">
+<img src="/2019/09/24/【k8s】源码调试k8s/debug-api-server.png">
+<h4 id="dlv调试不同模块"><a href="#dlv调试不同模块" class="headerlink" title="dlv调试不同模块"></a>dlv调试不同模块</h4><ul>
+<li><p>kubelet</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dlv -l :2334 --headless=<span class="literal">true</span> --api-version=2 <span class="built_in">exec</span> /root/go/src/k8s.io/kubernetes/_output/<span class="built_in">local</span>/bin/linux/amd64/kubelet -- --v=3 --vmodule= --chaos-chance=0.0 --container-runtime=docker --rkt-path= --rkt-stage1-image= --hostname-override=127.0.0.1 --cloud-provider= --cloud-config= --address=127.0.0.1 --kubeconfig /var/run/kubernetes/kubelet.kubeconfig --feature-gates=AllAlpha=<span class="literal">false</span> --cpu-cfs-quota=<span class="literal">true</span> --<span class="built_in">enable</span>-controller-attach-detach=<span class="literal">true</span> --cgroups-per-qos=<span class="literal">true</span> --cgroup-driver= --keep-terminated-pod-volumes=<span class="literal">true</span> --eviction-hard=<span class="string">'memory.available&lt;100Mi,nodefs.available&lt;10%,nodefs.inodesFree&lt;5%'</span> --eviction-soft= --eviction-pressure-transition-period=1m --pod-manifest-path=/var/run/kubernetes/static-pods --fail-swap-on=<span class="literal">false</span> --cluster-dns=10.0.0.10 --cluster-domain=cluster.local --port=10250</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>  在<code>kubernetes/cmd/kubelet/kubelet.go</code>的main方法处打上断点后，同上启动远程调试任务。</p>
+  <img src="/2019/09/24/【k8s】源码调试k8s/debug-api-kubelet.png">
+<h3 id="集群安装异常排查"><a href="#集群安装异常排查" class="headerlink" title="集群安装异常排查"></a>集群安装异常排查</h3><ul>
+<li><p>集群启动脚本(local-up-cluster.sh)获取cgroup driver信息不准导致kubelet启动失败</p>
+<p>kubelet cgroup driver会根据docker使用的cgroup driver信息，设置相同的cgroup driver.如下:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CGROUP_DRIVER=$(docker info | grep "Cgroup Driver:" | cut -f3- -d' ')</span><br></pre></td></tr></table></figure>
+<p>在docker 19版本中得到的结果为<code>Driver: cgroupfs</code>，而不是<code>cgroupfs</code>，这是由于<code>Cgroup Driver:</code>行前面有空格导致的，需要去除前后空格，<a href="https://gist.github.com/hxer/8f38c725614d5af3317d1a6bc1db36a9" target="_blank" rel="noopener">local-debug-cluster.sh</a>修改如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CGROUP_DRIVER=$(docker info | grep "Cgroup Driver:" | awk '&#123;sub(/^ */, "");sub(/ *$/, "")&#125;1'| cut -f3- -d' ')</span><br></pre></td></tr></table></figure>
+<p>续：该问题官方已解决<a href="https://github.com/hxer/kubernetes/blob/master/hack/local-up-cluster.sh" target="_blank" rel="noopener">https://github.com/hxer/kubernetes/blob/master/hack/local-up-cluster.sh</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CGROUP_DRIVER=$(docker info | grep <span class="string">"Cgroup Driver:"</span> |  sed -e <span class="string">'s/^[[:space:]]*//'</span>|cut -f3- -d<span class="string">' '</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>cgroup driver不一致</p>
+<p>kubelet cgroup driver为systemd，修改docker文件驱动为<code>systemd</code>，和kubelet文件驱动保持一致，否则会导致kubelet启动失败，参考：<a href="https://juejin.im/post/5bbf7dd05188255c652d62fe" target="_blank" rel="noopener">kubernetes集群的安装异常汇总</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#修改daemon.json</span></span><br><span class="line">vim /etc/docker/daemon.json</span><br><span class="line"></span><br><span class="line"><span class="comment">#添加如下属性</span></span><br><span class="line"><span class="string">"exec-opts"</span>: [</span><br><span class="line">    <span class="string">"native.cgroupdriver=systemd"</span></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启docker</span></span><br><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl restart docker</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="https://cloud.tencent.com/developer/article/1402449" target="_blank" rel="noopener">搭建k8s的开发调试环境</a></li>
+<li><a href="https://segmentfault.com/a/1190000015807702" target="_blank" rel="noopener">跟我学 K8S—代码: 调试 Kubernetes</a></li>
+<li><a href="https://mritd.me/2018/11/25/kubeadm-remote-debug/" target="_blank" rel="noopener">远程 Debug kubeadm</a></li>
+<li><p><a href="http://aspirer.wang/?p=1226" target="_blank" rel="noopener">kubernetes源码调试体验</a></p>
+</li>
+<li><p><a href="https://itnext.io/debug-a-go-application-in-kubernetes-from-ide-c45ad26d8785" target="_blank" rel="noopener">Debug a Go Application in Kubernetes from IDE</a></p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    bees
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://www.beesfun.com/2019/09/24/【k8s】源码调试k8s/" title="【k8s】源码调试k8s">http://www.beesfun.com/2019/09/24/【k8s】源码调试k8s/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/debug/" rel="tag"># debug</a>
+          
+            <a href="/tags/k8s/" rel="tag"># k8s</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/06/【Mac】mac外接屏幕旋转设置/" rel="next" title="【note】mac外接屏幕旋转设置">
+                <i class="fa fa-chevron-left"></i> 【note】mac外接屏幕旋转设置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://avatars3.githubusercontent.com/u/15061633"
+                alt="bees" />
+            
+              <p class="site-author-name" itemprop="name">bees</p>
+              <p class="site-description motion-element" itemprop="description">personal blog :)</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">60</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/hxer/" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友链
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://badcode.cc/" title="badcode" target="_blank">badcode</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.wupco.cn" title="wupco" target="_blank">wupco</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://danaive.github.io" title="danlei" target="_blank">danlei</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟机配置调试环境"><span class="nav-number">1.</span> <span class="nav-text">虚拟机配置调试环境</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装必要软件"><span class="nav-number">1.1.</span> <span class="nav-text">安装必要软件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装delve调试工具"><span class="nav-number">1.2.</span> <span class="nav-text">安装delve调试工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#源码编译"><span class="nav-number">1.3.</span> <span class="nav-text">源码编译</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调试k8s代码"><span class="nav-number">2.</span> <span class="nav-text">调试k8s代码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#虚拟机dlv启动k8s"><span class="nav-number">2.1.</span> <span class="nav-text">虚拟机dlv启动k8s</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#宿主机IDE远程连接"><span class="nav-number">2.2.</span> <span class="nav-text">宿主机IDE远程连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dlv调试不同模块"><span class="nav-number">2.3.</span> <span class="nav-text">dlv调试不同模块</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集群安装异常排查"><span class="nav-number">3.</span> <span class="nav-text">集群安装异常排查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">bees <a href="http://www.miitbeian.gov.cn">渝ICP备18007542号</a></span>
+  
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=63078337";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: '1569303019000', 
+            owner: 'hxer',
+            repo: 'blogComment',
+            
+            lang: "zh-Hans" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '7147116f4ae9df31961313af13fad164bdbf0fe3',
+            
+                client_id: 'ac1236f9efefa7d5580f'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

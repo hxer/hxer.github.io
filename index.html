@@ -376,14 +376,52 @@
 
       
         
-          <h3 id="Kubeadm安装k8s支持secret加密"><a href="#Kubeadm安装k8s支持secret加密" class="headerlink" title="Kubeadm安装k8s支持secret加密"></a>Kubeadm安装k8s支持secret加密</h3>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/10/15/【k8s】Kubeadm安装k8s支持secret加密/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            <a id="more"></a>
+<ul>
+<li><p>增加k8s yum源，编辑<code>/etc/yum.repos.d/kubernetes.repo</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[kubernetes]</span><br><span class="line">name=Kubernetes Repository</span><br><span class="line">baseurl=http://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64/</span><br><span class="line">enable=1</span><br><span class="line">gpgcheck=0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装kubeadm和相关工具</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y kubelet kubeadm kubectl --disbaleexcludes=kubernetes</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动docker和kubelet</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> docker &amp;&amp; systemctl staart docker</span><br><span class="line">systemctl <span class="built_in">enable</span> kubelet &amp;&amp; systemctl staart kubelet</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编辑kubeadm init配置文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubeadm config <span class="built_in">print</span> init-defaults &gt; init.default.yaml</span><br></pre></td></tr></table></figure>
+<p>参考init.defaukt.yaml文件编辑配置文件init.config.yaml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">kubeadm.k8s.io/v1beta1</span></span><br><span class="line"><span class="attr">imageRepository:</span> <span class="string">gcr.akscn.io/google_containers</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ClusterConfiguration</span></span><br><span class="line"><span class="attr">kubernetesVersion:</span> <span class="string">v1.14.0</span></span><br><span class="line"><span class="attr">networking:</span></span><br><span class="line"><span class="attr">  dnsDomain:</span> <span class="string">cluster.local</span></span><br><span class="line"><span class="attr">  podSubnet:</span> <span class="string">""</span></span><br><span class="line"><span class="attr">  serviceSubnet:</span> <span class="number">10.96</span><span class="number">.0</span><span class="number">.0</span><span class="string">/12</span></span><br><span class="line"><span class="attr">apiServer:</span></span><br><span class="line"><span class="attr">  extraArgs:</span></span><br><span class="line"><span class="attr">    anonymous-auth:</span> <span class="string">"false"</span></span><br><span class="line"><span class="attr">    encryption-provider-config:</span> <span class="string">/etc/kubernetes/pki/kube-secret.yaml</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>k8s版本14, api-server支持secret加密参数为<code>encryption-provider-config</code>，参考：<a href="https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/#before-you-begin" target="_blank" rel="noopener">https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/#before-you-begin</a></p>
+</li>
+<li><p>kube-secret.yaml文件</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apiserver.config.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">EncryptionConfiguration</span></span><br><span class="line"><span class="attr">resources:</span></span><br><span class="line"><span class="attr">  - resources:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">secrets</span></span><br><span class="line"><span class="attr">    providers:</span></span><br><span class="line"><span class="attr">    - aescbc:</span></span><br><span class="line"><span class="attr">        keys:</span></span><br><span class="line"><span class="attr">        - name:</span> <span class="string">key1</span></span><br><span class="line"><span class="attr">          secret:</span> <span class="string">BhgJ6ldAAvHHdOkE9gGmMQj5seDc3nHeyQ+NOpZjeyY=</span></span><br><span class="line"><span class="attr">    - identity:</span> <span class="string">&#123;&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>kube-secret.yaml路径选择</p>
+<p>kube-secret.yaml需要mount到api-server pod可访问的路径，这样api-server才能访问，这里选择默认会mount的路径<code>/etc/kubernetes/pki</code></p>
+</li>
+</ul>
+</li>
+<li><p>拉取相关镜像</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubeadm config images pull --config=init-config.yaml</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装master</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubeadm init --config=init-config.yaml</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>验证aescbc加密</p>
+<ul>
+<li><p>安装etcdctl</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">ETCD_VER=v3.3.10</span><br><span class="line">ETCD_DIR=etcd-download</span><br><span class="line">DOWNLOAD_URL=https://github.com/coreos/etcd/releases/download</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Download</span></span><br><span class="line">mkdir $&#123;ETCD_DIR&#125;</span><br><span class="line">cd $&#123;ETCD_DIR&#125;</span><br><span class="line">wget $&#123;DOWNLOAD_URL&#125;/$&#123;ETCD_VER&#125;/etcd-$&#123;ETCD_VER&#125;-linux-amd64.tar.gz</span><br><span class="line">tar -xzvf etcd-$&#123;ETCD_VER&#125;-linux-amd64.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> install</span></span><br><span class="line">cd etcd-$&#123;ETCD_VER&#125;-linux-amd64</span><br><span class="line">cp etcdctl /usr/local/bin/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>验证</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ETCDCTL_API=3 etcdctl get /registry/secrets/default/default-token-6q4bn --cacert=<span class="string">"/etc/kubernetes/pki/etcd/ca.crt"</span> --cert=<span class="string">"/etc/kubernetes/pki/apiserver-etcd-client.crt"</span> --key=<span class="string">"/etc/kubernetes/pki/apiserver-etcd-client.key"</span> --endpoints=127.0.0.1:2379</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+
+          
         
       
     </div>

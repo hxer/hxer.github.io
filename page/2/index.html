@@ -284,6 +284,155 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.beesfun.com/2018/08/03/【note】centos6-升级gcc和g/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="bees">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/15061633">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="bees' blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/03/【note】centos6-升级gcc和g/" itemprop="url">【note】centos6 升级gcc和g++</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-03T13:31:31+08:00">
+                2018-08-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/note/" itemprop="url" rel="index">
+                    <span itemprop="name">note</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>对 gcc或g++ 升级无法直接使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum update gcc</span><br></pre></td></tr></table></figure>
+<p>以下是升级的详细过程。</p>
+<h3 id="1-使用-redhat-developer-toolset-2-的repo，安装GCC"><a href="#1-使用-redhat-developer-toolset-2-的repo，安装GCC" class="headerlink" title="1.使用 redhat developer toolset 2 的repo，安装GCC"></a>1.使用 redhat developer toolset 2 的repo，安装GCC</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/yum.repos.d</span><br><span class="line">wget https://people.centos.org/tru/devtools-2/devtools-2.repo</span><br><span class="line">yum --enablerepo=testing-2-devtools-6 install devtoolset-2-gcc devtoolset-2-gcc-c++</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/03/【note】centos6-升级gcc和g/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.beesfun.com/2018/07/30/【note】linux上限制进程cpu占用率/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1626,159 +1775,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.beesfun.com/2017/11/30/【develop】nmap-exit-code-255/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="bees">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/15061633">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="bees' blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/30/【develop】nmap-exit-code-255/" itemprop="url">【develop】nmap exit code 255</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-30T13:21:32+08:00">
-                2017-11-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/develop/" itemprop="url" rel="index">
-                    <span itemprop="name">develop</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>使用python subprocess模块调用namp程序竟然返回255错误代码，如下所示:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">4</span>]: subprocess.check_output([<span class="string">'nmap'</span>])</span><br><span class="line">---------------------------------------------------------------------------</span><br><span class="line">CalledProcessError                        Traceback (most recent call last)</span><br><span class="line">&lt;ipython-input<span class="number">-4</span><span class="number">-3</span>ea255c65d35&gt; <span class="keyword">in</span> &lt;module&gt;()</span><br><span class="line">----&gt; 1 subprocess.check_output(['nmap'])</span><br><span class="line"></span><br><span class="line">/usr/local/Cellar/python/<span class="number">2.7</span><span class="number">.14</span>/Frameworks/Python.framework/Versions/<span class="number">2.7</span>/lib/python2<span class="number">.7</span>/subprocess.pyc <span class="keyword">in</span> check_output(*popenargs, **kwargs)</span><br><span class="line">    <span class="number">217</span>         <span class="keyword">if</span> cmd <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">    <span class="number">218</span>             cmd = popenargs[<span class="number">0</span>]</span><br><span class="line">--&gt; 219         raise CalledProcessError(retcode, cmd, output=output)</span><br><span class="line">    <span class="number">220</span>     <span class="keyword">return</span> output</span><br><span class="line">    <span class="number">221</span></span><br><span class="line"></span><br><span class="line">CalledProcessError: Command <span class="string">'['</span>nmap<span class="string">']'</span> returned non-zero exit status <span class="number">255</span></span><br></pre></td></tr></table></figure>
-<p>查看nmap在线文档<a href="https://nmap.org/book/ncat-man-exit-code.html" target="_blank" rel="noopener">https://nmap.org/book/ncat-man-exit-code.html</a>，返回码只有0, 1, 2三种，并没有提及255这个返回码，而且一般程序设计不会返回255这样的数字。于是只好查看nmap源码了。在nmap源码文件<code>nmap.cc</code>的<code>nmap_main</code>函数里面有大量返回码，包括: -1, 0, 1, 2。而不是只有文档中所描述的三种返回码。当nmap不带任何参数调用时，返回-1，也就是python显示的返回码255。-1和255有没有想到些什么，-1的补码就是255，难道程序的返回码做了类型转换，带着这个疑问，实验验证如下：<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/11/30/【develop】nmap-exit-code-255/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1828,7 +1829,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">60</span>
+                  <span class="site-state-item-count">61</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1850,7 +1851,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

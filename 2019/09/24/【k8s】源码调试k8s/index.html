@@ -112,7 +112,7 @@
 <meta property="og:image" content="http://www.beesfun.com/2019/09/24/【k8s】源码调试k8s/debug-api-server-conf.png">
 <meta property="og:image" content="http://www.beesfun.com/2019/09/24/【k8s】源码调试k8s/debug-api-server.png">
 <meta property="og:image" content="http://www.beesfun.com/2019/09/24/【k8s】源码调试k8s/debug-api-kubelet.png">
-<meta property="og:updated_time" content="2019-09-24T05:33:33.711Z">
+<meta property="og:updated_time" content="2019-11-20T03:25:59.614Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【k8s】源码调试k8s">
 <meta name="twitter:description" content="虚拟机搭建k8s源码编译调试环境，宿主机使用golang IDE远程连接进行调试。">
@@ -447,7 +447,7 @@
 <p>允许防火墙允许2333端口接入：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --add-port=<span class="number">2333</span>/tcp --permanent</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
 <h4 id="宿主机IDE远程连接"><a href="#宿主机IDE远程连接" class="headerlink" title="宿主机IDE远程连接"></a>宿主机IDE远程连接</h4><p>配置go语言环境，拉取k8s源码，切换和虚拟机相同的版本。</p>
-<p>然后在goland里新建一个远程调试任务，这里的<code>10.211.55.3</code>为虚拟机的IP，<code>39999</code>为dlv的远程调试端口。在<code>kubernetes/cmd/kube-apiserver/apiserver.go</code>的main方法处打上断点后，启动该远程调试任务，即可正常进行断点调试了。</p>
+<p>然后在goland里新建一个远程调试任务，这里的<code>10.211.55.3</code>为虚拟机的IP，<code>2333</code>为dlv的远程调试端口。在<code>kubernetes/cmd/kube-apiserver/apiserver.go</code>的main方法处打上断点后，启动该远程调试任务，即可正常进行断点调试了。</p>
 <img src="/2019/09/24/【k8s】源码调试k8s/debug-api-server-conf.png">
 <img src="/2019/09/24/【k8s】源码调试k8s/debug-api-server.png">
 <h4 id="dlv调试不同模块"><a href="#dlv调试不同模块" class="headerlink" title="dlv调试不同模块"></a>dlv调试不同模块</h4><ul>
@@ -632,7 +632,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">61</span>
+                  <span class="site-state-item-count">62</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -654,7 +654,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">69</span>
+                  <span class="site-state-item-count">70</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

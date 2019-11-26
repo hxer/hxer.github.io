@@ -284,6 +284,169 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.beesfun.com/2019/11/26/【k8s】K8S卷挂载引发的Pod逃逸问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="bees">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/15061633">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="bees' blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/26/【k8s】K8S卷挂载引发的Pod逃逸问题/" itemprop="url">【k8s】K8S卷挂载引发的Pod逃逸问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-26T13:26:05+08:00">
+                2019-11-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/k8s/" itemprop="url" rel="index">
+                    <span itemprop="name">k8s</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="卷挂载-var-log可导致pod逃逸"><a href="#卷挂载-var-log可导致pod逃逸" class="headerlink" title="卷挂载/var/log可导致pod逃逸"></a>卷挂载<code>/var/log</code>可导致pod逃逸</h3><h4 id="k8s查看容器日志"><a href="#k8s查看容器日志" class="headerlink" title="k8s查看容器日志"></a>k8s查看容器日志</h4><p>kubectl提供<code>kebectl logs &lt;pod_name&gt;</code>命令查看pod容器的日志，实现原理如下图所示：</p>
+<img src="/2019/11/26/【k8s】K8S卷挂载引发的Pod逃逸问题/kebulet_log_serve.jpg">
+<p>k8s api server 对外提供api <code>/logs</code> 查看pod日志，实际是由kubelet提供的服务，kubelet在node上启动一个文件服务器提供日志查询服务，目录为<code>/var/log</code>，查询api为<code>/logs</code>。如下，访问node(10.0.0.76)上kubelet api <code>/logs</code> 可以列出node主机上<code>/var/log</code>目录下的所有目录和文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">ubuntu@VM-0-76-ubuntu:~$ curl -H <span class="string">'Authorization: Bearer ihZppLLOVDSCRZS1zFPSwSLHk5odz8zg'</span> -k https://10.0.0.76:10250/logs/</span><br><span class="line">&lt;pre&gt;</span><br><span class="line">&lt;a href=<span class="string">"alternatives.log"</span>&gt;alternatives.log&lt;/a&gt;</span><br><span class="line">&lt;a href=<span class="string">"apt/"</span>&gt;apt/&lt;/a&gt;</span><br><span class="line">&lt;a href=<span class="string">"auth.log"</span>&gt;auth.log&lt;/a&gt;</span><br><span class="line">&lt;a href=<span class="string">"bootstrap.log"</span>&gt;bootstrap.log&lt;/a&gt;</span><br><span class="line">&lt;a href=<span class="string">"btmp"</span>&gt;btmp&lt;/a&gt;</span><br><span class="line">&lt;a href=<span class="string">"cloud-init-output.log"</span>&gt;cloud-init-output.log&lt;/a&gt;</span><br><span class="line">&lt;a href=<span class="string">"cloud-init.log"</span>&gt;cloud-init.log&lt;/a&gt;</span><br><span class="line">&lt;a href=<span class="string">"containers/"</span>&gt;containers/&lt;/a&gt;</span><br><span class="line">&lt;a href=<span class="string">"dist-upgrade/"</span>&gt;dist-upgrade/&lt;/a&gt;</span><br><span class="line">&lt;a href=<span class="string">"dmesg"</span>&gt;dmesg&lt;/a&gt;</span><br><span class="line">&lt;a href=<span class="string">"dpkg.log"</span>&gt;dpkg.log&lt;/a&gt;</span><br><span class="line">&lt;a href=<span class="string">"faillog"</span>&gt;faillog&lt;/a&gt;</span><br><span class="line">&lt;a href=<span class="string">"fsck/"</span>&gt;fsck/&lt;/a&gt;</span><br><span class="line">&lt;a href=<span class="string">"installer/"</span>&gt;installer/&lt;/a&gt;</span><br><span class="line">&lt;a href=<span class="string">"journal/"</span>&gt;journal/&lt;/a&gt;</span><br><span class="line">&lt;a href=<span class="string">"kern.log"</span>&gt;kern.log&lt;/a&gt;</span><br><span class="line">&lt;a href=<span class="string">"lxd/"</span>&gt;lxd/&lt;/a&gt;</span><br><span class="line">&lt;a href=<span class="string">"ntpstats/"</span>&gt;ntpstats/&lt;/a&gt;</span><br><span class="line">&lt;a href=<span class="string">"pods/"</span>&gt;pods/&lt;/a&gt;</span><br><span class="line">&lt;a href=<span class="string">"qcloud_action.log"</span>&gt;qcloud_action.log&lt;/a&gt;</span><br><span class="line">&lt;a href=<span class="string">"syslog"</span>&gt;syslog&lt;/a&gt;</span><br><span class="line">&lt;a href=<span class="string">"unattended-upgrades/"</span>&gt;unattended-upgrades/&lt;/a&gt;</span><br><span class="line">&lt;a href=<span class="string">"wtmp"</span>&gt;wtmp&lt;/a&gt;</span><br><span class="line">&lt;/pre&gt;</span><br></pre></td></tr></table></figure>
+<p>kubelet查询相应pod的日志，实际是访问<code>/var/log/</code>目录下对应容器目录下的<code>0.log</code>文件(见上图)，该文件本质上是一个符号链接，目标日志文件在<code>/var/lib/docker/containers</code>目录下。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#ls -alh 0.log</span></span><br><span class="line">0.log -&gt; /var/lib/docker/containers/2acb7d007fad51be32c467fd61639d25b3d04918b26a535735f4fb547d6e1b9d/2acb7d007fad51be32c467fd61639d25b3d04918b26a535735f4fb547d6e1b9d-json.log</span><br></pre></td></tr></table></figure>
+<h4 id="pod逃逸"><a href="#pod逃逸" class="headerlink" title="pod逃逸"></a>pod逃逸</h4><p>kubelet查看日志文件支持文符号链接。如果容器内挂载了主机<code>/var/log</code>目录，可以通过在容器内创建符号链接到<code>/</code>,再利用<code>/logs</code>可以访问node主机上的任意文件，造成pod逃逸问题。文章<a href="https://blog.aquasec.com/kubernetes-security-pod-escape-log-mounts" target="_blank" rel="noopener">Kubernetes Pod Escape Using Log Mounts</a>针对该问题进行了pod逃逸的实验，容器内创建符号链接到<code>/</code>，通过<code>logs</code>api获取宿主机的token或SSH私钥文件实现pod逃逸。</p>
+<p>容器内符号链接到<code>/</code>实现pod逃逸，需要满足如下条件：</p>
+<ul>
+<li>root用户运行容器</li>
+<li>主机<code>/var/log</code>目录挂载到容器内，且可写；</li>
+<li>pod内角色有访问kubelet<code>logs</code> api的权限。</li>
+</ul>
+<p>kubelet 10250端口未设置<code>匿名访问</code>选项，是需要认证授权才能访问<code>logs</code>api接口，而kubelet 10255只读端口，可以不用验证和授权机制，直接访问，但是对下列api做了限制，默认禁止访问，这里面就包括<code>/logs</code>api，因此不能通过10255端口绕过<code>logs</code>api访问授权问题。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;/run/&quot;, &quot;/exec/&quot;, &quot;/attach/&quot;, &quot;/portForward/&quot;, &quot;/containerLogs/&quot;, &quot;/runningpods/&quot;, &quot;/logs/&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="Subpath-Volume-Vulnerability-in-Kubernetes-CVE-2017-1002101"><a href="#Subpath-Volume-Vulnerability-in-Kubernetes-CVE-2017-1002101" class="headerlink" title="Subpath Volume Vulnerability in Kubernetes(CVE-2017-1002101)"></a>Subpath Volume Vulnerability in Kubernetes(<a href="https://github.com/kubernetes/kubernetes/issues/60813" target="_blank" rel="noopener">CVE-2017-1002101</a>)</h3><p><a href="https://kubernetes.io/blog/2018/04/04/fixing-subpath-volume-vulnerability/" target="_blank" rel="noopener">kubernetes官方博客</a>对subpath volume漏洞的原因做了深入分析，具体细节在这里不做过多描述，可查看文章了解。</p>
+<p>利用subpath volume漏洞可以逃逸容器内的文件系统访问主机上的任何文件。 容器运行时挂载volume需要知道容器内的路径及对应的主机路径，kubernetes将subpath volume 和base volume同等对待，并没有对subpath volume的路径进行有效性校验，例如子路径（symlink跳转解析后的真实路径）是否在父路径范围下，导致可以利用symlink等特性将主机的根路径(<strong>/</strong>)挂载到容器内。</p>
+<h3 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h3><ul>
+<li><a href="https://jimmysong.io/posts/kubernetes-volumes-introduction/" target="_blank" rel="noopener">Kubernetes中的Volume介绍</a></li>
+<li><a href="https://draveness.me/kubernetes-volume" target="_blank" rel="noopener">详解 Kubernetes Volume 的实现原理</a></li>
+<li><a href="https://github.com/kubernetes/kubernetes/pull/61044/files" target="_blank" rel="noopener">subpath volume fixes(github pr)</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.beesfun.com/2019/10/15/【k8s】Kubeadm安装k8s支持secret加密/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1638,152 +1801,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.beesfun.com/2018/08/10/【note】rsyslog配置/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="bees">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/15061633">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="bees' blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/10/【note】rsyslog配置/" itemprop="url">【note】rsyslog配置</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-10T19:23:36+08:00">
-                2018-08-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/note/" itemprop="url" rel="index">
-                    <span itemprop="name">note</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>Linux日志机制的核心是rsyslog守护进程，该服务负责监听Linux下的日志信息，并把日志信息追加到对应的日志文件中，一般在/var/log目录下。它还可以把日志信息通过网络协议发送到另一台Linux服务器上。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/10/【note】rsyslog配置/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1838,7 +1855,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">61</span>
+                  <span class="site-state-item-count">62</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1860,7 +1877,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">69</span>
+                  <span class="site-state-item-count">70</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

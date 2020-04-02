@@ -179,7 +179,7 @@ firewall-cmd --reload
 
 配置go语言环境，拉取k8s源码，切换和虚拟机相同的版本。
 
-然后在goland里新建一个远程调试任务，这里的`10.211.55.3`为虚拟机的IP，`39999`为dlv的远程调试端口。在`kubernetes/cmd/kube-apiserver/apiserver.go`的main方法处打上断点后，启动该远程调试任务，即可正常进行断点调试了。
+然后在goland里新建一个远程调试任务，这里的`10.211.55.3`为虚拟机的IP，`2333`为dlv的远程调试端口。在`kubernetes/cmd/kube-apiserver/apiserver.go`的main方法处打上断点后，启动该远程调试任务，即可正常进行断点调试了。
 
 {% asset_img debug-api-server-conf.png %}
 

@@ -284,6 +284,218 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.beesfun.com/2020/04/02/【note】Terraform/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="bees">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/15061633">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="bees' blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/02/【note】Terraform/" itemprop="url">【note】Terraform</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-02T20:55:43+08:00">
+                2020-04-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/note/" itemprop="url" rel="index">
+                    <span itemprop="name">note</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Terraform"><a href="#Terraform" class="headerlink" title="Terraform"></a>Terraform</h1><h3 id="Terraform-是什么"><a href="#Terraform-是什么" class="headerlink" title="Terraform 是什么"></a>Terraform 是什么</h3><p>Terraform 是一种安全有效地构建、更改和版本控制基础设施的工具(基础架构自动化的编排工具)。它的目标是 “Write, Plan, and create Infrastructure as Code”, 基础架构即代码。</p>
+<p>通俗的讲，Terraform是一个运行在客户端的开源的用于资源编排的自动化运维工具。通过代码的形式将所要管理的资源定义在模板中，解析并执行模板来自动化完成资源的创建、变更和管理，进而达到自动化运维的目标。</p>
+<p>Terraform是由Hashicorp公司推出的一个开源项目，使用Go语言编写。目前主流的云厂商如AWS、GCP、腾讯云、阿里云等都支持使用Terraform进行云上资源的自动编排管理。</p>
+<h3 id="Terraform核心功能"><a href="#Terraform核心功能" class="headerlink" title="Terraform核心功能"></a>Terraform核心功能</h3><h4 id="基础设施即代码-IaC-Infrastructure-as-Code"><a href="#基础设施即代码-IaC-Infrastructure-as-Code" class="headerlink" title="基础设施即代码(IaC, Infrastructure as Code)"></a>基础设施即代码(IaC, Infrastructure as Code)</h4><p>Terraform 基于一种特定的配置语言（HCL, Hashicorp Configuration Language）来描述基础设施资源。由此，可以像对待任何其他代码一样，实现对所描述的解决方案或者基础架构的版本控制和管理。</p>
+<h4 id="执行计划-Execution-Plans"><a href="#执行计划-Execution-Plans" class="headerlink" title="执行计划(Execution Plans)"></a>执行计划(Execution Plans)</h4><p>Terraform 在执行模板前，可以执行plan步骤(terraform plan)解析模板生成一个可执行的计划，展示当前模板所要创建或变更的资源及其属性。操作人员可以预览这个计划j进行检查，以免操作真正的基础结构时发生一些超预期的问题。</p>
+<h4 id="资源图-Resource-Graph"><a href="#资源图-Resource-Graph" class="headerlink" title="资源图(Resource Graph)"></a>资源图(Resource Graph)</h4><p>Terraform 会根据模板中的定义，构建所有资源的图形，并且以并行的方式创建和修改任何没有相互依赖的资源。因此，Terraform 可以高效地构建基础设施，操作人员也可以通过图表深入地解其基础设施中的依赖关系。</p>
+<h4 id="自动化变更（Change-Automation）"><a href="#自动化变更（Change-Automation）" class="headerlink" title="自动化变更（Change Automation）"></a>自动化变更（Change Automation）</h4><p>当模板中定义的资源内容发生变更时，Terraform 都会基于新的资源拓扑图将变更的内容plan 出来，从而避免了人为操作带来的错误。</p>
+<h3 id="配置介绍"><a href="#配置介绍" class="headerlink" title="配置介绍"></a>配置介绍</h3><p>Terraform使用文本文件来描述基础设施和设置变量。这些文件称为Terraform 配置。配置文件的格式可以有两种格式：Terraform格式和JSON。</p>
+<p>Terraform格式更加人性化，支持注释，推荐使用该格式。Terraform格式后缀名以.tf结尾，JSON格式后缀名以.tf.json结尾。</p>
+<p>在调用加载Terraform配置的任何命令时，Terraform将按字母顺序加载指定目录中的所有配置文件。加载文件的后缀名必须是.tf或.tf.json。否则，文件将被忽略。</p>
+<p>Terraform配置是声明式的，因此对其他资源和变量的引用不依赖于它们定义的顺序。</p>
+<h3 id="配置语法"><a href="#配置语法" class="headerlink" title="配置语法"></a>配置语法</h3><p>Terraform配置的语法称为HashiCorp配置语言（HCL）。示例如下:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">provider "tencentcloud" &#123;</span><br><span class="line">  secret_id  = "your_secret_id"</span><br><span class="line">  secret_key = "your_secret_key"</span><br><span class="line">  region     = "region"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="资源"><a href="#资源" class="headerlink" title="资源"></a>资源</h3><p>基础设施和服务统称为资源，如私有网络、子网、物理机、虚拟机、镜像、NAT网关等等都可以称之为资源，也是开发和运维人员经常要打交道要维护的东西。Terraform把资源大致分为resurce和data source。</p>
+<h4 id="resource"><a href="#resource" class="headerlink" title="resource"></a>resource</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">resource "资源类名" "映射到本地的唯一资源名" &#123;</span><br><span class="line">  参数 = 值</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这类资源一般是抽象的真正的云服务资源，支持增删改，如私有网络、NAT网关、虚拟机实例。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">resource "tencentcloud_instance" "web" &#123;</span><br><span class="line">  instance_name              = "web example"</span><br><span class="line">  availability_zone          = "ap-guangzhou-3"</span><br><span class="line">  image_id                   = "img-9qabwvbn"</span><br><span class="line">  instance_type              = "S1.SMALL1"</span><br><span class="line">  system_disk_type           = "CLOUD_PREMIUM"</span><br><span class="line">  password                   = "your_ssh_password"</span><br><span class="line">  internet_max_bandwidth_out = 10</span><br><span class="line">  count                      = 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="data-source"><a href="#data-source" class="headerlink" title="data source"></a>data source</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data "资源类名" "映射到本地的唯一资源名" &#123;</span><br><span class="line">  参数 = 值</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这类资源一般是固定的一些可读资源，如可用区列表、镜像列表。大部分情况下，resource资源也会封装一个data source方法，用于资源查询。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data "tencentcloud_images" "centos" &#123;</span><br><span class="line">  image_type = ["PUBLIC_IMAGE"]</span><br><span class="line">  os_name    = "centos 7.5"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="使用演示"><a href="#使用演示" class="headerlink" title="使用演示"></a>使用演示</h1><h3 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h3><h4 id="安装Terraform"><a href="#安装Terraform" class="headerlink" title="安装Terraform"></a>安装Terraform</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">$ terraform -h</span><br><span class="line">Usage: terraform [-version] [-help] &lt;command&gt; [args]</span><br><span class="line"></span><br><span class="line">Common commands:</span><br><span class="line">    apply              Builds or changes infrastructure</span><br><span class="line">    console            Interactive console for Terraform interpolations</span><br><span class="line">    destroy            Destroy Terraform-managed infrastructure</span><br><span class="line">    env                Workspace management</span><br><span class="line">    fmt                Rewrites config files to canonical format</span><br><span class="line">    get                Download and install modules for the configuration</span><br><span class="line">    graph              Create a visual graph of Terraform resources</span><br><span class="line">    import             Import existing infrastructure into Terraform</span><br><span class="line">    init               Initialize a Terraform working directory</span><br><span class="line">    login              Obtain and save credentials for a remote host</span><br><span class="line">    logout             Remove locally-stored credentials for a remote host</span><br><span class="line">    output             Read an output from a state file</span><br><span class="line">    plan               Generate and show an execution plan</span><br><span class="line">    providers          Prints a tree of the providers used in the configuration</span><br><span class="line">    refresh            Update local state file against real resources</span><br><span class="line">    show               Inspect Terraform state or plan</span><br><span class="line">    taint              Manually mark a resource for recreation</span><br><span class="line">    untaint            Manually unmark a resource as tainted</span><br><span class="line">    validate           Validates the Terraform files</span><br><span class="line">    version            Prints the Terraform version</span><br><span class="line">    workspace          Workspace management</span><br></pre></td></tr></table></figure>
+<h4 id="获取-AccessKey-SecretKey"><a href="#获取-AccessKey-SecretKey" class="headerlink" title="获取 AccessKey/SecretKey"></a>获取 AccessKey/SecretKey</h4><p>腾讯云控制台 访问管理-&gt;访问秘钥-&gt;API秘钥管理，查看或新建秘钥，得到<code>SecretId</code>和<code>SecretKey</code></p>
+<h3 id="创建配置文件"><a href="#创建配置文件" class="headerlink" title="创建配置文件"></a>创建配置文件</h3><p>Terraform通过Provider来扩展对新的基础架构的支持，几乎支持所有的云服务平台，tencentcloud只是Terraform内建 Providers 中的一种。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">provider "tencentcloud" &#123;</span><br><span class="line">  secret_id  = "your_secret_id"</span><br><span class="line">  secret_key = "your_secret_key"</span><br><span class="line">  region     = "ap-guangzhou-3"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>tencentcloud凭据配置支持静态凭据和环境变量两种方式。</p>
+<ul>
+<li><p>静态凭据</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">provider "tencentcloud" &#123;</span><br><span class="line">  secret_id  = "your_secret_id"</span><br><span class="line">  secret_key = "your_secret_key"</span><br><span class="line">  region     = "ap-guangzhou"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>环境变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ export TENCENTCLOUD_SECRET_ID=&quot;your_fancy_accesskey&quot;</span><br><span class="line">$ export TENCENTCLOUD_SECRET_KEY=&quot;your_fancy_secretkey&quot;</span><br><span class="line">$ export TENCENTCLOUD_REGION=&quot;ap-guangzhou&quot;</span><br><span class="line"></span><br><span class="line">provider &quot;tencentcloud&quot; &#123;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="资源文件"><a href="#资源文件" class="headerlink" title="资源文件"></a>资源文件</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"># cvm.tf</span><br><span class="line">provider "tencentcloud" &#123;&#125;</span><br><span class="line"></span><br><span class="line"> // Create a cvm</span><br><span class="line">resource "tencentcloud_instance" "cvm_test" &#123;</span><br><span class="line">    instance_name = "cvm-test"</span><br><span class="line">    availability_zone = "ap-guangzhou-3"</span><br><span class="line">    image_id = "img-9qabwvbn"</span><br><span class="line">    instance_type = "S3.SMALL1"</span><br><span class="line">    </span><br><span class="line">    # disk</span><br><span class="line">    system_disk_type = "CLOUD_PREMIUM"</span><br><span class="line">    </span><br><span class="line">    # auth</span><br><span class="line">    password = "your_ssh_login_password"</span><br><span class="line">    </span><br><span class="line">    # security groups</span><br><span class="line">    security_groups = [</span><br><span class="line">        tencentcloud_security_group.sg_ssh.id</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">    # network </span><br><span class="line">    allocate_public_ip = true</span><br><span class="line">    internet_max_bandwidth_out = 1  // Mbps</span><br><span class="line"></span><br><span class="line">    # count</span><br><span class="line">    count = 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">resource "tencentcloud_security_group" "sg_ssh" &#123;</span><br><span class="line">  name        = "ssh accessibility"</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">resource "tencentcloud_security_group_rule" "ssh" &#123;</span><br><span class="line">  security_group_id = tencentcloud_security_group.sg_ssh.id</span><br><span class="line">  type              = "ingress"</span><br><span class="line">  cidr_ip           = "0.0.0.0/0"</span><br><span class="line">  ip_protocol       = "tcp"</span><br><span class="line">  port_range        = "22"</span><br><span class="line">  policy            = "ACCEPT"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="初始化工作目录"><a href="#初始化工作目录" class="headerlink" title="初始化工作目录"></a>初始化工作目录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$ terraform init</span><br><span class="line"></span><br><span class="line">Initializing the backend...</span><br><span class="line"></span><br><span class="line">Initializing provider plugins...</span><br><span class="line">- Checking for available provider plugins...</span><br><span class="line">- Downloading plugin for provider &quot;tencentcloud&quot; (terraform-providers/tencentcloud) 1.30.7...</span><br><span class="line"></span><br><span class="line">The following providers do not have any version constraints in configuration,</span><br><span class="line">so the latest version was installed.</span><br><span class="line"></span><br><span class="line">To prevent automatic upgrades to new major versions that may contain breaking</span><br><span class="line">changes, it is recommended to add version = &quot;...&quot; constraints to the</span><br><span class="line">corresponding provider blocks in configuration, with the constraint strings</span><br><span class="line">suggested below.</span><br><span class="line"></span><br><span class="line">* provider.tencentcloud: version = &quot;~&gt; 1.30&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="plan预览"><a href="#plan预览" class="headerlink" title="plan预览"></a>plan预览</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">$ terraform plan</span><br><span class="line"></span><br><span class="line">An execution plan has been generated and is shown below.</span><br><span class="line">Resource actions are indicated with the following symbols:</span><br><span class="line">  + create</span><br><span class="line"></span><br><span class="line">Terraform will perform the following actions:</span><br><span class="line"></span><br><span class="line">  # tencentcloud_instance.cvm_test[0] will be created</span><br><span class="line">  + resource &quot;tencentcloud_instance&quot; &quot;cvm_test&quot; &#123;</span><br><span class="line">      + allocate_public_ip         = true</span><br><span class="line">      + availability_zone          = &quot;ap-gruangzhou&quot;</span><br><span class="line">      + create_time                = (known after apply)</span><br><span class="line">      + disable_monitor_service    = false</span><br><span class="line">      + disable_security_service   = false</span><br><span class="line">      + expired_time               = (known after apply)</span><br><span class="line">      + id                         = (known after apply)</span><br><span class="line">      + image_id                   = &quot;img-9qabwvbn&quot;</span><br><span class="line">      + instance_charge_type       = &quot;POSTPAID_BY_HOUR&quot;</span><br><span class="line">      + instance_name              = &quot;cvm-test&quot;</span><br><span class="line">      + instance_status            = (known after apply)</span><br><span class="line">      + instance_type              = &quot;S3.SMALL1&quot;</span><br><span class="line">      + internet_charge_type       = &quot;TRAFFIC_POSTPAID_BY_HOUR&quot;</span><br><span class="line">      + internet_max_bandwidth_out = 1</span><br><span class="line">      + key_name                   = (known after apply)</span><br><span class="line">      + password                   = (sensitive value)</span><br><span class="line">      + private_ip                 = (known after apply)</span><br><span class="line">      + project_id                 = 0</span><br><span class="line">      + public_ip                  = (known after apply)</span><br><span class="line">      + running_flag               = true</span><br><span class="line">      + security_groups            = (known after apply)</span><br><span class="line">      + subnet_id                  = (known after apply)</span><br><span class="line">      + system_disk_id             = (known after apply)</span><br><span class="line">      + system_disk_size           = 50</span><br><span class="line">      + system_disk_type           = &quot;CLOUD_PREMIUM&quot;</span><br><span class="line">      + vpc_id                     = (known after apply)</span><br><span class="line"></span><br><span class="line">      + data_disks &#123;</span><br><span class="line">          + data_disk_id         = (known after apply)</span><br><span class="line">          + data_disk_size       = (known after apply)</span><br><span class="line">          + data_disk_type       = (known after apply)</span><br><span class="line">          + delete_with_instance = (known after apply)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  # tencentcloud_security_group.sg_ssh will be created</span><br><span class="line">  + resource &quot;tencentcloud_security_group&quot; &quot;sg_ssh&quot; &#123;</span><br><span class="line">      + id         = (known after apply)</span><br><span class="line">      + name       = &quot;ssh accessibility&quot;</span><br><span class="line">      + project_id = (known after apply)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  # tencentcloud_security_group_rule.ssh will be created</span><br><span class="line">  + resource &quot;tencentcloud_security_group_rule&quot; &quot;ssh&quot; &#123;</span><br><span class="line">      + cidr_ip           = &quot;0.0.0.0/0&quot;</span><br><span class="line">      + description       = (known after apply)</span><br><span class="line">      + id                = (known after apply)</span><br><span class="line">      + ip_protocol       = &quot;tcp&quot;</span><br><span class="line">      + policy            = &quot;ACCEPT&quot;</span><br><span class="line">      + port_range        = &quot;22&quot;</span><br><span class="line">      + security_group_id = (known after apply)</span><br><span class="line">      + source_sgid       = (known after apply)</span><br><span class="line">      + type              = &quot;ingress&quot;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">Plan: 3 to add, 0 to change, 0 to destroy.</span><br></pre></td></tr></table></figure>
+<h3 id="资源apply"><a href="#资源apply" class="headerlink" title="资源apply"></a>资源apply</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ terraform apply</span><br><span class="line">...</span><br><span class="line">Do you want to perform these actions?</span><br><span class="line">  Terraform will perform the actions described above.</span><br><span class="line">  Only &apos;yes&apos; will be accepted to approve.</span><br><span class="line"></span><br><span class="line">  Enter a value: yes</span><br><span class="line"></span><br><span class="line">tencentcloud_instance.cvm_test[0]: Creating...</span><br><span class="line">tencentcloud_instance.cvm_test[0]: Still creating... [10s elapsed]</span><br><span class="line">tencentcloud_instance.cvm_test[0]: Creation complete after 13s [id=ins-13zz24b0]</span><br><span class="line"></span><br><span class="line">Apply complete! Resources: 3 added, 0 changed, 0 destroyed.</span><br></pre></td></tr></table></figure>
+<img src="/2020/04/02/【note】Terraform/apply.png">
+<h3 id="查看状态"><a href="#查看状态" class="headerlink" title="查看状态"></a>查看状态</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">$ terraform show</span><br><span class="line"># tencentcloud_instance.cvm_test[0]:</span><br><span class="line">resource &quot;tencentcloud_instance&quot; &quot;cvm_test&quot; &#123;</span><br><span class="line">    allocate_public_ip         = true</span><br><span class="line">    availability_zone          = &quot;ap-guangzhou-3&quot;</span><br><span class="line">    create_time                = &quot;2020-03-31T13:05:10Z&quot;</span><br><span class="line">    disable_monitor_service    = false</span><br><span class="line">    disable_security_service   = false</span><br><span class="line">    id                         = &quot;ins-13zz24b0&quot;</span><br><span class="line">    image_id                   = &quot;img-9qabwvbn&quot;</span><br><span class="line">    instance_charge_type       = &quot;POSTPAID_BY_HOUR&quot;</span><br><span class="line">    instance_name              = &quot;cvm-test&quot;</span><br><span class="line">    instance_status            = &quot;RUNNING&quot;</span><br><span class="line">    instance_type              = &quot;S3.SMALL1&quot;</span><br><span class="line">    internet_charge_type       = &quot;TRAFFIC_POSTPAID_BY_HOUR&quot;</span><br><span class="line">    internet_max_bandwidth_out = 1</span><br><span class="line">    password                   = (sensitive value)</span><br><span class="line">    private_ip                 = &quot;172.16.0.2&quot;</span><br><span class="line">    project_id                 = 0</span><br><span class="line">    public_ip                  = &quot;203.195.206.81&quot;</span><br><span class="line">    running_flag               = true</span><br><span class="line">    security_groups            = [</span><br><span class="line">        &quot;sg-f8y2yhyj&quot;,</span><br><span class="line">    ]</span><br><span class="line">    subnet_id                  = &quot;subnet-itv02446&quot;</span><br><span class="line">    system_disk_id             = &quot;disk-gr11n1oq&quot;</span><br><span class="line">    system_disk_size           = 50</span><br><span class="line">    system_disk_type           = &quot;CLOUD_PREMIUM&quot;</span><br><span class="line">    vpc_id                     = &quot;vpc-1a17zjtx&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># tencentcloud_security_group.sg_ssh:</span><br><span class="line">resource &quot;tencentcloud_security_group&quot; &quot;sg_ssh&quot; &#123;</span><br><span class="line">    id         = &quot;sg-f8y2yhyj&quot;</span><br><span class="line">    name       = &quot;ssh accessibility&quot;</span><br><span class="line">    project_id = 0</span><br><span class="line">    tags       = &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># tencentcloud_security_group_rule.ssh:</span><br><span class="line">resource &quot;tencentcloud_security_group_rule&quot; &quot;ssh&quot; &#123;</span><br><span class="line">    cidr_ip           = &quot;0.0.0.0/0&quot;</span><br><span class="line">    id                = &quot;eyJzZ19pZCI6InNnLWY4eTJ5aHlqIiwicG9saWN5X3R5cGUiOiJpbmdyZXNzIiwiY2lkcl9pcCI6IjAuMC4wLjAvMCIsInByb3RvY29sIjoidGNwIiwicG9ydF9yYW5nZSI6IjIyIiwiYWN0aW9uIjoiQUNDRVBUIiwic291cmNlX3NnX2lkIjoiIiwiZGVzY3JpcHRpb24iOiIifQ==&quot;</span><br><span class="line">    ip_protocol       = &quot;tcp&quot;</span><br><span class="line">    policy            = &quot;ACCEPT&quot;</span><br><span class="line">    port_range        = &quot;22&quot;</span><br><span class="line">    security_group_id = &quot;sg-f8y2yhyj&quot;</span><br><span class="line">    type              = &quot;ingress&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="查看依赖图"><a href="#查看依赖图" class="headerlink" title="查看依赖图"></a>查看依赖图</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">terraform graph | dot -Tsvg &gt; graph.svg</span><br></pre></td></tr></table></figure>
+<img src="/2020/04/02/【note】Terraform/graph.png">
+<h3 id="资源销毁"><a href="#资源销毁" class="headerlink" title="资源销毁"></a>资源销毁</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">$ terraform destroy</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">Plan: 0 to add, 0 to change, 3 to destroy.</span><br><span class="line"></span><br><span class="line">Do you really want to destroy all resources?</span><br><span class="line">  Terraform will destroy all your managed infrastructure, as shown above.</span><br><span class="line">  There is no undo. Only &apos;yes&apos; will be accepted to confirm.</span><br><span class="line"></span><br><span class="line">  Enter a value: yes</span><br><span class="line">tencentcloud_security_group_rule.ssh: Destroying... [id=eyJzZ19pZCI6InNnLWY4eTJ5aHlqIiwicG9saWN5X3R5cGUiOiJpbmdyZXNzIiwiY2lkcl9pcCI6IjAuMC4wLjAvMCIsInByb3RvY29sIjoidGNwIiwicG9ydF9yYW5nZSI6IjIyIiwiYWN0aW9uIjoiQUNDRVBUIiwic291cmNlX3NnX2lkIjoiIiwiZGVzY3JpcHRpb24iOiIifQ==]</span><br><span class="line">tencentcloud_instance.cvm_test[0]: Destroying... [id=ins-13zz24b0]</span><br><span class="line">tencentcloud_security_group_rule.ssh: Destruction complete after 1s</span><br><span class="line">tencentcloud_instance.cvm_test[0]: Still destroying... [id=ins-13zz24b0, 10s elapsed]</span><br><span class="line">tencentcloud_instance.cvm_test[0]: Still destroying... [id=ins-13zz24b0, 20s elapsed]</span><br><span class="line">tencentcloud_instance.cvm_test[0]: Still destroying... [id=ins-13zz24b0, 30s elapsed]</span><br><span class="line">tencentcloud_instance.cvm_test[0]: Still destroying... [id=ins-13zz24b0, 40s elapsed]</span><br><span class="line">tencentcloud_instance.cvm_test[0]: Destruction complete after 50s</span><br><span class="line">tencentcloud_security_group.sg_ssh: Destroying... [id=sg-f8y2yhyj]</span><br><span class="line">tencentcloud_security_group.sg_ssh: Destruction complete after 0s</span><br><span class="line"></span><br><span class="line">Destroy complete! Resources: 3 destroyed.</span><br></pre></td></tr></table></figure>
+<h1 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h1><h3 id="常见规范"><a href="#常见规范" class="headerlink" title="常见规范"></a>常见规范</h3><p>Terraform 运行时会读取工作目录中所有的 <em>.tf, </em>.tfvars文件，不必把所有的东西都写在单个文件中去，应按职责分列在不同的文件中，例如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">provider.tf             ### provider 配置</span><br><span class="line">terraform.tfvars        ### 配置 provider 要用到的变量</span><br><span class="line">varable.tf              ### 通用变量</span><br><span class="line">resource.tf             ### 资源定义</span><br><span class="line">data.tf                 ### 包文件定义</span><br><span class="line">output.tf               ### 输出</span><br></pre></td></tr></table></figure>
+<h3 id="使用ssh-key"><a href="#使用ssh-key" class="headerlink" title="使用ssh key"></a>使用ssh key</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">variable "tf_ssh_key" &#123;</span><br><span class="line">  default="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDgEzN0r6XJ7nYcZ4ba98S1Su1a0WnBrA0KHcs/rzCusshjjQrLBbnxzAkiwIaRq7x2M4NsXhg/G4zQB2nkYFwIaLD7Kw8j2n5AgCkqrgTp3mBUnBy9lLQ4pMeScenaR8DSbchFCjEumycuqn91Q/iiGv+R0B1xmuz7l6wnDjF4fQucfpytFKWZL/lX4dsJ/a6IWkTNoMXd8u/XyrfBt+fuYF4SlFsUldTxUzFOiy/r/DSXWB1jSwpO8s228p57Ax67TY59oBLfF4qyTUyWtvNYO3mOjRXPsRBa+W6/asqRKras+kCGRsgw76O/jW8fNmaM4tZ0O7GXNpKEJ8SJGVk7 ethan@loc.com"</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">resource "tencentcloud_key_pair" "bees_ssh_key" &#123;</span><br><span class="line">  key_name   = "from_terraform_public_key"</span><br><span class="line">  public_key = var.tf_ssh_key</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">resource "tencentcloud_instance" "cvm_test" &#123;</span><br><span class="line">    instance_name = "cvm-test"</span><br><span class="line">		...</span><br><span class="line">    # auth</span><br><span class="line">    key_name = tencentcloud_key_pair.ksane_ssh_key.id</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="AWS"><a href="#AWS" class="headerlink" title="AWS"></a>AWS</h3><h4 id="provider"><a href="#provider" class="headerlink" title="provider"></a>provider</h4><p>AWS Provider被用来与AWS支持的许多资源进行交互。在使用该提供程序之前, 需要使用适当的Credentials进行配置。<a href="https://www.terraform.io/docs/providers/aws/index.html" target="_blank" rel="noopener">https://www.terraform.io/docs/providers/aws/index.html</a></p>
+<ul>
+<li><p>静态凭据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">provider &quot;aws&quot; &#123;</span><br><span class="line">	region = &quot;us-west-2&quot;</span><br><span class="line">	access_key = &quot;anaccesskey&quot;</span><br><span class="line">	secret_key = &quot;ansecret_key&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>环境变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">provider &quot;aws&quot; &#123;&#125;</span><br><span class="line"></span><br><span class="line">$ export AWS_ACCESS_KEY_ID=&quot;anaccesskey&quot;</span><br><span class="line">$ export AWS_SECRET_ACCESS_KEY=&quot;ansecret_key&quot;</span><br><span class="line">$ export AWS_DEFAULT_REGION=&quot;us-west-2&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>共享凭据文件</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">provider "aws" &#123;</span><br><span class="line"> region = "us-west-2"</span><br><span class="line"> shared_credentials_file = "/USers/tf_user/.aws/creds"</span><br><span class="line"> profile = "customprofile"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>aws 共享凭据文件，默认路径为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">OSX and Linux: $HOME/.aws/credentials</span><br><span class="line">Windows: &quot;%USERPROFILE%\.aws\credentials&quot;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="REF"><a href="#REF" class="headerlink" title="REF"></a>REF</h1><ul>
+<li><p><a href="https://www.cnblogs.com/sparkdev/p/10052310.html" target="_blank" rel="noopener">Terraform：简介</a></p>
+</li>
+<li><p><a href="https://www.terraform.io/docs/providers/tencentcloud/index.html" target="_blank" rel="noopener">terraform: TencentCloud Provider document</a></p>
+</li>
+<li><p><a href="https://cloud.tencent.com/developer/article/1067230" target="_blank" rel="noopener">腾讯云支持 Terraform 开发实践</a></p>
+</li>
+<li><a href="https://github.com/tencentyun/terraform-provider-tencentcloud/blob/master/website/docs/index.html.markdown" target="_blank" rel="noopener">github: 腾讯云应用指南</a> </li>
+<li><a href="https://cloud.tencent.com/document/product/436/37271" target="_blank" rel="noopener">使用 Terraform 管理 COS</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.beesfun.com/2019/11/26/【k8s】K8S卷挂载引发的Pod逃逸问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1653,154 +1865,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.beesfun.com/2018/08/13/【note】ubuntu16安装jenkins/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="bees">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/15061633">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="bees' blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/13/【note】ubuntu16安装jenkins/" itemprop="url">【note】ubuntu16安装jenkins</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-13T11:15:39+08:00">
-                2018-08-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/note/" itemprop="url" rel="index">
-                    <span itemprop="name">note</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:openjdk-r/ppa</span><br><span class="line">sudo apt-get update</span><br><span class="line"></span><br><span class="line">sudo apt-get install openjdk-8-jdk</span><br><span class="line">sudo apt-get install git</span><br></pre></td></tr></table></figure>
-<h3 id="设置java环境变量"><a href="#设置java环境变量" class="headerlink" title="设置java环境变量"></a>设置java环境变量</h3><p>vim ~/.bashrc</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/13/【note】ubuntu16安装jenkins/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1855,7 +1919,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-count">63</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1877,7 +1941,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-count">71</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1946,7 +2010,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

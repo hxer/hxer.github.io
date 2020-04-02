@@ -111,7 +111,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://www.beesfun.com/2020/04/02/【note】Terraform/apply.png">
 <meta property="og:image" content="http://www.beesfun.com/2020/04/02/【note】Terraform/graph.png">
-<meta property="og:updated_time" content="2020-04-02T12:59:31.601Z">
+<meta property="og:updated_time" content="2020-04-02T13:03:36.346Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【note】Terraform">
 <meta name="twitter:description" content="TerraformTerraform 是什么Terraform 是一种安全有效地构建、更改和版本控制基础设施的工具(基础架构自动化的编排工具)。它的目标是 “Write, Plan, and create Infrastructure as Code”, 基础架构即代码。 通俗的讲，Terraform是一个运行在客户端的开源的用于资源编排的自动化运维工具。通过代码的形式将所要管理的资源定义在模板中">
@@ -390,6 +390,7 @@
         <h1 id="Terraform"><a href="#Terraform" class="headerlink" title="Terraform"></a>Terraform</h1><h3 id="Terraform-是什么"><a href="#Terraform-是什么" class="headerlink" title="Terraform 是什么"></a>Terraform 是什么</h3><p>Terraform 是一种安全有效地构建、更改和版本控制基础设施的工具(基础架构自动化的编排工具)。它的目标是 “Write, Plan, and create Infrastructure as Code”, 基础架构即代码。</p>
 <p>通俗的讲，Terraform是一个运行在客户端的开源的用于资源编排的自动化运维工具。通过代码的形式将所要管理的资源定义在模板中，解析并执行模板来自动化完成资源的创建、变更和管理，进而达到自动化运维的目标。</p>
 <p>Terraform是由Hashicorp公司推出的一个开源项目，使用Go语言编写。目前主流的云厂商如AWS、GCP、腾讯云、阿里云等都支持使用Terraform进行云上资源的自动编排管理。</p>
+<a id="more"></a>
 <h3 id="Terraform核心功能"><a href="#Terraform核心功能" class="headerlink" title="Terraform核心功能"></a>Terraform核心功能</h3><h4 id="基础设施即代码-IaC-Infrastructure-as-Code"><a href="#基础设施即代码-IaC-Infrastructure-as-Code" class="headerlink" title="基础设施即代码(IaC, Infrastructure as Code)"></a>基础设施即代码(IaC, Infrastructure as Code)</h4><p>Terraform 基于一种特定的配置语言（HCL, Hashicorp Configuration Language）来描述基础设施资源。由此，可以像对待任何其他代码一样，实现对所描述的解决方案或者基础架构的版本控制和管理。</p>
 <h4 id="执行计划-Execution-Plans"><a href="#执行计划-Execution-Plans" class="headerlink" title="执行计划(Execution Plans)"></a>执行计划(Execution Plans)</h4><p>Terraform 在执行模板前，可以执行plan步骤(terraform plan)解析模板生成一个可执行的计划，展示当前模板所要创建或变更的资源及其属性。操作人员可以预览这个计划j进行检查，以免操作真正的基础结构时发生一些超预期的问题。</p>
 <h4 id="资源图-Resource-Graph"><a href="#资源图-Resource-Graph" class="headerlink" title="资源图(Resource Graph)"></a>资源图(Resource Graph)</h4><p>Terraform 会根据模板中的定义，构建所有资源的图形，并且以并行的方式创建和修改任何没有相互依赖的资源。因此，Terraform 可以高效地构建基础设施，操作人员也可以通过图表深入地解其基础设施中的依赖关系。</p>
@@ -449,12 +450,9 @@
 </li>
 </ul>
 <h1 id="REF"><a href="#REF" class="headerlink" title="REF"></a>REF</h1><ul>
-<li><p><a href="https://www.cnblogs.com/sparkdev/p/10052310.html" target="_blank" rel="noopener">Terraform：简介</a></p>
-</li>
-<li><p><a href="https://www.terraform.io/docs/providers/tencentcloud/index.html" target="_blank" rel="noopener">terraform: TencentCloud Provider document</a></p>
-</li>
-<li><p><a href="https://cloud.tencent.com/developer/article/1067230" target="_blank" rel="noopener">腾讯云支持 Terraform 开发实践</a></p>
-</li>
+<li><a href="https://www.cnblogs.com/sparkdev/p/10052310.html" target="_blank" rel="noopener">Terraform：简介</a></li>
+<li><a href="https://www.terraform.io/docs/providers/tencentcloud/index.html" target="_blank" rel="noopener">terraform: TencentCloud Provider document</a></li>
+<li><a href="https://cloud.tencent.com/developer/article/1067230" target="_blank" rel="noopener">腾讯云支持 Terraform 开发实践</a></li>
 <li><a href="https://github.com/tencentyun/terraform-provider-tencentcloud/blob/master/website/docs/index.html.markdown" target="_blank" rel="noopener">github: 腾讯云应用指南</a> </li>
 <li><a href="https://cloud.tencent.com/document/product/436/37271" target="_blank" rel="noopener">使用 Terraform 管理 COS</a></li>
 </ul>
